@@ -7,14 +7,12 @@ namespace TrainProblem
     public class TrainsProblem
     {
         [TestMethod]
-        public void CalculateForFirstDistance()
+        public void CalculateDistance()
         {
-            Assert.AreEqual(86, CalculateFirstDistance(90));
+            Assert.AreEqual(86, CalculateForThreeDistances(90));
         }
 
-
-
-        public int CalculateFirstDistance(float totalDistance)
+        public int CalculateForThreeDistances(float totalDistance)
         {
             float birdDistance = (totalDistance * 2) / 3;
             float remainingDistance = totalDistance - birdDistance;
