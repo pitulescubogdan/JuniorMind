@@ -6,22 +6,20 @@ namespace CapreProblem
     [TestClass]
     public class Capre
     {
-        [TestMethod]
-        public void CalculateForTenGoatsPerDay()
-        {
-            Assert.AreEqual(10, CalculFanCapre(1,10));
-        }
+             
         [TestMethod]
         public void CalculateForFiveGoatsForFourDays()
         {
-            Assert.AreEqual(20, CalculFanCapre(4, 5));
+            Assert.AreEqual(2, CalculateFaY(1, 3,2,6,2));
         }
 
-        public double CalculFanCapre(double days,double goats)
+        public double CalculateFaY(double days, int goats, double kgFay, int goatsTest, double daysTest)
         {
-            double kgFan = days * goats;
 
-            return kgFan;
+
+            double kgFayConsumed = (days * goatsTest * kgFay) / daysTest * goats; 
+
+            return kgFay;
         }
     }
 }
