@@ -17,14 +17,14 @@ namespace BankRate
         [TestMethod]
         public void BankRateForTheFiftyOneMonth()
         {
-            Assert.AreEqual(26.6m, CalculateRate(300, 10, 5, 12));
+            Assert.AreEqual(26.6d, CalculateRate(300, 10, 5, 12));
         }
 
         public decimal CalculateRate(decimal totalSum, decimal interestPerYear, int currentMonth,int periodInMonths)
         {
-            decimal principalRate = totalSum / periodInMonths;
+            decimal principalRate =totalSum / periodInMonths;
             decimal interestPerMonth = interestPerYear / 12 / 100;
-            decimal soldLeft = totalSum - (currentMonth - 1) * principalRate;
+            decimal soldLeft =totalSum - (currentMonth - 1) * principalRate;
 
             return principalRate + soldLeft * interestPerMonth;
        }
