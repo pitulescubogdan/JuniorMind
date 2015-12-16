@@ -7,7 +7,7 @@ namespace BankRate
     public class BankRate
     {
         [TestMethod]
-        public void BankRateForOneMonth()
+        public void BankRateForTheFiftyOneMonth()
         {
             Assert.AreEqual(197m, CalculateRate(40000, 7.57, 240));
         }
