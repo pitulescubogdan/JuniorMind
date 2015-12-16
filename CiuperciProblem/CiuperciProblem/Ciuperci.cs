@@ -11,10 +11,9 @@ namespace CiuperciProblem
         {
             Assert.AreEqual(15, CalculCiuperci(20,5));
         }
-        public double CalculCiuperci(double totalMushrooms,double whiteMushrooms)
+        public double CalculCiuperci(int totalMushrooms, double mushroomsCoeficient)
         {
-            double coeficient = totalMushrooms / whiteMushrooms - 1;
-            double redMushrooms = coeficient * whiteMushrooms;
+            
 
             return redMushrooms;
         }

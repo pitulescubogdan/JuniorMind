@@ -10,16 +10,15 @@ namespace CapreProblem
         [TestMethod]
         public void CalculateForFiveGoatsForFourDays()
         {
-            Assert.AreEqual(2, CalculateFaY(1, 3,2,6,2));
+            Assert.AreEqual(10, CalculateHay(1,5,2.5,4,5));
         }
 
-        public double CalculateFaY(double days, int goats, double kgFay, int goatsTest, double daysTest)
+        public double CalculateHay(double days, int goats, double kgHay, double daysTest, int goatsTest)
         {
 
+            double hayConsumed =(double)((daysTest * goatsTest * kgHay)/(goats * days));
 
-            double kgFayConsumed = (days * goatsTest * kgFay) / daysTest * goats; 
-
-            return kgFay;
+            return hayConsumed;
         }
     }
 }
