@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+Vrei să iei un credit de 40k euro de la bancă. Dobânda anuală cerută de bancă e de 7.57%. 
+Creditul e pentru o perioadă de 20 ani. Contractul prevede restituirea în rate descrescătoare.
+Calculează ce rată trebuie plătită în luna martie din al celui de al 4-lea an? 
+Generalizează pentru orice sumă, perioadă și dobândă.
+*/
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BankRate
@@ -6,27 +12,21 @@ namespace BankRate
     [TestClass]
     public class BankRate
     {
+        
+       
         [TestMethod]
         public void BankRateForTheFiftyOneMonth()
         {
-            Assert.AreEqual(197m, CalculateRate(40000, 7.57, 240));
+            Assert.AreEqual(26.6m, CalculateRate(300, 10, 5, 12));
         }
-        [TestMethod]
-        public void BankRateForTwoMonth()
+
+        public decimal CalculateRate(decimal totalSum, decimal interestPerYear, int currentMonth,int periodInMonths)
         {
-            Assert.AreEqual(56, CalculateRate(100, 10,2));
-        }
-        public decimal CalculateRate(decimal totalSum, double interestPerYear,decimal monthss)
-        {
-            decimal sumPerMonth = totalSum / monthss;
-            decimal interestForFirstMonth = (decimal) (interestPerYear / 100) * totalSum;
-            decimal firstMonth =  sumPerMonth + interestForFirstMonth;
-            decimal interestForSecondMonth =(decimal) interestPerYear / 100 * firstMonth;
-            decimal secondMonth = sumPerMonth + interestForSecondMonth;
-            decimal interestForAnyMonth = (decimal)(interestPerYear / 100) * secondMonth;
-            decimal anyMonth = sumPerMonth + interestForAnyMonth;
-            
-            return anyMonth;
-        }
+            decimal principalRate = totalSum / periodInMonths;
+            decimal interestPerMonth = interestPerYear / 12 / 100;
+            decimal soldLeft = totalSum - (currentMonth - 1) * principalRate;
+
+            return principalRate + soldLeft * interestPerMonth;
+       }
     }
 }
