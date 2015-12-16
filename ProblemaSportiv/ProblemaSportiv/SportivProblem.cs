@@ -4,13 +4,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ProblemaSportiv
 {
     [TestClass]
-    public class UnitTest1
+    public class SportivProblem
     {
         [TestMethod]
         public void TestMethod1()
         {
-            int result = calculRepetitii(4);
-            Assert.AreEqual(16, result);
+            int result = calculRepetitii(6);
+            Assert.AreEqual(36, result);
         }
         public int calculRepetitii(int runde)
         {
