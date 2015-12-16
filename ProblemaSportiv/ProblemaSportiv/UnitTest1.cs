@@ -14,8 +14,7 @@ namespace ProblemaSportiv
         }
         public int calculRepetitii(int runde)
         {
-            int sum = (runde*(runde + 1)) / 2;
-            int repetitii =2*(sum)-runde;
+            int repetitii = runde * runde;
 
             return repetitii;
         }
