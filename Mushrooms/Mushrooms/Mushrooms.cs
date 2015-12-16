@@ -9,12 +9,12 @@ namespace Mushrooms
         [TestMethod]
         public void CalculateMushrooms()
         {
-            Assert.AreEqual(1, CalculateRedMushrooms(9, 3));
+            Assert.AreEqual(9, CalculateRedMushrooms(12, 3));
         }
-        public double CalculateRedMushrooms(double totalMushrooms, double coefficient)
+        public int CalculateRedMushrooms(int totalMushrooms, int coefficient)
         {
-            double whiteMushroomns = totalMushrooms / (coefficient + 1);
-            double redMushrooms = totalMushrooms - whiteMushroomns;
+            int whiteMushroomns = totalMushrooms / (coefficient + 1);
+            int redMushrooms = totalMushrooms - whiteMushroomns;
 
             return redMushrooms;
         }
