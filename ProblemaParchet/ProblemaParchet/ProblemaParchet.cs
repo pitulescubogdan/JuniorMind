@@ -9,18 +9,19 @@ namespace ProblemaParchet
         [TestMethod]
         public void TestMethod1()
         {
-            double result = calculPlaciParchet(3, 3, 1, 0.5);
+            double result = calculDimensionOfParquetUsed(3, 3, 1, 0.5);
             Assert.AreEqual(12, result);
         }
-        double calculPlaciParchet(int lungimeCamera,int latimeCamera, double lungimeBucataParchet,double latimeBucataParchet)
+        double calculDimensionOfParquetUsed(int heightRoom,int widthRoom, double heightOfParquet,double widthOfParquet
+            )
         {
-            double dimensiuneCamera = lungimeCamera * latimeCamera;
-            double dimensiuneParchet = lungimeBucataParchet * latimeBucataParchet;
-            double nrBucatiPlaci = dimensiuneCamera / dimensiuneParchet;
-            double pierderiParchet = 0.15 * Math.Ceiling(nrBucatiPlaci);//15% din placile de parchet
-            double dimensiuneParchetnecesar = Math.Ceiling(nrBucatiPlaci) * dimensiuneParchet + (pierderiParchet);
+            double roomDimension = heightRoom * widthRoom;
+            double parquetDimension = heightOfParquet * widthOfParquet;
+            double nrOfParquetPieces = roomDimension / parquetDimension;
+            double lossOfParquet = 0.15 * Math.Ceiling(nrOfParquetPieces);//15% din placile de parchet
+            double ParquetNeededDimension = Math.Ceiling(nrOfParquetPieces) * parquetDimension + (lossOfParquet);
 
-            return Math.Ceiling(dimensiuneParchetnecesar);
+            return Math.Ceiling(ParquetNeededDimension);
         }
     }
 }
