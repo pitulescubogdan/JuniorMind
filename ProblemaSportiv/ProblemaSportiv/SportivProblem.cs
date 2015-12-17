@@ -7,16 +7,16 @@ namespace ProblemaSportiv
     public class SportivProblem
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Repetetions()
         {
-            int result = calculRepetitii(6);
+            int result = calculRepetitions(6);
             Assert.AreEqual(36, result);
         }
-        public int calculRepetitii(int runde)
+        public int calculRepetitions(int rounds)
         {
-            int repetitii = runde * runde;
+            int repetitions = rounds * rounds;
 
-            return repetitii;
+            return repetitions;
         }
     }
 }
