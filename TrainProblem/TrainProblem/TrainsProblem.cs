@@ -9,14 +9,13 @@ namespace TrainProblem
         [TestMethod]
         public void CalculateDistance()
         {
-            Assert.AreEqual(0, CalculateForThreeDistances(10,100));
+            Assert.AreEqual(50, CalculateForThreeDistances(10,100));
         }
 
         public double CalculateForThreeDistances(double constantSpeed,double totalDistance)
         {
 
-            double timeTrain = (totalDistance/4) / constantSpeed;
-            double birdDistance = 2 * constantSpeed * timeTrain;
+            double birdDistance = totalDistance / 2;
 
             return birdDistance;
         }
