@@ -8,19 +8,19 @@ namespace ProblemeJuniorMind
     {
 
         [TestMethod]
-        public void TestMethod1()
+        public void CalculateNumberOfStones()
         {
-            double result = CalculPietre(23, 25, 5);
+            double result = CalculStones(23, 25, 5);
             Assert.AreEqual(25, result);
         }
 
-        double CalculPietre(int lungime, int latime, int laturaPiatra)
+        double CalculStones(int PlazaHeight, int PlazaWidth, int stoneLength)
         {
-            double resultLungime, resultLatime;
-            resultLungime = (double)lungime / laturaPiatra;
-            resultLatime = (double)latime / laturaPiatra;
+            double resultHeight, resultWidth;
+            resultHeight = (double)PlazaHeight / stoneLength;
+            resultWidth = (double)PlazaWidth / stoneLength;
 
-            return (Math.Ceiling(resultLatime)) * Math.Ceiling(resultLungime);
+            return (Math.Ceiling(resultHeight)) * Math.Ceiling(resultWidth);
         }
     }
 }
