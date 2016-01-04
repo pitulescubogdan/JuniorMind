@@ -9,14 +9,14 @@ namespace TaxiFare
         [TestMethod]
         public void CalculateForDayTime()
         {
-            Assert.AreEqual(75, CalculateTaxiFareDayTime(15,16));
+            Assert.AreEqual(75, CalculateTaxiFare(15,16));
         }
         [TestMethod]
         public void CalculateForNightTime()
         {
-            Assert.AreEqual(75, CalculateTaxiFareDayTime(15,2));
+            Assert.AreEqual(105, CalculateTaxiFare(15,2));
         }
-        public decimal CalculateTaxiFareDayTime(int distance, int hourAtTheMoment)
+        public decimal CalculateTaxiFare(int distance, int hourAtTheMoment)
         {
             decimal feeForTaxi = 0;
             int pricePerKm = 0;
@@ -41,7 +41,21 @@ namespace TaxiFare
             }
             else
             {
-
+                if (distance >= 1 && distance <= 20)
+                {
+                    pricePerKm = 7;
+                    feeForTaxi = distance * pricePerKm;
+                }
+                else if (distance >= 21 && distance <= 60)
+                {
+                    pricePerKm = 10;
+                    feeForTaxi = distance * pricePerKm;
+                }
+                else if (distance >= 60)
+                {
+                    pricePerKm = 8;
+                    feeForTaxi = distance * pricePerKm;
+                }
             }
             return feeForTaxi;
         }
