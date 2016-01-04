@@ -7,9 +7,14 @@ namespace FizzBuzz
     public class FizzBuzz
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestForFizz()
         {
-            Assert.AreEqual("Fizz", CheckMultiple(12));
+            Assert.AreEqual("Fizz", CheckMultiple(9));
+        }
+        [TestMethod]
+        public void TestForBuzz()
+        {
+            Assert.AreEqual("Buzz", CheckMultiple(10));
         }
 
         public string CheckMultiple(int NumberInserted)
@@ -19,6 +24,9 @@ namespace FizzBuzz
             if(NumberInserted % 3 == 0)
             {
                 result = "Fizz";
+            }else if(NumberInserted % 5 == 0)
+            {
+                result = "Buzz";
             }
 
 
