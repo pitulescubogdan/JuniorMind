@@ -9,29 +9,22 @@ namespace WatermelonProblem
         [TestMethod]
         public void TestPositive()
         {
-            Assert.AreEqual("DA", DivideWatermelon(50));
+            Assert.AreEqual("YES", DivideWatermelon(50));
         }
         public string DivideWatermelon(int WatermelonWeight)
         {
-            string result="";
-            int WatermelonWeightAfterDivision;
+            string result="";        
+            int WatermelonWeightAfterDivision = WatermelonWeight / 2;
 
-            if (WatermelonWeight % 2 == 0)
+            if (WatermelonWeight % 2 == 0 && WatermelonWeightAfterDivision >= 4)
             {
-                WatermelonWeightAfterDivision = WatermelonWeight / 2;
-                if (WatermelonWeightAfterDivision >= 4)
-                {
-                    return result = "DA";
-                }                
-                else
-                {
-                    return result = "NU";
-                }
+
+
+                return result = "YES";
+            }else
+            {
+                return result = "YES";
             }
-            else
-            {
-                return result = "NU";
-            }                   
+            }                          
         }
     }
-}
