@@ -21,23 +21,28 @@ namespace FizzBuzz
         {
             Assert.AreEqual("Buzz", CheckMultiple(10));
         }
+        [TestMethod]
+        public void TestForNeitherFizzOrBuzz()
+        {
+            Assert.AreEqual("", CheckMultiple(17));
+        }
 
         public string CheckMultiple(int NumberInserted)
         {
             string result = "";
             if(NumberInserted % 3 ==0 && NumberInserted % 5 == 0)
             {
-                result = "FizzBuzz";
+               return result = "FizzBuzz";
             }
             else if(NumberInserted % 3 == 0)
             {
-                result = "Fizz";
+                return result = "Fizz";
             }else if(NumberInserted % 5 == 0)
             {
-                result = "Buzz";
+               return  result = "Buzz";
             }
 
-            return result;
+            return "";
         }
     }
 }

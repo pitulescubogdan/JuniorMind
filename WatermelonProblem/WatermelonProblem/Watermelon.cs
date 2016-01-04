@@ -20,7 +20,7 @@ namespace WatermelonProblem
         {
             string resultGivenAfterDivision="";        
 
-            if (WatermelonWeight % 2 == 0)
+            if (WatermelonWeight % 2 == 0 && WatermelonWeight >= 4)
             {
                 return resultGivenAfterDivision = "YES";
             }
