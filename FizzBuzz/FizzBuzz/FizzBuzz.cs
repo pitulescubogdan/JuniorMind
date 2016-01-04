@@ -15,6 +15,13 @@ namespace FizzBuzz
         public string CheckMultiple(int NumberInserted)
         {
             string result = "";
+
+            if(NumberInserted % 3 == 0)
+            {
+                result = "Fizz";
+            }
+
+
             return result;
         }
     }
