@@ -14,19 +14,17 @@ namespace WatermelonProblem
         [TestMethod]
         public void TestNegative()
         {
-            Assert.AreEqual("NO", DivideWatermelon(3));
+            Assert.AreEqual("NO", DivideWatermelon(2));
         }
         public string DivideWatermelon(int WatermelonWeight)
         {
-            string result="";        
+            string resultGivenAfterDivision="";        
 
-            if (WatermelonWeight % 2 == 0 && WatermelonWeight >= 4)
+            if (WatermelonWeight % 2 == 0)
             {
-                return result = "YES";
-            }else
-            {
-                return result = "NO";
+                return resultGivenAfterDivision = "YES";
             }
+            return resultGivenAfterDivision = "NO";
             }                          
         }
     }
