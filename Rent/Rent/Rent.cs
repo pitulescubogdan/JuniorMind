@@ -9,9 +9,9 @@ namespace Rent
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.AreEqual(251, CalculateMonthlyRate(250));
+            Assert.AreEqual(251, CalculateMonthlyRate(250,10));
         }
-        public decimal CalculateMonthlyRate(decimal MonthlyRate)
+        public decimal CalculateMonthlyRate(decimal MonthlyRate,int PenaltyDays)
         {
 
             return 0;
