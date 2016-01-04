@@ -16,45 +16,45 @@ namespace TaxiFare
         {
             Assert.AreEqual(105, CalculateTaxiFare(15,2));
         }
-        public decimal CalculateTaxiFare(int distance, int hourAtTheMoment)
+        public decimal CalculateTaxiFare(int distanceToTravel, int hourAtTheMoment)
         {
             decimal feeForTaxi = 0;
             int pricePerKm = 0;
             if (hourAtTheMoment >= 8 && hourAtTheMoment <= 21)
             {
-                if (distance >= 1 && distance <= 20)
+                if (distanceToTravel >= 1 && distanceToTravel <= 20)
                 {
                     pricePerKm = 5;
-                    feeForTaxi = distance * pricePerKm;
+                    feeForTaxi = distanceToTravel * pricePerKm;
                 }
-                else if (distance >= 21 && distance <= 60)
+                else if (distanceToTravel >= 21 && distanceToTravel <= 60)
                 {
                     pricePerKm = 8;
-                    feeForTaxi = distance * pricePerKm;
+                    feeForTaxi = distanceToTravel * pricePerKm;
                 }
-                else if (distance >= 60)
+                else if (distanceToTravel >= 60)
                 {
                     pricePerKm = 6;
-                    feeForTaxi = distance * pricePerKm;
+                    feeForTaxi = distanceToTravel * pricePerKm;
                 }
                 
             }
             else
             {
-                if (distance >= 1 && distance <= 20)
+                if (distanceToTravel >= 1 && distanceToTravel <= 20)
                 {
                     pricePerKm = 7;
-                    feeForTaxi = distance * pricePerKm;
+                    feeForTaxi = distanceToTravel * pricePerKm;
                 }
-                else if (distance >= 21 && distance <= 60)
+                else if (distanceToTravel >= 21 && distanceToTravel <= 60)
                 {
                     pricePerKm = 10;
-                    feeForTaxi = distance * pricePerKm;
+                    feeForTaxi = distanceToTravel * pricePerKm;
                 }
-                else if (distance >= 60)
+                else if (distanceToTravel >= 60)
                 {
                     pricePerKm = 8;
-                    feeForTaxi = distance * pricePerKm;
+                    feeForTaxi = distanceToTravel * pricePerKm;
                 }
             }
             return feeForTaxi;
