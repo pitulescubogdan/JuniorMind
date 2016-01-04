@@ -17,4 +17,3 @@ namespace TaxiFare
             return 0;
         }
     }
-}
