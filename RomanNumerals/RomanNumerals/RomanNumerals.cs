@@ -14,9 +14,19 @@ namespace RomanNumerals
 
         public string ToRoman(int numberInserted)
         {
-            
+            string result = "";
+            string[] romanNumerals = { "", "X", "IX", "V", "IV", "I" };
+            int[] numbers = { 10, 9, 5, 4, 1, 0 };
 
-            return "I";               
+            for(int i = 0; i < romanNumerals.Length; i++)
+            {
+                if(numberInserted - numbers[i] > 0)
+                {
+                    result = romanNumerals[i];
+                }
+            }
+
+            return result;               
         }
     }
 }
