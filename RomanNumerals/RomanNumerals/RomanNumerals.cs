@@ -7,9 +7,14 @@ namespace RomanNumerals
     public class RomanNumerals
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ToRomanForOne()
         {
             Assert.AreEqual("I", ToRoman(1));
+        }
+        [TestMethod]
+        public void ToRomanForThree()
+        {
+            Assert.AreEqual("III", ToRoman(3));
         }
         public string ToRoman(int numberInserted)
         {
