@@ -9,7 +9,7 @@ namespace Panagram
         [TestMethod]
         public void CheckIfPanagram()
         {
-            Assert.AreEqual("", CheckForPanagram("The quick brown fox jumps over the lazy dog");
+            Assert.AreEqual("", CheckForPanagram("The quick brown fox jumps over the lazy dog"));
         }
         public string CheckForPanagram(string sentenceInserted)
         {
