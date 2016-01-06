@@ -7,7 +7,12 @@ namespace ChessSquares
     public class ChessSquares
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ChessSquareForOne()
+        {
+            Assert.AreEqual(1, CalculateChessSquares(1));
+        }
+        [TestMethod]
+        public void ChessSquaresForEight()
         {
             Assert.AreEqual(5, CalculateChessSquares(2));
         }
