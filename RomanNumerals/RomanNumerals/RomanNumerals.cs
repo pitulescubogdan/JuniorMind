@@ -16,6 +16,11 @@ namespace RomanNumerals
         {
             Assert.AreEqual("III", ToRoman(3));
         }
+        [TestMethod]
+        public void ToRomanForSeven()
+        {
+            Assert.AreEqual("VII", ToRoman(7));
+        }
         public string ToRoman(int numberInserted)
         {
             String result = "";
