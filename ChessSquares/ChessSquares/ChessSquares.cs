@@ -25,7 +25,7 @@ namespace ChessSquares
         {
             int result=0;
 
-            while(!(chessLength==0))
+            while(chessLength !=0)
             {
                 result += chessLength * chessLength;
                 chessLength--;
