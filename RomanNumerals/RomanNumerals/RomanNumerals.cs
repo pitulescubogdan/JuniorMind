@@ -35,8 +35,7 @@ namespace RomanNumerals
         public void ToRomanForNinetyFive()
         {
             Assert.AreEqual("XCVII", ToRoman(97));
-        }
-        
+        }      
         [TestMethod]
         public void ToRomanForOneHundred()
         {
@@ -50,14 +49,12 @@ namespace RomanNumerals
 
             for(int i = numbers.Length -1; i>=0; i--)
             {
-                if(numberInserted - numbers[i] >= 0)
-                    while(numberInserted - numbers[i] >=0)
+                while(numberInserted - numbers[i] >= 0)
                 {
                     result = result + romanNumerals[i];
                     numberInserted = numberInserted - numbers[i];
                 }
             }
-
             return result;
         }
     }
