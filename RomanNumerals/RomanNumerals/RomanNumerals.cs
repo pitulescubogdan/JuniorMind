@@ -13,7 +13,19 @@ namespace RomanNumerals
         }
         public string ToRoman(int numberInserted)
         {
-            return "I";
+            String result = "";
+            String[] romanNumerals = { "X", "IX", "V", "IV", "I" };
+            int[] numbers = { 10, 9, 5, 4, 1 };
+
+            for(int i = numbers.Length -1; i>=0; i--)
+            {
+                if(numberInserted - numbers[i] >= 0)
+                {
+                    result += romanNumerals[i];
+                }
+            }
+
+            return result;
         }
     }
 }
