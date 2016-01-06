@@ -9,7 +9,7 @@ namespace PrefixLetters
         [TestMethod]
         public void CheckForPrefix()
         {
-            Assert.AreEqual("aa", checkPrefix("ab", "aa"));
+            Assert.AreEqual("a", checkPrefix("ab", "aa"));
         }
         public string checkPrefix(string firstString,string secondString)
         {
@@ -17,8 +17,7 @@ namespace PrefixLetters
             char constantForFirstArray;
             string[] firstArray = { firstString };
 
-            for (int i = 0; i < firstString.Length; i++)
-                for (int j = 0; j < secondString.Length; j++)
+            for (int i = 0; i < firstString.Length; i++)               
                 {
                     if (firstString[i] == secondString[i])
                     {
