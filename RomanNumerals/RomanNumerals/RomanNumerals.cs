@@ -25,13 +25,18 @@ namespace RomanNumerals
         public void ToRomanForTen()
         {
             Assert.AreEqual("X", ToRoman(10));
-
         }
+        [TestMethod]
+        public void ToRomanForFortyFive()
+        {
+            Assert.AreEqual("XLV", ToRoman(45));
+        }
+       
         public string ToRoman(int numberInserted)
         {
             String result = "";
-            String[] romanNumerals = { "I", "IV", "V", "IX", "X" };
-            int[] numbers = { 1, 4, 5, 9, 10 };
+            String[] romanNumerals = {"I", "IV", "V", "IX", "X","XL","L"};
+            int[] numbers = {1, 4, 5, 9, 10, 40, 50};
 
             for(int i = numbers.Length -1; i>=0; i--)
             {
