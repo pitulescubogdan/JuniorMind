@@ -36,6 +36,12 @@ namespace RomanNumerals
         {
             Assert.AreEqual("XCVII", ToRoman(97));
         }
+        
+        [TestMethod]
+        public void ToRomanForOneHundred()
+        {
+            Assert.AreEqual("C", ToRoman(100));
+        }
         public string ToRoman(int numberInserted)
         {
             String result = "";
