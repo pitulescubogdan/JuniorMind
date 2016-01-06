@@ -21,10 +21,16 @@ namespace RomanNumerals
         {
             Assert.AreEqual("VII", ToRoman(7));
         }
+        [TestMethod]
+        public void ToRomanForTen()
+        {
+            Assert.AreEqual("X", ToRoman(10));
+
+        }
         public string ToRoman(int numberInserted)
         {
             String result = "";
-            String[] romanNumerals = { "I", "IV", "V", "IX", "IX" };
+            String[] romanNumerals = { "I", "IV", "V", "IX", "X" };
             int[] numbers = { 1, 4, 5, 9, 10 };
 
             for(int i = numbers.Length -1; i>=0; i--)
