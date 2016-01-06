@@ -31,12 +31,16 @@ namespace RomanNumerals
         {
             Assert.AreEqual("XLV", ToRoman(45));
         }
-       
+        [TestMethod]
+        public void ToRomanForNinetyFive()
+        {
+            Assert.AreEqual("XCVII", ToRoman(97));
+        }
         public string ToRoman(int numberInserted)
         {
             String result = "";
-            String[] romanNumerals = {"I", "IV", "V", "IX", "X","XL","L"};
-            int[] numbers = {1, 4, 5, 9, 10, 40, 50};
+            String[] romanNumerals = {"I", "IV", "V", "IX", "X","XL","L","XC","C"};
+            int[] numbers = {1, 4, 5, 9, 10, 40, 50,90,100};
 
             for(int i = numbers.Length -1; i>=0; i--)
             {
