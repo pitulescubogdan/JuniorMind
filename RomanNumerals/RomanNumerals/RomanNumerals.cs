@@ -14,14 +14,16 @@ namespace RomanNumerals
         public string ToRoman(int numberInserted)
         {
             String result = "";
-            String[] romanNumerals = { "X", "IX", "V", "IV", "I" };
-            int[] numbers = { 10, 9, 5, 4, 1 };
+            String[] romanNumerals = { "I", "IV", "V", "IX", "IX" };
+            int[] numbers = { 1, 4, 5, 9, 10 };
 
             for(int i = numbers.Length -1; i>=0; i--)
             {
                 if(numberInserted - numbers[i] >= 0)
+                    while(numberInserted - numbers[i] >=0)
                 {
-                    result += romanNumerals[i];
+                    result = result + romanNumerals[i];
+                    numberInserted = numberInserted - numbers[i];
                 }
             }
 
