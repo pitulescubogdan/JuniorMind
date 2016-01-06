@@ -16,6 +16,11 @@ namespace ChessSquares
         {
             Assert.AreEqual(5, CalculateChessSquares(2));
         }
+        [TestMethod]
+        public void TestMethod1()
+        {
+            Assert.AreEqual(204, CalculateChessSquares(8));
+        }
         public int CalculateChessSquares(int chessLength)
         {
             int result=0;
