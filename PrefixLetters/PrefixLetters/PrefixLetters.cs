@@ -11,6 +11,11 @@ namespace PrefixLetters
         {
             Assert.AreEqual("a", checkPrefix("ab", "aa"));
         }
+        [TestMethod]
+        public void CheckForPrefixForDifferentLengths()
+        {
+            Assert.AreEqual("aaa", checkPrefix("aaab", "aaaabbaa"));
+        }
         public string checkPrefix(string firstString,string secondString)
         {
             string result="";
