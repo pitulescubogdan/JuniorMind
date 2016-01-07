@@ -7,14 +7,21 @@ namespace ExcelColumnsP
     public class ExcelColumns
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestForFirstColumn()
         {
             Assert.AreEqual("A", CalculateTheExcelColumns(1));
         }
+        
         public string CalculateTheExcelColumns(int numberColumn)
         {
-
-            return "A";
+            string output = "";
+            String[] columns = {"A","B","C","D","E","F","G"
+                    ,"H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+            for (int i = 1; i < columns.Length; i++)
+            {                                         
+                    output = columns[numberColumn - 1];                      
+            }
+            return output;
         }
     }
 }
