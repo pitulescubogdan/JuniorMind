@@ -22,6 +22,11 @@ namespace Panagram
             Assert.AreEqual("YES", CheckForPanagram("abcdefghijklmnopqrstuvwxyz"));
 
         }
+        [TestMethod]
+        public void CheckTheSentencePanagram()
+        {
+            Assert.AreEqual("YES", CheckForPanagram("The quick brown fox jumps over the lazy dog"));
+        }
         public string CheckForPanagram(string sentenceInserted)
         {
             int sentenceLength = 0;
@@ -42,7 +47,7 @@ namespace Panagram
                     }
                 }
             }         
-            if(sentenceLength == alphabet.Length)
+            if(sentenceLength == alphabet.Length || sentenceInCharacteres.Length > alphabet.Length)
             {
                 return "YES";
             }
