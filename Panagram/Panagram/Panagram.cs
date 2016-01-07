@@ -9,7 +9,7 @@ namespace Panagram
         [TestMethod]
         public void CheckIfPanagram()
         {
-            Assert.AreEqual("NO", CheckForPanagram("abc"));
+            Assert.AreEqual("NO", CheckForPanagram("Gasdasfa"));
         }
         [TestMethod]
         public void CheckIfPanagramIgnoreUpperCase()
@@ -20,7 +20,6 @@ namespace Panagram
         public void CheckifPanagramHappens()
         {
             Assert.AreEqual("YES", CheckForPanagram("abcdefghijklmnopqrstuvwxyz"));
-
         }
         [TestMethod]
         public void CheckTheSentencePanagram()
@@ -29,30 +28,34 @@ namespace Panagram
         }
         public string CheckForPanagram(string sentenceInserted)
         {
-            int sentenceLength = 0;
+            int countCharacters;
+            int countAlphabet = 0;
             char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g',
                 'h', 'i', 'j', 'k', 'l', 'm', 'n' ,'o','p','q','r','s','t','u','v','w','x','y','z'};
             string senteLowerCase = sentenceInserted.ToLower();           
-            char[] sentenceInCharacteres = sentenceInserted.ToCharArray();
+            char[] sentenceInCharacteres = senteLowerCase.ToCharArray();
+            int sentenceLength = sentenceInCharacteres.Length;
 
-
-
-            for(int i = 0; i < sentenceInCharacteres.Length; i++)
+            for(int i = 0; i < alphabet.Length; i++)
             {
-                for(int j = 0; j < alphabet.Length; j++)
+                countCharacters = 0;
+                for(int j = 0; j < sentenceInCharacteres.Length; j++)
                 {
-                    if( alphabet[j].Equals(sentenceInCharacteres[i]))
+                    if (alphabet[i].Equals(sentenceInCharacteres[j]))
                     {
-
-                        sentenceLength++;
-                    }
+                        countCharacters++;                       
+                    }                  
                 }
-            }         
-            if(sentenceLength == alphabet.Length || )
+                if (countCharacters != 0)
+                {
+                    countAlphabet++;
+                }
+            }
+            if(countAlphabet == 26)
             {
                 return "YES";
             }
-            return "NO";    
+            return "NO";             
         }
     }
 }
