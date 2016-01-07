@@ -16,6 +16,12 @@ namespace Panagram
         {
             Assert.AreEqual("NO", CheckForPanagram("The"));
         }
+        [TestMethod]
+        public void CheckifPanagramHappens()
+        {
+            Assert.AreEqual("YES", CheckForPanagram("abcdefghijklmnopqrstuvwxyz"));
+
+        }
         public string CheckForPanagram(string sentenceInserted)
         {
             int sentenceLength = 0;
@@ -32,7 +38,6 @@ namespace Panagram
                 {
                     if( alphabet[j].Equals(sentenceInCharacteres[i]))
                     {
-
                         sentenceLength++;
                     }
                 }
