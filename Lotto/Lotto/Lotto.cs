@@ -9,15 +9,16 @@ namespace Lotto
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.AreEqual(24, CalculateChancesLotto(6,49));
+            Assert.AreEqual(0,00000007, CalculateChancesLotto(6,49));
         }
         public double CalculateChancesLotto(int numbersGuessed,int amountOfNumbers)
         {
-            double result;
+            double combination;
 
-            result = CalculateFactorial(4);
-               
-            return result;
+            combination = CalculateFactorial(amountOfNumbers)/
+                (CalculateFactorial(numbersGuessed)*CalculateFactorial(amountOfNumbers- numbersGuessed));
+
+            return 1/combination;
         }
         public double CalculateFactorial(int numberForFactiorial)
         {
