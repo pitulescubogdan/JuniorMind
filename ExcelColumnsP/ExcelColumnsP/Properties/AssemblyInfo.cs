@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ExcelColumns")]
+[assembly: AssemblyTitle("ExcelColumnsP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ExcelColumns")]
+[assembly: AssemblyProduct("ExcelColumnsP")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5a468521-3cd3-448f-993b-10d540da126e")]
+[assembly: Guid("e7fbc127-16cf-4da5-a8f6-c582cb02bfb2")]
 
 // Version information for an assembly consists of the following four values:
 //
