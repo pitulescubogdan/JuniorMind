@@ -11,6 +11,11 @@ namespace Panagram
         {
             Assert.AreEqual("YES", CheckForPanagram("abc"));
         }
+        [TestMethod]
+        public void CheckIfPanagramIgnoreUpperCase()
+        {
+            Assert.AreEqual("YES", CheckForPanagram("The"));
+        }
         public string CheckForPanagram(string sentenceInserted)
         {
             
