@@ -43,6 +43,7 @@ namespace Panagram
                 {
                     if( alphabet[j].Equals(sentenceInCharacteres[i]))
                     {
+
                         sentenceLength++;
                     }
                 }
