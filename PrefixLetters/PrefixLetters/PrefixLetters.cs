@@ -14,20 +14,23 @@ namespace PrefixLetters
         [TestMethod]
         public void CheckForPrefixForDifferentLengths()
         {
-            Assert.AreEqual("aaa", checkPrefix("aaab", "aaaabbaa"));
+            Assert.AreEqual("aaa", checkPrefix("aaab", "aaabbbaa"));
+        }
+        [TestMethod]
+        public void CheckForNonePrefix()
+        {
+            Assert.AreEqual("", checkPrefix("baaaxaa", "xaaaabbbi"));
         }
         public string checkPrefix(string firstString,string secondString)
         {
             string result="";
-            char constantForFirstArray;
-            string[] firstArray = { firstString };
 
             for (int i = 0; i < firstString.Length; i++)               
                 {
-                    if (firstString[i] == secondString[i])
-                    {
-                        constantForFirstArray = firstString[i];
-                        result += constantForFirstArray;
+                    if (firstString[i] == secondString[i] && !(firstString[i] != firstString[0]))
+                    {   
+                                       
+                        result += firstString[i];
                     }
                 }
 
