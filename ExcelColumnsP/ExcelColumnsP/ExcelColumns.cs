@@ -31,23 +31,24 @@ namespace ExcelColumnsP
         public string CalculateTheExcelColumns(int numberColumn)
         {
             int number;
+            int numberOfInterval = 1;
             string output = "";
             String[] columns = {"A","B","C","D","E","F","G"
                     ,"H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+
+            numberOfInterval = numberColumn / 26;
             for (int i = 1; i < columns.Length; i++)
             {
-                number = 0;
-                if (numberColumn > 52)
+                if (numberOfInterval != 0)
                 {
-                    number = numberColumn - 52;
-                    output = "B" + columns[number - 1];
+                    number = 0;
+                    if (numberColumn > (numberOfInterval * 26))
+                    {
+                        number = numberColumn - (numberOfInterval * 26);
+                        output = columns[numberOfInterval - 1] + columns[number - 1];
+                    }
                 }
-                else if(numberColumn > 26 )
-                {
-                    number = numberColumn - 26;
-                    output = "A" + columns[number - 1];
-
-                }else
+                else
                 {
                     output = columns[numberColumn - 1];
                 }
