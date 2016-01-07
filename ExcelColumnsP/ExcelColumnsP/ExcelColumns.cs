@@ -20,7 +20,7 @@ namespace ExcelColumnsP
         [TestMethod]
         public void TestForSecondInterval()
         {
-            Assert.AreEqual("AA", CalculateTheExcelColumns(27));
+            Assert.AreEqual("AA", CalculateTheExcelColumns(52));
         }
         [TestMethod]
         public void TestForThirdInterval()
@@ -36,7 +36,7 @@ namespace ExcelColumnsP
         public string CalculateTheExcelColumns(int numberColumn)
         {
             int number;
-            int numberOfInterval;
+            int numberOfInterval = 1;
             string output = "";
             String[] columns = {"A","B","C","D","E","F","G"
                     ,"H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
@@ -61,7 +61,6 @@ namespace ExcelColumnsP
                 {
                     output = columns[numberColumn-1];
                 }
-
             }
             return output;          
         }
