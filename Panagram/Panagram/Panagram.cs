@@ -48,7 +48,7 @@ namespace Panagram
                     }
                 }
             }         
-            if(sentenceLength == alphabet.Length || sentenceInCharacteres.Length > alphabet.Length)
+            if(sentenceLength == alphabet.Length || )
             {
                 return "YES";
             }
