@@ -9,16 +9,16 @@ namespace Panagram
         [TestMethod]
         public void CheckIfPanagram()
         {
-            Assert.AreEqual("YES", CheckForPanagram("abc"));
+            Assert.AreEqual("NO", CheckForPanagram("abc"));
         }
         [TestMethod]
         public void CheckIfPanagramIgnoreUpperCase()
         {
-            Assert.AreEqual("YES", CheckForPanagram("The"));
+            Assert.AreEqual("NO", CheckForPanagram("The"));
         }
         public string CheckForPanagram(string sentenceInserted)
         {
-            
+            int sentenceLength = 0;
             char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g',
                 'h', 'i', 'j', 'k', 'l', 'm', 'n' ,'o','p','q','r','s','t','u','v','w','x','y','z'};
             string senteLowerCase = sentenceInserted.ToLower();           
@@ -33,10 +33,14 @@ namespace Panagram
                     if( alphabet[j].Equals(sentenceInCharacteres[i]))
                     {
 
-                        return "YES";
+                        sentenceLength++;
                     }
                 }
             }         
+            if(sentenceLength == alphabet.Length)
+            {
+                return "YES";
+            }
             return "NO";    
         }
     }
