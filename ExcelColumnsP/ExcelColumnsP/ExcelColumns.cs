@@ -11,7 +11,12 @@ namespace ExcelColumnsP
         {
             Assert.AreEqual("A", CalculateTheExcelColumns(1));
         }
-        
+        [TestMethod]
+        public void TestForAnyColumnInTheFirstStage()
+        {
+            Assert.AreEqual("O", CalculateTheExcelColumns(15));
+
+        }
         public string CalculateTheExcelColumns(int numberColumn)
         {
             string output = "";
