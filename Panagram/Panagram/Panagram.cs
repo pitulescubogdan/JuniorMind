@@ -9,21 +9,30 @@ namespace Panagram
         [TestMethod]
         public void CheckIfPanagram()
         {
-            Assert.AreEqual("YES", CheckForPanagram("The"));
+            Assert.AreEqual("YES", CheckForPanagram("abc"));
         }
         public string CheckForPanagram(string sentenceInserted)
         {
-            char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+            
+            char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g',
                 'h', 'i', 'j', 'k', 'l', 'm', 'n' ,'o','p','q','r','s','t','u','v','w','x','y','z'};
+            string senteLowerCase = sentenceInserted.ToLower();           
+            char[] sentenceInCharacteres = sentenceInserted.ToCharArray();
 
-            string senteLowerCase = sentenceInserted.ToLower();
 
-           for(int i = 0; i < senteLowerCase.Length; i++)
+
+            for(int i = 0; i < sentenceInCharacteres.Length; i++)
             {
-                if(alphabet[i].Equals)
-            }
+                for(int j = 0; j < alphabet.Length; j++)
+                {
+                    if( alphabet[j].Equals(sentenceInCharacteres[i]))
+                    {
 
-            return "NO";
+                        return "YES";
+                    }
+                }
+            }         
+            return "NO";    
         }
     }
 }

@@ -28,8 +28,7 @@ namespace PrefixLetters
             for (int i = 0; i < firstString.Length; i++)               
                 {
                     if (firstString[i] == secondString[i] && !(firstString[i] != firstString[0]))
-                    {   
-                                       
+                    {                                         
                         result += firstString[i];
                     }
                 }
