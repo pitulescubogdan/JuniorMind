@@ -14,13 +14,13 @@ namespace ExcelColumnsP
         [TestMethod]
         public void TestForAnyColumnInTheFirstStage()
         {
-            Assert.AreEqual("O", CalculateTheExcelColumns(15));
+            Assert.AreEqual("Z", CalculateTheExcelColumns(26));
 
         }
         [TestMethod]
         public void TestForSecondInterval()
         {
-            Assert.AreEqual("AH", CalculateTheExcelColumns(34));
+            Assert.AreEqual("AA", CalculateTheExcelColumns(27));
         }
         [TestMethod]
         public void TestForThirdInterval()
@@ -28,16 +28,21 @@ namespace ExcelColumnsP
             Assert.AreEqual("BH", CalculateTheExcelColumns(60));
 
         }
+        [TestMethod]
+        public void TestForAnyColumnAndInterval()
+        {
+            Assert.AreEqual("SF", CalculateTheExcelColumns(500));
+        }
         public string CalculateTheExcelColumns(int numberColumn)
         {
             int number;
-            int numberOfInterval = 1;
+            int numberOfInterval;
             string output = "";
             String[] columns = {"A","B","C","D","E","F","G"
                     ,"H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 
-            numberOfInterval = numberColumn / 26;
-            for (int i = 1; i < columns.Length; i++)
+            numberOfInterval = numberColumn / 26;          
+            for (int i = 0; i < columns.Length; i++)
             {
                 if (numberOfInterval != 0)
                 {
@@ -45,13 +50,18 @@ namespace ExcelColumnsP
                     if (numberColumn > (numberOfInterval * 26))
                     {
                         number = numberColumn - (numberOfInterval * 26);
-                        output = columns[numberOfInterval - 1] + columns[number - 1];
+                        output = columns[numberOfInterval-1] + columns[number-1];                       
+                    }
+                    else
+                    {
+                        output = columns[numberColumn-1];
                     }
                 }
                 else
                 {
-                    output = columns[numberColumn - 1];
+                    output = columns[numberColumn-1];
                 }
+
             }
             return output;          
         }
