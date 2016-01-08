@@ -12,10 +12,15 @@ namespace Anagram
             Assert.AreEqual(2, CalculateAnagram("ab"));
         }
         [TestMethod]
+        public void AnagramForThreeLetters()
+        {
+            Assert.AreEqual(6, CalculateAnagram("abc"));
+
+        }
+        [TestMethod]
         public void AnagramForFourLetters()
         {
-            Assert.AreEqual(24, CalculateAnagram("aabb"));
-
+            Assert.AreEqual(24, CalculateAnagram("abcd"));
         }
         public int CalculateAnagram(String inputString)
         {
