@@ -13,8 +13,19 @@ namespace Anagram
         }
         public int CalculateAnagram(String inputString)
         {
+            
+            return CalculateFactorial(inputString.Length);
+        }
+        public int CalculateFactorial(int number)
+        {
+            int result = 1;      
+            while(number != 0)
+            {
+                result = result * number;
+                number--;
+            }
 
-            return 0;
+            return result;
         }
     }
 }
