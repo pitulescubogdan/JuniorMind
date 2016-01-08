@@ -9,7 +9,7 @@ namespace ExcelColumnsP
         [TestMethod]
         public void TestForFirstColumn()
         {
-            Assert.AreEqual("A", CalculateTheExcelColumns(1));
+            Assert.AreEqual("Z", CalculateTheExcelColumns(26));
         }
        
         public string CalculateTheExcelColumns(int numberColumn)
