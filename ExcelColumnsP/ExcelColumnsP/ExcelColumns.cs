@@ -34,9 +34,9 @@ namespace ExcelColumnsP
 
         }
         [TestMethod]
-        public void TestFor78()
+        public void TestForZZ()
         {
-            Assert.AreEqual("ET", CalculateTheExcelColumns(150));
+            Assert.AreEqual("ZZ", CalculateTheExcelColumns(702));
         }
 
         public string CalculateTheExcelColumns(int numberColumn)
