@@ -9,12 +9,20 @@ namespace ExcelColumnsP
         [TestMethod]
         public void TestForFirstColumn()
         {
-            Assert.AreEqual("Z", CalculateTheExcelColumns(26));
+            Assert.AreEqual("A", CalculateTheExcelColumns(1));
         }
-       
+        [TestMethod]
+        public void TestForZ()
+        {
+            Assert.AreEqual("Z", CalculateTheExcelColumns(26));
+
+        }
+
         public string CalculateTheExcelColumns(int numberColumn)
         {
             string result = String.Empty;
+
+
 
             result = ReturnExcelColumn(numberColumn);
             
