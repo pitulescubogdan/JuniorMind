@@ -42,24 +42,16 @@ namespace ExcelColumnsP
         public string CalculateTheExcelColumns(int numberColumn)
         {
             string result = String.Empty;
-            int numberOfInterval = numberColumn / 26;
-            if(numberColumn > 26 && (numberColumn % 26) != 0)
-            {
-                int number = numberColumn % 26;
-                return result = ReturnExcelColumn((numberColumn-1) / 26) + ReturnExcelColumn(number);
-                
-            }else if (numberColumn > 26 && numberColumn % 26 == 0)
-            {
-                int numberIfEqual = (numberColumn - 1) % 26;
-                return result = ReturnExcelColumn((numberColumn - 1) / 26) + ReturnExcelColumn(numberIfEqual + 1);
-
+            while(numberColumn-- > 0)
+            {      
+                result =  ReturnExcelColumn((numberColumn + 1) % 26) + result;
+                numberColumn = numberColumn / 26;
             }
-
-            return result = ReturnExcelColumn(numberColumn);         
+            return result;      
         }
         public String ReturnExcelColumn(int number)
         {
-
+            
             return ((char)('A' + number - 1)).ToString();
         }
     }

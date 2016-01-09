@@ -22,9 +22,23 @@ namespace Anagram
         {
             Assert.AreEqual(24, CalculateAnagram("abcd"));
         }
+        [TestMethod]
+        public void AnagramForThreeLettersButWithSimiliarities()
+        {
+            Assert.AreEqual(3, CalculateAnagram("aab"));
+        }
         public int CalculateAnagram(String inputString)
         {
+            int count = 0;
+
+            for(int i = 0; i < inputString.Length; i++)
+                for(int j = 0;j < inputString.Length; j++)
+                {
+
+                }
+
             
+
             return CalculateFactorial(inputString.Length);
         }
         public int CalculateFactorial(int number)
