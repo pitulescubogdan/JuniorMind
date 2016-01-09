@@ -9,22 +9,24 @@ namespace Anagram
         [TestMethod]
         public void AnagramForTwoLetters()
         {
-            Assert.AreEqual(1, CalculateAnagram("ab"));
+            Assert.AreEqual(2, CalculateAnagram("ab"));
         }
         [TestMethod]
         public void OccurencesForTwoOrMore()
         {
-            Assert.AreEqual(2, CalculateAnagram("aab"));
-
+            Assert.AreEqual(2, CalculateOccurences("aab",'a'));
         }
 
         public int CalculateAnagram(String inputString)
         {
-            int result = 0;
+            int result = 1;
 
-            result = CalculateOccurences(inputString, 'a');
+            for(int i = 'a'; i < 'z'; i++)
+            {
+                result *= CalculateFactorial(CalculateOccurences(inputString,(char) i));
+            }
 
-            return result;
+            return CalculateFactorial(inputString.Length) / result;
         }
 
         public int CalculateOccurences(String inputString, char x)
