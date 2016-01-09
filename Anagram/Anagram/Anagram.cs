@@ -29,17 +29,21 @@ namespace Anagram
         }
         public int CalculateAnagram(String inputString)
         {
+            int result = 0;
+            int countDifferent = 0;
             int count = 0;
 
             for(int i = 0; i < inputString.Length; i++)
-                for(int j = 0;j < inputString.Length; j++)
+                for(int j = 0; j < inputString.Length; j++)
                 {
-
+                    if (inputString[i] == inputString[j]) count++;
+                    else countDifferent++;
                 }
 
-            
+            result = CalculateFactorial(inputString.Length) /
+                (CalculateFactorial(count) * CalculateFactorial(countDifferent));               
 
-            return CalculateFactorial(inputString.Length);
+            return result;
         }
         public int CalculateFactorial(int number)
         {
