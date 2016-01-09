@@ -16,7 +16,12 @@ namespace Anagram
         {
             Assert.AreEqual(2, CalculateOccurences("aab",'a'));
         }
+        [TestMethod]
+        public void AnagramForAAB()
+        {
+            Assert.AreEqual(3, CalculateAnagram("aab"));
 
+        }
         public int CalculateAnagram(String inputString)
         {
             int result = 1;
