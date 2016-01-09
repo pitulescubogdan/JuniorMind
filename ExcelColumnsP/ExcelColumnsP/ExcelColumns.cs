@@ -51,7 +51,10 @@ namespace ExcelColumnsP
         }
         public String ReturnExcelColumn(int number)
         {
-            
+            if (number == 0)
+            {
+                return "Z";
+            }
             return ((char)('A' + number - 1)).ToString();
         }
     }
