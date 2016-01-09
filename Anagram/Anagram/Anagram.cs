@@ -9,56 +9,29 @@ namespace Anagram
         [TestMethod]
         public void AnagramForTwoLetters()
         {
-            Assert.AreEqual(2, CalculateAnagram("ab"));
+            Assert.AreEqual(1, CalculateAnagram("ab"));
         }
-        [TestMethod]
-        public void AnagramForThreeLetters()
-        {
-            Assert.AreEqual(6, CalculateAnagram("abc"));
-
-        }
-        [TestMethod]
-        public void AnagramForFourLetters()
-        {
-            Assert.AreEqual(24, CalculateAnagram("abcd"));
-        }
-        [TestMethod]
-        public void AnagramForThreeLettersButWithSimiliarities()
-        {
-            Assert.AreEqual(3, CalculateAnagram("aab"));
-        }
+        
         public int CalculateAnagram(String inputString)
         {
             int result = 0;
-            result = CalculateFactorial(inputString.Length)/
-            CalculateFactorial(CountOccurences(inputString)) * CalculateFactorial(CalculateDifferences(inputString));
 
-            return result;          
-        }
-        public int CalculateDifferences(String inputString)
-        {
-            int count=0;
-            for(int i = 0; i < inputString.Length; i++)
-                for(int j=0;j<inputString.Length;j++)
-            {
-                    if (inputString[i] == inputString[j])
-                    {
-                        break;
-                    } else count++;
-            }
+            result = CalculateOccurences(inputString, 'b');
 
-            return count;
+            return result;
         }
-        public int CountOccurences(String inputString)
+
+        public int CalculateOccurences(String inputString, char x)
         {
             int count = 0;
-            for(int i = 0;i<inputString.Length; i++)
+            for(int i = 0;i < inputString.Length; i++)
             {
-                 count = inputString.Split(inputString[i]).Length - 1;
+                if (x == inputString[i]) count++;
             }
 
             return count;
         }
+
         public int CalculateFactorial(int number)
         {
             int result = 1;      
