@@ -20,7 +20,11 @@ namespace Anagram
         public void AnagramForAAB()
         {
             Assert.AreEqual(3, CalculateAnagram("aab"));
-
+        }
+        [TestMethod]
+        public void AnagramForAAAABBCCCC()
+        {
+            Assert.AreEqual(1260, CalculateAnagram("aaabbcccc"));
         }
         public int CalculateAnagram(String inputString)
         {
