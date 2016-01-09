@@ -22,9 +22,9 @@ namespace Anagram
             Assert.AreEqual(3, CalculateAnagram("aab"));
         }
         [TestMethod]
-        public void AnagramForAAAABBCCCC()
+        public void AnagramForAABBCC()
         {
-            Assert.AreEqual(1260, CalculateAnagram("aaabbcccc"));
+            Assert.AreEqual(90, CalculateAnagram("aabbcc"));
         }
         public int CalculateAnagram(String inputString)
         {
