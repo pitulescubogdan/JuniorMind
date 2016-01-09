@@ -11,12 +11,18 @@ namespace Anagram
         {
             Assert.AreEqual(1, CalculateAnagram("ab"));
         }
-        
+        [TestMethod]
+        public void OccurencesForTwoOrMore()
+        {
+            Assert.AreEqual(2, CalculateAnagram("aab"));
+
+        }
+
         public int CalculateAnagram(String inputString)
         {
             int result = 0;
 
-            result = CalculateOccurences(inputString, 'b');
+            result = CalculateOccurences(inputString, 'a');
 
             return result;
         }
