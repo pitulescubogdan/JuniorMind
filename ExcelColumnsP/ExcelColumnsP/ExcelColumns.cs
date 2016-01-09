@@ -44,18 +44,15 @@ namespace ExcelColumnsP
             string result = String.Empty;
             while(numberColumn-- > 0)
             {      
-                result =  ReturnExcelColumn((numberColumn + 1) % 26) + result;
+                result =  ReturnExcelColumn((numberColumn) % 26) + result;
                 numberColumn = numberColumn / 26;
             }
             return result;      
         }
         public String ReturnExcelColumn(int number)
         {
-            if (number == 0)
-            {
-                return "Z";
-            }
-            return ((char)('A' + number - 1)).ToString();
+            
+            return ((char)('A' + number)).ToString();
         }
     }
 }
