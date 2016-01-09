@@ -30,21 +30,34 @@ namespace Anagram
         public int CalculateAnagram(String inputString)
         {
             int result = 0;
-            int lengthOFString = inputString.Length - 1;
-            int countDifferent = 0;
+            result = CalculateFactorial(inputString.Length)/
+            CalculateFactorial(CountOccurences(inputString)) * CalculateFactorial(CalculateDifferences(inputString));
+
+            return result;          
+        }
+        public int CalculateDifferences(String inputString)
+        {
+            int count=0;
+            for(int i = 0; i < inputString.Length; i++)
+                for(int j=0;j<inputString.Length;j++)
+            {
+                    if (inputString[i] == inputString[j])
+                    {
+                        break;
+                    } else count++;
+            }
+
+            return count;
+        }
+        public int CountOccurences(String inputString)
+        {
             int count = 0;
-            
-                for(int j = 0; j < inputString.Length; j++)
-                {
-                    if (inputString[lengthOFString] == inputString[j]) count++;
-                    else countDifferent++;
-                lengthOFString--;
-                }
+            for(int i = 0;i<inputString.Length; i++)
+            {
+                 count = inputString.Split(inputString[i]).Length - 1;
+            }
 
-            result = CalculateFactorial(inputString.Length) /
-                (CalculateFactorial(count) * CalculateFactorial(countDifferent));               
-
-            return result;
+            return count;
         }
         public int CalculateFactorial(int number)
         {
