@@ -31,25 +31,20 @@ namespace Panagram
             String lowerCase = sentenceInserted.ToLower();
 
             if (CheckPanagram(lowerCase)) return "YES";
-
-            return "NO";          
+            else return "NO";          
         }
         public bool CheckPanagram(String inputString)
         {
             String alphabet = "abcdefghijklmnopqrstuvwxyz";
-            int count = 0;
-            for (int i = 0; i < alphabet.Length; i++)       
-                for (int j = 0; j<inputString.Length; j++)
+            for (int i = 0; i < inputString.Length; i++)       
+                for (int j = 0; j<alphabet.Length; j++)
             {
-                    if (alphabet[i]==inputString[j])
+                    if (inputString[i] != alphabet[j])
                     {
-                        count++;
-                        break;
-                    }
+                        return false;
+                    }                               
             }
-            if (count == 26) return true;
-            else return false;
-
+            return true;       
         }
     }
 }

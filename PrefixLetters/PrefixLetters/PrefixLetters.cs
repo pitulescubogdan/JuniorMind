@@ -24,9 +24,12 @@ namespace PrefixLetters
         public string checkPrefix(string firstString, string secondString)
         {
             string result = "";
-            if (firstString.Length < secondString.Length)
-            {
-                for (int i = 0; i < firstString.Length; i++)
+            int widerString = 0;
+
+            if (firstString.Length >= secondString.Length) widerString = firstString.Length;
+            else widerString = secondString.Length;
+
+                for (int i = 0; i < widerString; i++)
                 {                 
                     if (firstString[i] == secondString[i])
                     {
@@ -34,19 +37,10 @@ namespace PrefixLetters
 
                     }else break;
                 }
-            } else
-            {
-                for (int i = 0; i < secondString.Length; i++)
-                {
-                    if (firstString[i] == secondString[i])
-                    {
-                        result += firstString[i];
-                    }else break;
-                }
-            }
+
             return result;
+        } 
         }
     }
-}
     
 
