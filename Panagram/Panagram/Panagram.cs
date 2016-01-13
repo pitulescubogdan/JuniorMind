@@ -7,7 +7,7 @@ namespace Panagram
     public class Panagram
     {
         [TestMethod]
-        public void CheckIfPanagram()
+        public void CheckPanagramForARandomString()
         {
             Assert.AreEqual("NO", CheckForPanagram("Gasdasfa"));
         }
@@ -17,7 +17,7 @@ namespace Panagram
             Assert.AreEqual("NO", CheckForPanagram("The"));
         }      
         [TestMethod]
-        public void CheckifPanagramHappens()
+        public void CheckPanagramAlphabet()
         {
             Assert.AreEqual("YES", CheckForPanagram("abcdefghijklmnopqrstuvwxyz"));
         }
@@ -29,22 +29,25 @@ namespace Panagram
         public String CheckForPanagram(string sentenceInserted)
         {
             String lowerCase = sentenceInserted.ToLower();
-
             if (CheckPanagram(lowerCase)) return "YES";
-            else return "NO";          
+            else return "NO";
         }
         public bool CheckPanagram(String inputString)
         {
-            String alphabet = "abcdefghijklmnopqrstuvwxyz";
-            for (int i = 0; i < inputString.Length; i++)       
-                for (int j = 0; j<alphabet.Length; j++)
-            {
-                    if (inputString[i] != alphabet[j])
+            String output = String.Empty;
+                for (int i = 0; i < 26; i++)
+                    for (int j = 0; j < inputString.Length; j++)
+                {
+                    if ((char)('a' + i) != inputString[j])
                     {
                         return false;
-                    }                               
-            }
-            return true;       
+                    }
+                    else return true;
+                }
+                return true;
         }
     }
 }
+                
+                  
+                
