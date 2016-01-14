@@ -24,11 +24,11 @@ namespace PrefixLetters
         public string CheckPrefix(string firstString, string secondString)
         {
             string result = "";
-            int widerString = 0;
+            int smallerString = 0;
 
-            widerString = Math.Max(firstString.Length, secondString.Length);
+            smallerString = Math.Min(firstString.Length, secondString.Length);
 
-                for (int i = 0; i < widerString; i++)
+            for (int i = 0; i < smallerString; i++)
                 {                 
                     if (firstString[i] == secondString[i])
                     {
