@@ -7,7 +7,7 @@ namespace Lunch
     public class Lunch
     {
         [TestMethod]
-        public void testSmallesCommonDivizor()
+        public void TestSmallesCommonDivizor()
         {
             Assert.AreEqual(2, SmallestDivizor(4, 6));
         }
@@ -29,7 +29,6 @@ namespace Lunch
         }
         public int smallestCommonMultiple(int numberOne, int numberTwo)
         {
-
             return numberOne * numberTwo / SmallestDivizor(numberOne, numberTwo);
         }
     }
