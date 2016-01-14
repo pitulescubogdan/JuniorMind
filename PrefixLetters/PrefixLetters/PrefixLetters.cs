@@ -30,11 +30,11 @@ namespace PrefixLetters
 
             for (int i = 0; i < smallerString; i++)
                 {                 
-                    if (firstString[i] == secondString[i])
+                    if (firstString[i] != secondString[i])
                     {
-                        result += firstString[i];
-
-                    }else break;
+                        break;
+                    }
+                    result += firstString[i];
                 }
 
             return result;
