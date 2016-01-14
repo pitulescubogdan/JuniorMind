@@ -34,15 +34,16 @@ namespace Panagram
         }
         public bool CheckPanagram(String inputString)
         {
+            int i = 0;
             String output = String.Empty;
                 for (int j = 0; j < inputString.Length; j++)
-                    for (int i = 0; i < 26; i++)
                 {
-                    if (inputString[j]==(char)('a' + i))
+                    while ((char)('a' + i) != inputString[j] && i != 26)
                     {
-                        return false;
-                    }
-                    else return true;
+                       i++;
+                       return false;
+                       
+                    }              
                 }
                 return true;
         }
