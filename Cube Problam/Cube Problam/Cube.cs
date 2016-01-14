@@ -9,11 +9,23 @@ namespace Cube_Problam
         [TestMethod]
         public void CheckCube()
         {
-            Assert.AreEqual(0, CalculateCube(1));
+            Assert.AreEqual(192, CalculateCube(1));
         }
-        public int CalculateCube(int number)
+        public int CalculateCube(int numberOfCube)
         {
-            return 0;
+
+            int number = 1;
+            int cubicNumber = number * number * number;
+
+            while (cubicNumber % 1000 != 888)
+            {
+                number++;
+                cubicNumber = number * number * number;             
+            }
+
+
+            return number;
         }
+        
     }
 }
