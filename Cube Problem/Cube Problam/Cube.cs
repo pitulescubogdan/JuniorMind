@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Cube_Problam
 {
     [TestClass]
-    public class Cube
+    public class Cube   
     {
         [TestMethod]
         public void CheckCubeForOneK()
