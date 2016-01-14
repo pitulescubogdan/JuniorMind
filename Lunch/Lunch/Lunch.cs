@@ -11,6 +11,12 @@ namespace Lunch
         {
             Assert.AreEqual(2, SmallestDivizor(4, 6));
         }
+        [TestMethod]
+        public void SmallesCommonMultiple()
+        {
+            Assert.AreEqual(12, smallestCommonMultiple(4, 6));
+            
+        }
         public int SmallestDivizor(int numberOne, int numberTwo)
         {
             int commonDivizor = 0;
