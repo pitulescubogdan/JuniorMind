@@ -7,9 +7,20 @@ namespace Cube_Problam
     public class Cube
     {
         [TestMethod]
-        public void CheckCube()
+        public void CheckCubeForOneK()
         {
             Assert.AreEqual(192, CalculateCube(1));
+        }
+        [TestMethod]
+        public void CheckCubeForTwoK()
+        {
+            Assert.AreEqual(442, CalculateCube(2));          
+        }
+        [TestMethod]
+        public void CheckCubeForAnyK()
+        {
+            Assert.AreEqual(14626, CalculateCube(39));          
+            
         }
         public int CalculateCube(int numberOfCube)
         {
@@ -22,7 +33,6 @@ namespace Cube_Problam
                 number++;
                 cubicNumber = number * number * number;
                 
-
                 if (cubicNumber % 1000 == 888) aux++;
             }
             return number;
