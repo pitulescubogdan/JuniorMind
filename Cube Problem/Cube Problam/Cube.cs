@@ -19,14 +19,14 @@ namespace Cube_Problam
         [TestMethod]
         public void CheckCubeForAnyK()
         {
-            Assert.AreEqual(14626, CalculateCube(39));          
+            Assert.AreEqual(4942, CalculateCube(20));          
             
         }
-        public int CalculateCube(int numberOfCube)
+        public long CalculateCube(int numberOfCube)
         {
-            int number = 1;
+            long number = 1;
             int aux = 0;
-            int cubicNumber = number * number * number;
+            long cubicNumber = number * number * number;
 
             while (cubicNumber % 1000 != 888 || aux != numberOfCube)
             {
