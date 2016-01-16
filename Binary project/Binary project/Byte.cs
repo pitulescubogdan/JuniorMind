@@ -32,6 +32,11 @@ namespace Binary_project
             Assert.AreEqual(206,
       ToDecimalConvert(ReverseBits(NotByte(AddBits(ReverseBits(ToByteConversion(49)))))));           
         }
+        [TestMethod]
+        public void AndLogic()
+        {
+           CollectionAssert.AreEqual(new byte[] {0,0,0,1},AndOperand(ToByteConversion(5),ToByteConversion(3)));                                   
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -86,6 +91,10 @@ namespace Binary_project
             }
 
             return bitsExcepted;
+        }
+        public byte[] AndOperand(byte[] firstBits, byte[] secondsBits)
+        {
+            return firstBits;
         }
     }
 }
