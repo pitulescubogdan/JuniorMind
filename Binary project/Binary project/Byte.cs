@@ -22,15 +22,30 @@ namespace Binary_project
            CollectionAssert.AreEqual(new byte[] {1,1,0,0,0,1},(ToByteConversion(49)));                       
         }
         [TestMethod]
-        public void MyTestMethod()
+        public void TestForNot()
         {
-            Assert.AreEqual(206, NotByte(49));                                   
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1, 1, 0 }, NotByte(49));                                 
         }
-
-        public int NotByte(int number)
+        [TestMethod]
+        
+        public byte[] NotByte(int number)
         {
-            byte result =(byte) ~number;
-            return result;
+            byte[] notBytes = new byte[ToByteConversion(number).Length];
+            for (int i = 0; i < ToByteConversion(number).Length; i++)
+            {
+                notBytes[i] = ToByteConversion(number)[i];
+            }
+            for (int i = 0; i < ToByteConversion(number).Length; i++)
+            {
+                if (notBytes[i] == 0) notBytes[i] += 1;
+                else if (notBytes[i] == 1) notBytes[i] -= 1;
+            }
+
+            return notBytes;
+        }
+        public int OROperand(int number)
+        {
+            return 0;
         }
         public byte[] ToByteConversion(int number)
         {
@@ -44,19 +59,16 @@ namespace Binary_project
                     bits[i] = (byte)(number % 2);                                       
                     i++;                                    
                     number = number / 2;
-                }              
-                return revertBytes(bits);
-        }
-        public byte[] revertBytes(byte[] bitsInserted)
-        {
-            byte[] output = new byte[bitsInserted.Length];
-            int k = 1;
-            for (int j = 0; j < bitsInserted.Length; j++)               
-                {
-                    output[j] = bitsInserted[bitsInserted.Length - k];
-                    k++;
                 }
-            return output;
+
+             byte[] output = new byte[bits.Length];
+             int k = 1;
+             for (int j = 0; j < bits.Length; j++)
+              {
+                  output[j] = bits[bits.Length - k];
+                  k++;
+              }
+                return output;               
         }
     }
 }
