@@ -71,29 +71,20 @@ namespace Binary_project
         }
         public double ToDecimalConvert(byte[] numberInBytes)
         {
-            byte[] holdRevertedBits = new byte[numberInBytes.Length];
-
-            int k = 1;
+            double result = 0;
             for (int j = 0; j < numberInBytes.Length; j++)
             {
-                holdRevertedBits[j] = numberInBytes[numberInBytes.Length - k];
-                k++;
-            }
-            double result = 0;
-            for (int i = 0; i < numberInBytes.Length; i++)
-            {
-                double x = holdRevertedBits[i];
-                double y = i;
-                result += holdRevertedBits[i] * Math.Pow(2,y);
-            }
-
+                double y = j;
+                result += ReverseBits(numberInBytes)[j] * Math.Pow(2, y);
+            }          
+         
             return result;
         }
         public byte[] ReverseBits(byte[] bitsInserted)
         {
             byte[] output = new byte[bitsInserted.Length];
             int k = 1;
-            for (int j = 0; j < bitsInserted.Length; j++)
+            for (int j =0; j <bitsInserted.Length; j++)
             {
                 output[j] = bitsInserted[bitsInserted.Length - k];
                 k++;
