@@ -59,15 +59,7 @@ namespace Binary_project
                     i++;                                    
                     number = number / 2;
                 }
-
-             byte[] output = new byte[bits.Length];
-             int k = 1;
-             for (int j = 0; j < bits.Length; j++)
-              {
-                  output[j] = bits[bits.Length - k];
-                  k++;
-              }
-                return output;               
+                return ReverseBits(bits);               
         }
         public double ToDecimalConvert(byte[] numberInBytes)
         {
