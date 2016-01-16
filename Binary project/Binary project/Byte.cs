@@ -21,6 +21,11 @@ namespace Binary_project
         {
            CollectionAssert.AreEqual(new byte[] {1,1,0,0},(ToByteConversion(12)));            
         }
+        [TestMethod]
+        public void DecimalToByteForFortyNine()
+        {
+           CollectionAssert.AreEqual(new byte[] {1,1,0,0,0,1},(ToByteConversion(49)));                       
+        }
         public byte[] ToByteConversion(int number)
         {
             byte[] bits = new byte[0];          
