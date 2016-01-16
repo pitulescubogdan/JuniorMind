@@ -29,8 +29,8 @@ namespace Binary_project
 
         public int NotByte(int number)
         {
-
-            return number;
+            byte result =(byte) ~number;
+            return result;
         }
         public byte[] ToByteConversion(int number)
         {
