@@ -9,26 +9,29 @@ namespace Binary_project
         [TestMethod]
         public void DecimalToByte()
         {
-           CollectionAssert.AreEqual(new byte[] {1,0,0},(ToByteConversion(4)));
+           CollectionAssert.AreEqual(new byte[] {1,0,0},ToByteConversion(4));
         }     
         [TestMethod]
         public void DecimalToByteForTwelve()
         {
-           CollectionAssert.AreEqual(new byte[] {1,1,0,0},(ToByteConversion(12)));            
+           CollectionAssert.AreEqual(new byte[] {1,1,0,0},ToByteConversion(12));            
         }
         [TestMethod]
         public void DecimalToByteForFortyNine()
         {
-           CollectionAssert.AreEqual(new byte[] {1,1,0,0,0,1},(ToByteConversion(49)));                       
+           CollectionAssert.AreEqual(new byte[] {1,1,0,0,0,1},ToByteConversion(49));                       
         }
         [TestMethod]
         public void TestForNot()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1, 1, 0 }, NotByte(49));                                 
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1, 1, 0 }, NotByteInBytes(49));                                 
         }
         [TestMethod]
-        
-        public byte[] NotByte(int number)
+        public void ConvertFromByteToDecimal()
+        {
+            CollectionAssert.AreEqual(ToByteConversion(12),new byte[] {1,1,0,0});
+        }       
+        public byte[] NotByteInBytes(int number)
         {
             byte[] notBytes = new byte[ToByteConversion(number).Length];
             for (int i = 0; i < ToByteConversion(number).Length; i++)
@@ -41,11 +44,8 @@ namespace Binary_project
                 else if (notBytes[i] == 1) notBytes[i] -= 1;
             }
 
+
             return notBytes;
-        }
-        public int OROperand(int number)
-        {
-            return 0;
         }
         public byte[] ToByteConversion(int number)
         {
@@ -69,6 +69,11 @@ namespace Binary_project
                   k++;
               }
                 return output;               
+        }
+        public int ToDecimalConvert(byte[] numberInBytes)
+        {
+
+            return 0;
         }
     }
 }
