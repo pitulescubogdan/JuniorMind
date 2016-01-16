@@ -29,7 +29,7 @@ namespace Binary_project
         [TestMethod]
         public void ConvertFromByteToDecimal()
         {
-            CollectionAssert.AreEqual(ToByteConversion(12),new byte[] {1,1,0,0});
+            Assert.AreEqual(12, ToDecimalConvert(ToByteConversion(12)));
         }       
         public byte[] NotByteInBytes(int number)
         {
@@ -70,11 +70,39 @@ namespace Binary_project
               }
                 return output;               
         }
-        public int ToDecimalConvert(byte[] numberInBytes)
+        public double ToDecimalConvert(byte[] numberInBytes)
         {
+            byte[] holdRevertedBits = new byte[numberInBytes.Length];
 
-            return 0;
+            int k = 1;
+            for (int j = 0; j < numberInBytes.Length; j++)
+            {
+                holdRevertedBits[j] = numberInBytes[numberInBytes.Length - k];
+                k++;
+            }
+
+            double result = 0;
+            for (int i = 0; i < numberInBytes.Length; i++)
+            {
+                double x = holdRevertedBits[i];
+                double y = i;
+                result += holdRevertedBits[i] * Math.Pow(2,y);
+            }
+
+            return result;
         }
+        public byte[] reverseBits(byte[] bitsInserted)
+        {
+            byte[] output = new byte[bitsInserted.Length];
+            int k = 1;
+            for (int j = 0; j < bitsInserted.Length; j++)
+            {
+                output[j] = bitsInserted[bitsInserted.Length - k];
+                k++;
+            }
+            return output;  
+        }
+        
     }
 }
 
