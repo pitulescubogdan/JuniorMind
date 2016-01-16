@@ -10,12 +10,7 @@ namespace Binary_project
         public void DecimalToByte()
         {
            CollectionAssert.AreEqual(new byte[] {1,0,0},(ToByteConversion(4)));
-        }
-        [TestMethod]
-        public void DecimalToByteForFive()
-        {
-           CollectionAssert.AreEqual(new byte[] {1,0,1},(ToByteConversion(5)));            
-        }
+        }     
         [TestMethod]
         public void DecimalToByteForTwelve()
         {
@@ -25,6 +20,17 @@ namespace Binary_project
         public void DecimalToByteForFortyNine()
         {
            CollectionAssert.AreEqual(new byte[] {1,1,0,0,0,1},(ToByteConversion(49)));                       
+        }
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            Assert.AreEqual(206, NotByte(49));                                   
+        }
+
+        public int NotByte(int number)
+        {
+
+            return number;
         }
         public byte[] ToByteConversion(int number)
         {
