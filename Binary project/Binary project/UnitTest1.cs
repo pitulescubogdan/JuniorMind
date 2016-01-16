@@ -13,8 +13,8 @@ namespace Binary_project
         }
         public byte ToByte(int number)
         {
-
-            return 0;
+            byte result = Decimal.ToByte(number);
+            return result;
         }
     }
 }
