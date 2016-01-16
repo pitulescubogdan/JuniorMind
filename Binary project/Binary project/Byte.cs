@@ -34,17 +34,12 @@ namespace Binary_project
         }
         public byte[] NotByte(byte[] bitsExpected)
         {
-            byte[] notBytes = new byte[bitsExpected.Length];
             for (int i = 0; i < bitsExpected.Length; i++)
             {
-                notBytes[i] = bitsExpected[i];
+                if (bitsExpected[i] == 0) bitsExpected[i] += 1;
+                else if (bitsExpected[i] == 1) bitsExpected[i] -= 1;
             }
-            for (int i = 0; i < bitsExpected.Length; i++)
-            {
-                if (notBytes[i] == 0) notBytes[i] += 1;
-                else if (notBytes[i] == 1) notBytes[i] -= 1;
-            }
-            return notBytes;
+            return bitsExpected;
         }
         public byte[] ToByteConversion(int number)
         {
