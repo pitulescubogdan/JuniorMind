@@ -27,25 +27,24 @@ namespace Binary_project
             Assert.AreEqual(12, ToDecimalConvert(ToByteConversion(12)));
         }
         [TestMethod]
-        public void NotForNumber()
-        {
-            Assert.AreEqual(206,NotByte(49));
+        public void NotByteForNumber()
+        {           
+            Assert.AreEqual(206,
+      ToDecimalConvert(ReverseBits(NotByte(AddBits(ReverseBits(ToByteConversion(49)))))));           
         }
-        public double NotByte(int number)
+        public byte[] NotByte(byte[] bitsExpected)
         {
-            byte[] notBytes = new byte[ToByteConversion(number).Length];
-            for (int i = 0; i < ToByteConversion(number).Length; i++)
+            byte[] notBytes = new byte[bitsExpected.Length];
+            for (int i = 0; i < bitsExpected.Length; i++)
             {
-                notBytes[i] = ToByteConversion(number)[i];
+                notBytes[i] = bitsExpected[i];
             }
-            for (int i = 0; i < ToByteConversion(number).Length; i++)
+            for (int i = 0; i < bitsExpected.Length; i++)
             {
                 if (notBytes[i] == 0) notBytes[i] += 1;
                 else if (notBytes[i] == 1) notBytes[i] -= 1;
             }
-
-
-            return ToDecimalConvert(notBytes);
+            return notBytes;
         }
         public byte[] ToByteConversion(int number)
         {
@@ -102,7 +101,13 @@ namespace Binary_project
             return output;  
         }
         public byte[] AddBits(byte[] bitsExcepted){
-            return ToByteConversion(0);
+
+            if(bitsExcepted.Length % 2 == 0)
+            {
+                Array.Resize(ref bitsExcepted, bitsExcepted.Length + 4 - (bitsExcepted.Length % 4));
+            }
+
+            return bitsExcepted;
         }
     }
 }
