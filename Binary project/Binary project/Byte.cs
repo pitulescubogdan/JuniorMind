@@ -47,6 +47,11 @@ namespace Binary_project
         {
            CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, XOROperand(ToByteConversion(5), ToByteConversion(3)));                                                        
         }
+        [TestMethod]
+        public void ShiftRight()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1 }, RightShift((ToByteConversion(8)),3));                                                                    
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -160,6 +165,14 @@ namespace Binary_project
                 else xorBits[i] = (byte)0;
             }
             return ReverseBits(xorBits);
+        }
+        public byte[] RightShift(byte[] bitsInserted, int numberOfShifting)
+        {
+
+            int number =(int) ToDecimalConvert(bitsInserted);
+            number = number / (numberOfShifting * 2);
+
+            return ToByteConversion(number);
         }
     }
 }
