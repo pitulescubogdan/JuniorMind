@@ -57,6 +57,11 @@ namespace Binary_project
         {
             CollectionAssert.AreEqual(new byte[] { 1,0,1,0,0 }, LeftShift((ToByteConversion(5)),2));                                                                              
         }
+        [TestMethod]
+        public void LessThan()
+        {
+            Assert.AreEqual(true,LessThan(ToByteConversion(3),ToByteConversion(5)));
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -185,6 +190,15 @@ namespace Binary_project
             number = number * (numberOfShifting * 2);
 
             return ToByteConversion(number);
+        }
+        public bool LessThan(byte[] numberToCheck, byte[] numberToBeChecked)
+        {
+            int numberOne = (int)ToDecimalConvert(numberToCheck);
+            int numberTwo = (int)ToDecimalConvert(numberToBeChecked);
+
+            if (numberOne < numberTwo) return true;
+            else return false;
+            
         }
     }
 }
