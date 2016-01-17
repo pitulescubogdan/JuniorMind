@@ -55,7 +55,7 @@ namespace Binary_project
         [TestMethod]
         public void ShiftLeft()
         {
-            CollectionAssert.AreEqual(new byte[] { 1,0,0,0 }, LeftShift((ToByteConversion(1)),3));                                                                              
+            CollectionAssert.AreEqual(new byte[] { 1,0,1,0,0 }, LeftShift((ToByteConversion(5)),2));                                                                              
         }
         public byte[] NotByte(byte[] bitsExpected)
         {
@@ -181,7 +181,10 @@ namespace Binary_project
         }
         public byte[] LeftShift(byte[] bitsInserted, int numberOfShifting)
         {
-            return bitsInserted;
+            int number = (int)ToDecimalConvert(bitsInserted);
+            number = number * (numberOfShifting * 2);
+
+            return ToByteConversion(number);
         }
     }
 }
