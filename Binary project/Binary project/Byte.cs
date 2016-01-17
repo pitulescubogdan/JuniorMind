@@ -45,7 +45,7 @@ namespace Binary_project
         [TestMethod]
         public void XORLogic()
         {
-           CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, XOROperand(ToByteConversion(5), ToByteConversion(3)));                                                        
+           CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, XOROperand(ToByteConversion(5), ToByteConversion(3)));                                                        
         }
         public byte[] NotByte(byte[] bitsExpected)
         {
@@ -143,8 +143,23 @@ namespace Binary_project
         }
         public byte[] XOROperand(byte[] firstBits, byte[] secondBits)
         {
+            if (firstBits.Length >= secondBits.Length)
+            {
+                Array.Resize(ref secondBits, firstBits.Length);
+            }
+            else Array.Resize(ref firstBits, secondBits.Length);
 
-            return firstBits;
+            byte[] xorBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
+
+            for (int i = 0; i < firstBits.Length; i++)
+            {
+                if (firstBits[i] != secondBits[i] )
+                {
+                    xorBits[i] = (byte)1;
+                }
+                else xorBits[i] = (byte)0;
+            }
+            return ReverseBits(xorBits);
         }
     }
 }
