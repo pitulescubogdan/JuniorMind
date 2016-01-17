@@ -40,7 +40,7 @@ namespace Binary_project
         [TestMethod]
         public void OrLogic()
         {
-           CollectionAssert.AreEqual(new byte[] {0,0,1},AndOperand(ToByteConversion(5),ToByteConversion(3)));                                             
+           CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, OROperand(ToByteConversion(5), ToByteConversion(3)));                                             
         }
         public byte[] NotByte(byte[] bitsExpected)
         {
@@ -128,11 +128,11 @@ namespace Binary_project
 
             for (int i = 0; i < firstBits.Length; i++)
             {
-                if (firstBits[i] == 1 && secondBits[i] == 1)
+                if (firstBits[i] == 0 && secondBits[i] == 0)
                 {
-                    orBits[i] = (byte)1;
+                    orBits[i] = (byte)0;
                 }
-                else orBits[i] = (byte)0;
+                else orBits[i] = (byte)1;
             }                      
             return ReverseBits(orBits);
         }
