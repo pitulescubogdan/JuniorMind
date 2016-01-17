@@ -42,6 +42,11 @@ namespace Binary_project
         {
            CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, OROperand(ToByteConversion(5), ToByteConversion(3)));                                             
         }
+        [TestMethod]
+        public void XORLogic()
+        {
+           CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, XOROperand(ToByteConversion(5), ToByteConversion(3)));                                                        
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -135,6 +140,11 @@ namespace Binary_project
                 else orBits[i] = (byte)1;
             }                      
             return ReverseBits(orBits);
+        }
+        public byte[] XOROperand(byte[] firstBits, byte[] secondBits)
+        {
+
+            return firstBits;
         }
     }
 }
