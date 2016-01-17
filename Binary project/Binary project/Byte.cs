@@ -35,7 +35,12 @@ namespace Binary_project
         [TestMethod]
         public void AndLogic()
         {
-           CollectionAssert.AreEqual(new byte[] {0,0,0,1},AndOperand(ToByteConversion(5),ToByteConversion(3)));                                   
+           CollectionAssert.AreEqual(new byte[] {0,0,1},AndOperand(ToByteConversion(5),ToByteConversion(3)));                                   
+        }
+        [TestMethod]
+        public void OrLogic()
+        {
+           CollectionAssert.AreEqual(new byte[] {0,0,1},AndOperand(ToByteConversion(5),ToByteConversion(3)));                                             
         }
         public byte[] NotByte(byte[] bitsExpected)
         {
@@ -84,7 +89,7 @@ namespace Binary_project
             return output;  
         }
         public byte[] AddBits(byte[] bitsExcepted){
-
+            
             if(bitsExcepted.Length % 2 == 0)
             {
                 Array.Resize(ref bitsExcepted, bitsExcepted.Length + 4 - (bitsExcepted.Length % 4));
@@ -92,9 +97,44 @@ namespace Binary_project
 
             return bitsExcepted;
         }
-        public byte[] AndOperand(byte[] firstBits, byte[] secondsBits)
+        public byte[] AndOperand(byte[] firstBits, byte[] secondBits)
+        {            
+            if (firstBits.Length >= secondBits.Length)
+            {
+                Array.Resize(ref secondBits, firstBits.Length);
+            }
+            else Array.Resize(ref firstBits, secondBits.Length);
+
+            byte[] andBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
+            for(int i = 0;i<firstBits.Length;i++)
+            {
+                if (firstBits[i] == 1 && secondBits[i] == 1)
+                {
+                    andBits[i] = (byte)1;
+                }
+                else andBits[i] = (byte)0;
+            }
+            return ReverseBits(andBits);
+        }
+        public byte[] OROperand(byte[] firstBits, byte[] secondBits)
         {
-            return firstBits;
+            if (firstBits.Length >= secondBits.Length)
+            {
+                Array.Resize(ref secondBits, firstBits.Length);
+            }
+            else Array.Resize(ref firstBits, secondBits.Length);
+
+            byte[] orBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
+
+            for (int i = 0; i < firstBits.Length; i++)
+            {
+                if (firstBits[i] == 1 && secondBits[i] == 1)
+                {
+                    orBits[i] = (byte)1;
+                }
+                else orBits[i] = (byte)0;
+            }                      
+            return ReverseBits(orBits);
         }
     }
 }
