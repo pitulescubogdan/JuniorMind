@@ -74,13 +74,11 @@ namespace Binary_project
         public byte[] ToByteConversion(int number)
         {
             byte[] bits = new byte[0];          
-            int size = 0;
-            int i = 0;
+            int i = 1;
                 while (number != 0)
                 {
-                    size++;
-                    Array.Resize(ref bits, size);                  
-                    bits[i] = (byte)(number % 2);                                       
+                    Array.Resize(ref bits, i);                  
+                    bits[i-1] = (byte)(number % 2);                                       
                     i++;                                    
                     number = number / 2;
                 }
