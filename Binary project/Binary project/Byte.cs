@@ -45,7 +45,7 @@ namespace Binary_project
         [TestMethod]
         public void XORLogic()
         {
-           CollectionAssert.AreEqual(new byte[] { 0, 1, 1 }, XOROperand(ToByteConversion(5), ToByteConversion(3)));                                                        
+           CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, XOROperand(ToByteConversion(5), ToByteConversion(3)));                                                        
         }
         [TestMethod]
         public void ShiftRight()
@@ -62,6 +62,7 @@ namespace Binary_project
         {
             Assert.AreEqual(true,LessThan(ToByteConversion(3),ToByteConversion(5)));
         }
+        [TestMethod]
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -116,31 +117,16 @@ namespace Binary_project
             return bitsExcepted;
         }
         public byte[] AndOperand(byte[] firstBits, byte[] secondBits)
-        {            
-            if (firstBits.Length >= secondBits.Length)
-            {
-                Array.Resize(ref secondBits, firstBits.Length);
-            }
-            else Array.Resize(ref firstBits, secondBits.Length);
-
-            byte[] andBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
-            for(int i = 0;i<firstBits.Length;i++)
-            {
-                if (firstBits[i] == 1 && secondBits[i] == 1)
-                {
-                    andBits[i] = (byte)1;
-                }
-                else andBits[i] = (byte)0;
-            }
-            return ReverseBits(andBits);
+        {
+            return NotByte(XOROperand(firstBits, secondBits));
         }
         public byte[] OROperand(byte[] firstBits, byte[] secondBits)
         {
             if (firstBits.Length >= secondBits.Length)
             {
-                Array.Resize(ref secondBits, firstBits.Length);
+                ReverseBits(AddBits(ReverseBits(secondBits)));
             }
-            else Array.Resize(ref firstBits, secondBits.Length);
+            else ReverseBits(AddBits(ReverseBits(firstBits)));
 
             byte[] orBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
 
@@ -158,7 +144,24 @@ namespace Binary_project
         }
         public byte[] XOROperand(byte[] firstBits, byte[] secondBits)
         {
-            return AndOperand(NotByte(AndOperand(firstBits, secondBits)),OROperand(firstBits,secondBits));
+         
+            if (firstBits.Length >= secondBits.Length)
+            {
+                Array.Resize(ref secondBits, firstBits.Length);
+            }
+            else Array.Resize(ref firstBits, secondBits.Length);
+
+            byte[] xorBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
+
+            for (int i = 0; i < firstBits.Length; i++)
+            {
+                if (firstBits[i] != secondBits[i])
+                {
+                    xorBits[i] = (byte)1;
+                }
+                else xorBits[i] = (byte)0;
+            }
+            return ReverseBits(xorBits);
         }
         public byte[] RightShift(byte[] bitsInserted, int numberOfShifting)
         {
