@@ -40,7 +40,7 @@ namespace Binary_project
         [TestMethod]
         public void OrLogic()
         {
-           CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, OROperand(ToByteConversion(5), ToByteConversion(3)));                                             
+           CollectionAssert.AreEqual(new byte[] {0,0, 1, 0 }, OROperand(ToByteConversion(8), ToByteConversion(2)));                                             
         }
         [TestMethod]
         public void XORLogic()
@@ -122,25 +122,25 @@ namespace Binary_project
         }
         public byte[] OROperand(byte[] firstBits, byte[] secondBits)
         {
-            if (firstBits.Length >= secondBits.Length)
-            {
-                ReverseBits(AddBits(ReverseBits(secondBits)));
-            }
-            else ReverseBits(AddBits(ReverseBits(firstBits)));
+            int k = 0;
+                byte[] orBits = new byte[Math.Max(firstBits.Length,secondBits.Length)];
 
-            byte[] orBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
-
-            for (int i = 0; i < firstBits.Length; i++)
-            {
-                if (firstBits[i] == 0 && secondBits[i] == 0)
+                for (int i = 0; i < Math.Min(firstBits.Length, secondBits.Length); i++)
                 {
-                    orBits[i] = (byte)0;
+                    if (GetAt(firstBits, i) == 0 && GetAt(secondBits, i) == 0)
+                    {
+                        orBits[i] = (byte)0;
+                        k++;
+                    }
+                    else
+                    {
+                        orBits[i] = (byte)1;
+                        k++;
+                    }
                 }
-                else orBits[i] = (byte)1;
-            }   
-           
+                
 
-            return ReverseBits(orBits);
+                    return orBits;
         }
         public byte[] XOROperand(byte[] firstBits, byte[] secondBits)
         {
@@ -186,6 +186,11 @@ namespace Binary_project
             if (numberOne < numberTwo) return true;
             else return false;
             
+        }
+        public byte GetAt(byte[] bitsInserted, int indexPosition)
+        {
+            
+            return ReverseBits(bitsInserted)[indexPosition];
         }
     }
 }
