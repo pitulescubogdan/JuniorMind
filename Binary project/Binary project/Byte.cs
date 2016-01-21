@@ -40,7 +40,7 @@ namespace Binary_project
         [TestMethod]
         public void OrLogic()
         {
-           CollectionAssert.AreEqual(new byte[] {0,0, 1, 0 }, OROperand(ToByteConversion(8), ToByteConversion(2)));                                             
+           CollectionAssert.AreEqual(new byte[] { 1 , 0 , 1 , 0  }, OROperand(ToByteConversion(8), ToByteConversion(2)));                                             
         }
         [TestMethod]
         public void XORLogic()
@@ -139,7 +139,7 @@ namespace Binary_project
                 }
 
 
-                    return orBits;
+                    return ReverseBits(orBits);
         }
         public byte[] XOROperand(byte[] firstBits, byte[] secondBits)
         {
