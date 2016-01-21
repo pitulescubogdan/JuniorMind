@@ -67,6 +67,7 @@ namespace Binary_project
         {
             Assert.AreEqual(0, GetAt(ToByteConversion(2),4));
         }
+
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -126,17 +127,7 @@ namespace Binary_project
         }
         public byte[] OROperand(byte[] firstBits, byte[] secondBits)
         {
-                byte[] orBits = new byte[Math.Max(firstBits.Length,secondBits.Length)];
-
-                for (int i = 0; i < Math.Max(firstBits.Length, secondBits.Length); i++)
-                {
-                    if (GetAt(firstBits,i) == 0 && GetAt(secondBits,i) == 0)
-                    {
-                        orBits[i] = (byte)0;
-                    }
-                    else orBits[i] = (byte)1;
-                }
-                    return ReverseBits(orBits);
+                    return NotByte(AndOperand(firstBits,secondBits));
         }
         public byte[] XOROperand(byte[] firstBits, byte[] secondBits)
         {
@@ -187,6 +178,18 @@ namespace Binary_project
     }
 }
 
- 
+/*
+ * byte[] orBits = new byte[Math.Max(firstBits.Length,secondBits.Length)];
+
+                for (int i = 0; i < Math.Max(firstBits.Length, secondBits.Length); i++)
+                {
+                    if (GetAt(firstBits,i) == 0 && GetAt(secondBits,i) == 0)
+                    {
+                        orBits[i] = (byte)0;
+                    }
+                    else orBits[i] = (byte)1;
+                }
+                    return ReverseBits(orBits);
+ */
 
                         
