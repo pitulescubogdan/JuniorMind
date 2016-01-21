@@ -126,7 +126,6 @@ namespace Binary_project
         }
         public byte[] OROperand(byte[] firstBits, byte[] secondBits)
         {
-            int k = 0;
                 byte[] orBits = new byte[Math.Max(firstBits.Length,secondBits.Length)];
 
                 for (int i = 0; i < Math.Max(firstBits.Length, secondBits.Length); i++)
@@ -137,24 +136,16 @@ namespace Binary_project
                     }
                     else orBits[i] = (byte)1;
                 }
-
-
                     return ReverseBits(orBits);
         }
         public byte[] XOROperand(byte[] firstBits, byte[] secondBits)
         {
-         
-            if (firstBits.Length >= secondBits.Length)
+                 
+            byte[] xorBits = new byte[Math.Max(firstBits.Length, secondBits.Length)]; 
+           
+            for (int i = 0; i < Math.Max(firstBits.Length, secondBits.Length); i++)
             {
-                Array.Resize(ref secondBits, firstBits.Length);
-            }
-            else Array.Resize(ref firstBits, secondBits.Length);
-
-            byte[] xorBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
-
-            for (int i = 0; i < firstBits.Length; i++)
-            {
-                if (firstBits[i] != secondBits[i])
+                if (GetAt(firstBits, i) !=  GetAt(secondBits, i))
                 {
                     xorBits[i] = (byte)1;
                 }
