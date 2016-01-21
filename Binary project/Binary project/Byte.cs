@@ -65,7 +65,7 @@ namespace Binary_project
         [TestMethod]
         public void TestGetAT()
         {
-            Assert.AreEqual(1, GetAt(ToByteConversion(8),3));
+            Assert.AreEqual(0, GetAt(ToByteConversion(2),4));
         }
         public byte[] NotByte(byte[] bitsExpected)
         {
@@ -188,7 +188,7 @@ namespace Binary_project
         }
         public byte GetAt(byte[] bitsInserted, int indexPosition)
         {
-            if (indexPosition > bitsInserted.Length)
+            if (indexPosition > bitsInserted.Length - 1)
             {
                return (byte)0;
             }else return bitsInserted[bitsInserted.Length - 1 - indexPosition];
