@@ -63,6 +63,10 @@ namespace Binary_project
             Assert.AreEqual(true,LessThan(ToByteConversion(3),ToByteConversion(5)));
         }
         [TestMethod]
+        public void TestGetAT()
+        {
+            Assert.AreEqual(1, GetAt(ToByteConversion(8),3));
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -125,20 +129,15 @@ namespace Binary_project
             int k = 0;
                 byte[] orBits = new byte[Math.Max(firstBits.Length,secondBits.Length)];
 
-                for (int i = 0; i < Math.Min(firstBits.Length, secondBits.Length); i++)
+                for (int i = 0; i < Math.Max(firstBits.Length, secondBits.Length); i++)
                 {
-                    if (GetAt(firstBits, i) == 0 && GetAt(secondBits, i) == 0)
+                    if (GetAt(firstBits,i) == 0 && GetAt(secondBits,i) == 0)
                     {
                         orBits[i] = (byte)0;
-                        k++;
                     }
-                    else
-                    {
-                        orBits[i] = (byte)1;
-                        k++;
-                    }
+                    else orBits[i] = (byte)1;
                 }
-                
+
 
                     return orBits;
         }
@@ -189,8 +188,10 @@ namespace Binary_project
         }
         public byte GetAt(byte[] bitsInserted, int indexPosition)
         {
-            
-            return ReverseBits(bitsInserted)[indexPosition];
+            if (indexPosition > bitsInserted.Length)
+            {
+               return (byte)0;
+            }else return bitsInserted[bitsInserted.Length - 1 - indexPosition];
         }
     }
 }
