@@ -55,7 +55,7 @@ namespace Binary_project
         [TestMethod]
         public void ShiftRight()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 0 }, RightShift((ToByteConversion(5)), 2));
+            CollectionAssert.AreEqual(new byte[] {0, 0, 1}, RightShift((ToByteConversion(5)), 2));
         }
         [TestMethod]
         public void LessThan()
@@ -157,7 +157,15 @@ namespace Binary_project
         }
         public byte[] RightShift(byte[] bitsInserted, int numberOfShifting)
         {
-            return bitsInserted;
+            byte[] result = new byte[bitsInserted.Length];
+
+            for (int i = 0; i < bitsInserted.Length; i++)
+            {
+                result[bitsInserted.Length - 1 - i] = GetAt(bitsInserted, i + numberOfShifting);
+                numberOfShifting++;
+            }
+
+            return result;
         }
         public byte[] LeftShift(byte[] bitsInserted, int numberOfShifting)
         {
