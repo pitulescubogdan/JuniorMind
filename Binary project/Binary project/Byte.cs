@@ -126,9 +126,9 @@ namespace Binary_project
         {
             byte[] andBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
 
-            for (int i = 0; i < Math.Max(firstBits.Length, secondBits.Length); i++)
+            for (int i = 0; i < andBits.Length; i++)
             {
-                andBits[i] = (GetAt(firstBits, i) == 1 && GetAt(secondBits, i) == 1) ? (byte)1 : (byte)0;
+                andBits[i] = Decision(GetAt(firstBits, i), GetAt(secondBits, i), "and");
 
             }
             return ReverseBits(andBits);
@@ -137,9 +137,9 @@ namespace Binary_project
         {
             byte[] orBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
 
-            for (int i = 0; i < Math.Max(firstBits.Length, secondBits.Length); i++)
+            for (int i = 0; i < orBits.Length; i++)
             {
-                orBits[i] = (GetAt(firstBits, i) == 0 && GetAt(secondBits, i) == 0) ? (byte)0 : (byte)1;
+                orBits[i] = Decision(GetAt(firstBits, i), GetAt(secondBits, i), "or");
             }
             return ReverseBits(orBits);
         }
@@ -148,7 +148,7 @@ namespace Binary_project
 
             byte[] xorBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
 
-            for (int i = 0; i < Math.Max(firstBits.Length, secondBits.Length); i++)
+            for (int i = 0; i < xorBits.Length; i++)
             {
                 xorBits[i] = Decision(GetAt(firstBits,i),GetAt(secondBits,i),"xor");
 
@@ -197,6 +197,10 @@ namespace Binary_project
             {
                 case "xor":
                     return (firstBits != secondBits) ? (byte)1 : (byte)0;
+                case "and":
+                    return (firstBits == 1 && secondBits == 1) ? (byte)1 : (byte)0;
+                case "or":
+                    return (firstBits == 0 && secondBits == 0) ? (byte)0 : (byte)1;
             }
                 
             return (byte)0;
