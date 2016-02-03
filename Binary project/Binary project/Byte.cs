@@ -150,7 +150,7 @@ namespace Binary_project
 
             for (int i = 0; i < Math.Max(firstBits.Length, secondBits.Length); i++)
             {
-                xorBits[i] = (GetAt(firstBits, i) != GetAt(secondBits, i)) ? (byte)1 : (byte)0;
+                xorBits[i] = Decision(GetAt(firstBits,i),GetAt(secondBits,i),"xor");
 
             }
             return ReverseBits(xorBits);
@@ -193,6 +193,12 @@ namespace Binary_project
         }
         public byte Decision(byte firstBits, byte secondBits, string decision)
         {
+            switch (decision)
+            {
+                case "xor":
+                    return (firstBits != secondBits) ? (byte)1 : (byte)0;
+            }
+                
             return (byte)0;
         }
     }
