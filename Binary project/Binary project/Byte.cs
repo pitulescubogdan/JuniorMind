@@ -50,12 +50,12 @@ namespace Binary_project
         [TestMethod]
         public void ShiftLeft()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0 }, LeftShift((ToByteConversion(12)), 2));
+            CollectionAssert.AreEqual(new byte[] {1,0,0}, LeftShift((ToByteConversion(6)), 1));
         }
         [TestMethod]
         public void ShiftRight()
         {
-            CollectionAssert.AreEqual(new byte[] {0, 0, 1}, RightShift((ToByteConversion(5)), 2));
+            CollectionAssert.AreEqual(new byte[] {0,0,1}, RightShift((ToByteConversion(5)), 2));
         }
         [TestMethod]
         public void LessThan()
@@ -169,7 +169,15 @@ namespace Binary_project
         }
         public byte[] LeftShift(byte[] bitsInserted, int numberOfShifting)
         {
-            return bitsInserted;
+            byte[] result = new byte[bitsInserted.Length];
+
+            for (int i = 0; i < bitsInserted.Length; i++)
+            {               
+               result[i] = GetAt(bitsInserted, bitsInserted.Length - 1 - numberOfShifting);
+               numberOfShifting--;            
+            }
+
+            return result;
         }
         public bool LessThan(byte[] numberToCheck, byte[] numberToBeChecked)
         {
@@ -181,11 +189,11 @@ namespace Binary_project
         }
         public byte GetAt(byte[] bitsInserted, int indexPosition)
         {
-            if (indexPosition > bitsInserted.Length - 1)
-            {
-                return (byte)0;
-            }
-            else return bitsInserted[bitsInserted.Length - 1 - indexPosition];
+            return (indexPosition > bitsInserted.Length - 1 || indexPosition < 0) ? (byte)0 : bitsInserted[bitsInserted.Length - 1 - indexPosition];
+        }
+        public byte Decision(byte firstBits, byte secondBits, string decision)
+        {
+            return (byte)0;
         }
     }
 }
