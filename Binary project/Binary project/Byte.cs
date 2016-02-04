@@ -99,6 +99,12 @@ namespace Binary_project
             CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1 }, Multiplication(ToByteConversion(5),ToByteConversion(3)));                       
             
         }
+        [TestMethod]
+        public void DivisionBinary()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1,1 }, Division(ToByteConversion(15),ToByteConversion(5)));                       
+            
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -293,7 +299,10 @@ namespace Binary_project
 
             return holder;
         }
-       
+        public byte[] Division(byte[] firstBits, byte[] divider)
+        {
+            return firstBits;
+        }
     }
 }
 
