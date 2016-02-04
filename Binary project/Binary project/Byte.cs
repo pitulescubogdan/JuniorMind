@@ -72,6 +72,11 @@ namespace Binary_project
         {
             CollectionAssert.AreEqual(new byte[] {1, 1, 0 , 0},Addition(ToByteConversion(6),ToByteConversion(6)));
         }
+        [TestMethod]
+        public void SubstractionBinary()
+        {
+            CollectionAssert.AreEqual(new byte[] {1, 1 , 0},Addition(ToByteConversion(10),ToByteConversion(4))); 
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -228,7 +233,10 @@ namespace Binary_project
             }
             return result;
         }
-
+        public byte[] Substraction(byte[] firstBits, byte[] secondBits)
+        {
+            return firstBits;
+        }
     }
 }
 
