@@ -77,6 +77,12 @@ namespace Binary_project
         {
             CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0 }, Substraction(ToByteConversion(14), ToByteConversion(4))); 
         }
+        [TestMethod]
+        public void Multiplication()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, Multiplication(ToByteConversion(3), ToByteConversion(2))); 
+            
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -246,6 +252,10 @@ namespace Binary_project
                 k--;
             }
             return result;
+        }
+        public byte[] Multiplication(byte[] firstBits, byte[] secondBits)
+        {
+            return firstBits;
         }
     }
 }
