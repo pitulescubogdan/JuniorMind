@@ -12,6 +12,12 @@ namespace Binary_project
             CollectionAssert.AreEqual(new byte[] { 1, 0, 0 }, ToByteConversion(4));
         }
         [TestMethod]
+        public void DecimalToByteForTwenty()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0,1,0, 0 }, ToByteConversion(20));
+            
+        }
+        [TestMethod]
         public void DecimalToByteForTwelve()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0 }, ToByteConversion(12));
@@ -80,7 +86,17 @@ namespace Binary_project
         [TestMethod]
         public void Multiplication()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, Multiplication(ToByteConversion(3), 2)); 
+            CollectionAssert.AreEqual(new byte[] {0, 1, 1, 0 }, Multiplication(ToByteConversion(3),ToByteConversion(2)));            
+        }
+        [TestMethod]
+        public void MultiplicationWithGreaterNumbers()
+        {
+            CollectionAssert.AreEqual(new byte[] {1, 1, 0, 0 }, Multiplication(ToByteConversion(3),ToByteConversion(4)));                       
+        }
+        [TestMethod]
+        public void MultiplicationThreeTimesFive()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1 }, Multiplication(ToByteConversion(5),ToByteConversion(3)));                       
             
         }
         public byte[] NotByte(byte[] bitsExpected)
@@ -253,10 +269,31 @@ namespace Binary_project
             }
             return result;
         }
-        public byte[] Multiplication(byte[] firstBits, int secondBits)
+        public byte[] Multiplication(byte[] firstBits, byte[] multipler)
         {
-            return firstBits;
+           
+            byte[] result = new byte[firstBits.Length + 4 - (firstBits.Length % 4)];
+            byte[] holder = new byte[firstBits.Length + 4 - (firstBits.Length % 4)];
+            double counter = ToDecimalConvert(multipler);
+
+            if(ToDecimalConvert(multipler) > 2){
+                while ((counter) != 0)
+                {
+                    holder = Addition(holder, firstBits);
+                    counter--;
+                }
+            }else if(ToDecimalConvert(multipler) == 2)
+            {
+                return holder = Addition(firstBits, firstBits);
+            }
+            else if(ToDecimalConvert(multipler) == 1)
+            {                             
+                return firstBits;
+            }
+
+            return holder;
         }
+       
     }
 }
 
