@@ -102,7 +102,13 @@ namespace Binary_project
         [TestMethod]
         public void DivisionBinary()
         {
-            CollectionAssert.AreEqual(new byte[] { 1,1 }, Division(ToByteConversion(15),ToByteConversion(5)));                       
+            CollectionAssert.AreEqual(new byte[] {0,0,1,1}, Division(ToByteConversion(12),ToByteConversion(4)));                       
+            
+        }
+        [TestMethod]
+        public void DivisionBetween15and3()
+        {
+            CollectionAssert.AreEqual(new byte[] {0,1,0,1}, Division(ToByteConversion(15),ToByteConversion(3)));                       
             
         }
         public byte[] NotByte(byte[] bitsExpected)
@@ -277,8 +283,6 @@ namespace Binary_project
         }
         public byte[] Multiplication(byte[] firstBits, byte[] multipler)
         {
-           
-            byte[] result = new byte[firstBits.Length + 4 - (firstBits.Length % 4)];
             byte[] holder = new byte[firstBits.Length + 4 - (firstBits.Length % 4)];
             double counter = ToDecimalConvert(multipler);
 
@@ -301,6 +305,24 @@ namespace Binary_project
         }
         public byte[] Division(byte[] firstBits, byte[] divider)
         {
+            int counter = (int)(ToDecimalConvert(divider) - 1);
+            int eachDivider = (int)(ToDecimalConvert(firstBits) / ToDecimalConvert(divider));
+            if (ToDecimalConvert(divider) > 2)
+            {
+                while (counter != 0)
+                {
+                    firstBits = Substraction(firstBits, ToByteConversion(eachDivider));                 
+                    counter--;
+                }
+            }
+            else if (ToDecimalConvert(divider) == 2)
+            {
+                return firstBits = Substraction(firstBits, divider);
+            }
+            else if (ToDecimalConvert(divider) == 1)
+            {
+                return firstBits;
+            }
             return firstBits;
         }
     }
