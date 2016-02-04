@@ -80,7 +80,7 @@ namespace Binary_project
         [TestMethod]
         public void Multiplication()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, Multiplication(ToByteConversion(3), ToByteConversion(2))); 
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, Multiplication(ToByteConversion(3), 2)); 
             
         }
         public byte[] NotByte(byte[] bitsExpected)
@@ -253,7 +253,7 @@ namespace Binary_project
             }
             return result;
         }
-        public byte[] Multiplication(byte[] firstBits, byte[] secondBits)
+        public byte[] Multiplication(byte[] firstBits, int secondBits)
         {
             return firstBits;
         }
