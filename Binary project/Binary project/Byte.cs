@@ -50,7 +50,7 @@ namespace Binary_project
         [TestMethod]
         public void ShiftLeft()
         {
-            CollectionAssert.AreEqual(new byte[] {1,0,0}, LeftShift((ToByteConversion(6)), 1));
+            CollectionAssert.AreEqual(new byte[] {0,0,0}, LeftShift((ToByteConversion(6)), 1));
         }
         [TestMethod]
         public void ShiftRight()
@@ -67,7 +67,11 @@ namespace Binary_project
         {
             Assert.AreEqual(0, GetAt(ToByteConversion(2), 4));
         }
-
+        [TestMethod]
+        public void AdditionBinary()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0 , 1, 1},Addition(ToByteConversion(7),ToByteConversion(3)));
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -166,11 +170,9 @@ namespace Binary_project
         public byte[] LeftShift(byte[] bitsInserted, int numberOfShifting)
         {
             byte[] result = new byte[bitsInserted.Length];
-
-            for (int i = 0; i < bitsInserted.Length; i++)
-            {               
-               result[i] = GetAt(bitsInserted, bitsInserted.Length - 1 - numberOfShifting);
-               numberOfShifting--;            
+            for (int i = 0; i <=numberOfShifting ;i--)
+            {
+                result[i] = GetAt(bitsInserted, bitsInserted.Length - 1 + i );     
             }
 
             return result;
@@ -210,6 +212,12 @@ namespace Binary_project
             }
              return result;
             
+        }
+        public byte[] Addition(byte[] firstBits, byte[] secondBits)
+        {
+            
+
+                return firstBits;
         }
     }
 }
