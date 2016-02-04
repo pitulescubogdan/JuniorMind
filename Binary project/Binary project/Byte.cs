@@ -111,6 +111,11 @@ namespace Binary_project
             CollectionAssert.AreEqual(new byte[] {0,1,0,1}, Division(ToByteConversion(15),ToByteConversion(3)));                       
             
         }
+        [TestMethod]
+        public void GreaterThan()
+        {
+            Assert.AreEqual(true, GreaterThan(ToByteConversion(10), ToByteConversion(5)));            
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -324,6 +329,10 @@ namespace Binary_project
                 return firstBits;
             }
             return firstBits;
+        }
+        public bool GreaterThan(byte[] numberToCheck, byte[] numberToBeChecked)
+        {
+            return true;
         }
     }
 }
