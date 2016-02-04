@@ -60,7 +60,7 @@ namespace Binary_project
         [TestMethod]
         public void LessThan()
         {
-            Assert.AreEqual(false, LessThan(ToByteConversion(3), ToByteConversion(5)));
+            Assert.AreEqual(true, LessThan(ToByteConversion(4), ToByteConversion(8)));
         }
         [TestMethod]
         public void TestGetAT()
@@ -177,9 +177,13 @@ namespace Binary_project
         }
         public bool LessThan(byte[] numberToCheck, byte[] numberToBeChecked)
         {
-            bool result=true;
-            
-            return result;
+            bool result = true;
+            for (int i = 0; i < Math.Max(numberToBeChecked.Length, numberToCheck.Length); i++)
+            {
+                result = (GetAt(numberToCheck, i) < GetAt(numberToBeChecked, i)) ? true : false;
+            }
+
+                return result;
 
         }
         public byte GetAt(byte[] bitsInserted, int indexPosition)
