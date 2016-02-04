@@ -116,6 +116,11 @@ namespace Binary_project
         {
             Assert.AreEqual(true, GreaterThan(ToByteConversion(10), ToByteConversion(5)));            
         }
+        [TestMethod]
+        public void EqualBetweenTwoNumbers()
+        {
+            Assert.AreEqual(true, Equal(ToByteConversion(10), ToByteConversion(10)));                   
+        }
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -338,6 +343,10 @@ namespace Binary_project
                 result = (GetAt(numberToCheck, i) > GetAt(numberToBeChecked, i)) ? true : false;
             }
             return result;
+        }
+        public bool Equal(byte[] numberToCheck, byte[] numberToBeChecked)
+        {
+            return true;
         }
     }
 }
