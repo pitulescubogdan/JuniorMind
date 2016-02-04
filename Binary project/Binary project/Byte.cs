@@ -60,7 +60,7 @@ namespace Binary_project
         [TestMethod]
         public void LessThan()
         {
-            Assert.AreEqual(true, LessThan(ToByteConversion(3), ToByteConversion(5)));
+            Assert.AreEqual(false, LessThan(ToByteConversion(3), ToByteConversion(5)));
         }
         [TestMethod]
         public void TestGetAT()
@@ -126,21 +126,18 @@ namespace Binary_project
         {
             byte[] andBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
 
-            for (int i = 0; i < andBits.Length; i++)
-            {
-                andBits[i] = Decision(GetAt(firstBits, i), GetAt(secondBits, i), "and");
+            
+            andBits = Decision(firstBits, secondBits, "and");
 
-            }
+            
             return ReverseBits(andBits);
         }
         public byte[] OROperand(byte[] firstBits, byte[] secondBits)
         {
             byte[] orBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
 
-            for (int i = 0; i < orBits.Length; i++)
-            {
-                orBits[i] = Decision(GetAt(firstBits, i), GetAt(secondBits, i), "or");
-            }
+            orBits = Decision(firstBits, secondBits, "or");
+
             return ReverseBits(orBits);
         }
         public byte[] XOROperand(byte[] firstBits, byte[] secondBits)
@@ -148,11 +145,10 @@ namespace Binary_project
 
             byte[] xorBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
 
-            for (int i = 0; i < xorBits.Length; i++)
-            {
-                xorBits[i] = Decision(GetAt(firstBits,i),GetAt(secondBits,i),"xor");
 
-            }
+            xorBits = Decision(firstBits, secondBits, "xor");
+
+           
             return ReverseBits(xorBits);
         }
         public byte[] RightShift(byte[] bitsInserted, int numberOfShifting)
@@ -181,29 +177,35 @@ namespace Binary_project
         }
         public bool LessThan(byte[] numberToCheck, byte[] numberToBeChecked)
         {
-            int numberOne = (int)ToDecimalConvert(numberToCheck);
-            int numberTwo = (int)ToDecimalConvert(numberToBeChecked);
-
-            return numberOne < numberTwo;
+            bool result=true;
+            
+            return result;
 
         }
         public byte GetAt(byte[] bitsInserted, int indexPosition)
         {
             return (indexPosition > bitsInserted.Length - 1 || indexPosition < 0) ? (byte)0 : bitsInserted[bitsInserted.Length - 1 - indexPosition];
         }
-        public byte Decision(byte firstBits, byte secondBits, string decision)
+        public byte[] Decision(byte[] firstBits, byte[] secondBits, string decision)
         {
-            switch (decision)
+            byte[] result = new byte[Math.Max(firstBits.Length, secondBits.Length)];
+            for (int i = 0; i < result.Length; i++)
             {
-                case "xor":
-                    return (firstBits != secondBits) ? (byte)1 : (byte)0;
-                case "and":
-                    return (firstBits == 1 && secondBits == 1) ? (byte)1 : (byte)0;
-                case "or":
-                    return (firstBits == 0 && secondBits == 0) ? (byte)0 : (byte)1;
+                switch (decision)
+                {
+                    case "xor":
+                       result[i] = (GetAt(firstBits,i) != GetAt(secondBits,i)) ? (byte)1 : (byte)0;
+                       break; 
+                    case "and":
+                       result[i] = (GetAt(firstBits,i) == 1 &&  GetAt(secondBits,i) == 1) ? (byte)1 : (byte)0;
+                        break;
+                    case "or":
+                       result[i] = (GetAt(firstBits,i) == 0 &&  GetAt(secondBits,i) == 0) ? (byte)0 : (byte)1;
+                        break;
+                }           
             }
-                
-            return (byte)0;
+             return result;
+            
         }
     }
 }
