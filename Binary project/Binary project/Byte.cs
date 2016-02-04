@@ -122,8 +122,9 @@ namespace Binary_project
             Assert.AreEqual(true, Equal(ToByteConversion(10), ToByteConversion(10)));                   
         }
         [TestMethod]
-        public void MyTestMethod()
+        public void NotEqualBetweenTwoNumbers()
         {
+            Assert.AreEqual(true, NotEqual(ToByteConversion(8), ToByteConversion(5)));                   
             
         }
         public byte[] NotByte(byte[] bitsExpected)
@@ -351,12 +352,21 @@ namespace Binary_project
         }
         public bool Equal(byte[] numberToCheck, byte[] numberToBeChecked)
         {
-            bool result = true;
+            bool result = false;
             for (int i = 0; i < Math.Max(numberToBeChecked.Length, numberToCheck.Length); i++)
             {
-                result = (GetAt(numberToCheck, i) == GetAt(numberToBeChecked, i)) ? true : false;
+                while (GetAt(numberToCheck, i) == GetAt(numberToBeChecked, i))
+                {
+                    result =  true;
+                    break;
+                }
+                return result;
             }
             return result;
+        }
+        public bool NotEqual(byte[] numberTocheck, byte[] numberToBeChecked)
+        {        
+            return !(Equal(numberToBeChecked,numberTocheck));
         }
     }
 }
