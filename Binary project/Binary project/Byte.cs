@@ -86,6 +86,12 @@ namespace Binary_project
             Assert.AreEqual(true, LessThan(ToByteConversion(4), ToByteConversion(8)));
         }
         [TestMethod]
+        public void LessThanBetweenAnyTwoNumbers()
+        {
+            Assert.AreEqual(true, LessThan(ToByteConversion(3), ToByteConversion(5)));
+            
+        }
+        [TestMethod]
         public void TestGetAT()
         {
             Assert.AreEqual(0, GetAt(ToByteConversion(2), 4));
@@ -93,12 +99,12 @@ namespace Binary_project
         [TestMethod]
         public void AdditionBinary()
         {
-            CollectionAssert.AreEqual(new byte[] {1, 1, 0 , 0},Addition(ToByteConversion(6),ToByteConversion(6)));
+            CollectionAssert.AreEqual(ToByteConversion(6+6),Addition(ToByteConversion(6),ToByteConversion(6)));
         }
         [TestMethod]
         public void SubstractionBinary()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0 }, Substraction(ToByteConversion(14), ToByteConversion(4))); 
+            CollectionAssert.AreEqual(ToByteConversion(14-4), Substraction(ToByteConversion(14), ToByteConversion(4))); 
         }
         [TestMethod]
         public void Multiplication()
@@ -221,16 +227,16 @@ namespace Binary_project
             Array.Resize(ref bitsInserted, bitsInserted.Length + numberOfShifting);
             return bitsInserted;
         }
-        public bool LessThan(byte[] numberToCheck, byte[] numberToBeChecked)
+        public bool LessThan(byte[] numberToCheck, byte[] numberToBeCheckedWith)
         {
-            bool result = true;
-            for (int i = 0; i < Math.Max(numberToBeChecked.Length, numberToCheck.Length); i++)
+            for (int i = Math.Max(numberToBeCheckedWith.Length, numberToCheck.Length);i>=0; i--)
             {
-                result = (GetAt(numberToCheck, i) < GetAt(numberToBeChecked, i)) ? true : false;
+                if (GetAt(numberToCheck, i) != GetAt(numberToBeCheckedWith, i))
+                {
+                    return (GetAt(numberToCheck, i) < GetAt(numberToBeCheckedWith, i));
+                }
             }
-
-                return result;
-
+            return true;
         }
         public byte GetAt(byte[] bitsInserted, int indexPosition)
         {
@@ -262,13 +268,11 @@ namespace Binary_project
             byte[] result = new byte[0];
             Array.Resize(ref result, (Math.Max(firstBits.Length, secondBits.Length) + 4 - Math.Max(firstBits.Length, secondBits.Length)));
             int remainder = 0;
-            int k = result.Length - 1;
             for (int i = 0; i < result.Length; i++)
             {
                 int hold = GetAt(firstBits, i) + GetAt(secondBits, i) + remainder;
-                result[k] = (byte)(hold % 2);
+                result[result.Length - 1 - i] = (byte)(hold % 2);
                 remainder = hold / 2;               
-                k--;
             }
             return result;
         }
@@ -276,13 +280,11 @@ namespace Binary_project
         {
             byte[] result = new byte[firstBits.Length];
             int remainder = 0;
-            int k = result.Length - 1;
             for (int i = 0; i < result.Length; i++)
             {              
                 int hold =  2 + (GetAt(firstBits, i) - GetAt(secondBits, i) - remainder);
-                result[k] = (byte)(hold % 2);
+                result[result.Length - 1 - i] = (byte)(hold % 2);
                 remainder = (hold < 2) ? (byte)1 : (byte)0;
-                k--;
             }
             return result;
         }
