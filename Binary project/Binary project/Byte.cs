@@ -56,12 +56,30 @@ namespace Binary_project
         [TestMethod]
         public void ShiftLeft()
         {
-           // CollectionAssert.AreEqual(new byte[] {0,0,0}, LeftShift((ToByteConversion(6)), 1));
+           CollectionAssert.AreEqual(new byte[] {1,1,0,0}, LeftShift((ToByteConversion(11)), 2));
         }
+        [TestMethod]
+        public void ShiftLeftFor10()
+        {
+           CollectionAssert.AreEqual(new byte[] {1,0,0,0}, LeftShift((ToByteConversion(10)), 2));           
+        }
+        [TestMethod]
+        public void ShiftLeftFor25()
+        {
+           CollectionAssert.AreEqual(new byte[] {0,0,1,0,0}, LeftShift((ToByteConversion(25)), 3));           
+            
+        }
+
         [TestMethod]
         public void ShiftRight()
         {
             CollectionAssert.AreEqual(new byte[] {0,0,1}, RightShift((ToByteConversion(5)), 2));
+        }
+        [TestMethod]
+        public void ShiftRightFor12()
+        {
+            CollectionAssert.AreEqual(new byte[] {0,0,1,1}, RightShift((ToByteConversion(12)), 2));
+            
         }
         [TestMethod]
         public void LessThan()
@@ -217,7 +235,6 @@ namespace Binary_project
             for (int i = 0; i < bitsInserted.Length; i++)
             {
                 result[bitsInserted.Length - 1 - i] = GetAt(bitsInserted, i + numberOfShifting);
-                numberOfShifting++;
             }
 
             return result;
@@ -225,12 +242,14 @@ namespace Binary_project
         public byte[] LeftShift(byte[] bitsInserted, int numberOfShifting)
         {
             byte[] result = new byte[bitsInserted.Length];
-            for (int i = 0; i <=numberOfShifting ;i--)
+
+            for (int i = 0; i < result.Length; i++)
             {
-                result[i] = GetAt(bitsInserted, bitsInserted.Length - 1 + i );     
+                result[i] = GetAt(bitsInserted,numberOfShifting - 1);
+                numberOfShifting--;
             }
 
-            return result;
+                return result;
         }
         public bool LessThan(byte[] numberToCheck, byte[] numberToBeChecked)
         {
