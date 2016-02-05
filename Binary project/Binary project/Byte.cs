@@ -56,29 +56,28 @@ namespace Binary_project
         [TestMethod]
         public void ShiftLeft()
         {
-           CollectionAssert.AreEqual(new byte[] {1,1,0,0}, LeftShift((ToByteConversion(11)), 2));
+           CollectionAssert.AreEqual(ToByteConversion(11 << 2), LeftShift((ToByteConversion(11)), 2));
         }
         [TestMethod]
         public void ShiftLeftFor10()
         {
-           CollectionAssert.AreEqual(new byte[] {1,0,0,0}, LeftShift((ToByteConversion(10)), 2));           
+           CollectionAssert.AreEqual(ToByteConversion(10 << 2), LeftShift((ToByteConversion(10)), 2));           
         }
         [TestMethod]
         public void ShiftLeftFor25()
         {
-           CollectionAssert.AreEqual(new byte[] {0,0,1,0,0}, LeftShift((ToByteConversion(25)), 3));           
+           CollectionAssert.AreEqual(ToByteConversion(25<<3), LeftShift((ToByteConversion(25)), 3));           
             
         }
-
         [TestMethod]
         public void ShiftRight()
         {
-            CollectionAssert.AreEqual(new byte[] {0,0,1}, RightShift((ToByteConversion(5)), 2));
+            CollectionAssert.AreEqual(ToByteConversion(5 >> 2), RightShift((ToByteConversion(5)), 2));
         }
         [TestMethod]
         public void ShiftRightFor12()
         {
-            CollectionAssert.AreEqual(new byte[] {0,0,1,1}, RightShift((ToByteConversion(12)), 2));
+            CollectionAssert.AreEqual(ToByteConversion(12>>2), RightShift((ToByteConversion(12)), 2));
             
         }
         [TestMethod]
@@ -230,26 +229,13 @@ namespace Binary_project
         }
         public byte[] RightShift(byte[] bitsInserted, int numberOfShifting)
         {
-            byte[] result = new byte[bitsInserted.Length];
-
-            for (int i = 0; i < bitsInserted.Length; i++)
-            {
-                result[bitsInserted.Length - 1 - i] = GetAt(bitsInserted, i + numberOfShifting);
-            }
-
-            return result;
+            Array.Resize(ref bitsInserted, bitsInserted.Length - numberOfShifting);
+            return bitsInserted;
         }
         public byte[] LeftShift(byte[] bitsInserted, int numberOfShifting)
         {
-            byte[] result = new byte[bitsInserted.Length];
-
-            for (int i = 0; i < result.Length; i++)
-            {
-                result[i] = GetAt(bitsInserted,numberOfShifting - 1);
-                numberOfShifting--;
-            }
-
-                return result;
+            Array.Resize(ref bitsInserted, bitsInserted.Length + numberOfShifting);
+            return bitsInserted;
         }
         public bool LessThan(byte[] numberToCheck, byte[] numberToBeChecked)
         {
