@@ -199,33 +199,17 @@ namespace Binary_project
             return bitsExcepted;
         }
         public byte[] AndOperand(byte[] firstBits, byte[] secondBits)
-        {
-            byte[] andBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
-
-            
-            andBits = Decision(firstBits, secondBits, "and");
-
-            
-            return ReverseBits(andBits);
+        {         
+            return ExecuteLogicOperation(firstBits, secondBits, "and");                       
         }
         public byte[] OROperand(byte[] firstBits, byte[] secondBits)
-        {
-            byte[] orBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
+        {           
+            return ExecuteLogicOperation(firstBits, secondBits, "or");
 
-            orBits = Decision(firstBits, secondBits, "or");
-
-            return ReverseBits(orBits);
         }
         public byte[] XOROperand(byte[] firstBits, byte[] secondBits)
-        {
-
-            byte[] xorBits = new byte[Math.Max(firstBits.Length, secondBits.Length)];
-
-
-            xorBits = Decision(firstBits, secondBits, "xor");
-
-           
-            return ReverseBits(xorBits);
+        {      
+            return ExecuteLogicOperation(firstBits, secondBits, "xor");          
         }
         public byte[] RightShift(byte[] bitsInserted, int numberOfShifting)
         {
@@ -252,7 +236,7 @@ namespace Binary_project
         {
             return (indexPosition > bitsInserted.Length - 1 || indexPosition < 0) ? (byte)0 : bitsInserted[bitsInserted.Length - 1 - indexPosition];
         }
-        public byte[] Decision(byte[] firstBits, byte[] secondBits, string decision)
+        public byte[] ExecuteLogicOperation(byte[] firstBits, byte[] secondBits, string decision)
         {
             byte[] result = new byte[Math.Max(firstBits.Length, secondBits.Length)];
             for (int i = 0; i < result.Length; i++)
@@ -270,7 +254,7 @@ namespace Binary_project
                         break;
                 }           
             }
-             return result;
+             return ReverseBits(result);
             
         }
         public byte[] Addition(byte[] firstBits, byte[] secondBits)
