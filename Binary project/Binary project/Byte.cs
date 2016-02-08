@@ -119,7 +119,7 @@ namespace Binary_project
         [TestMethod]
         public void MultiplicationThreeTimesFive()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1 }, Multiplication(ToByteConversion(5),ToByteConversion(3)));                       
+            CollectionAssert.AreEqual(new byte[] { 1,1, 1, 1 }, Multiplication(ToByteConversion(5),ToByteConversion(3)));                       
             
         }
         [TestMethod]
@@ -348,17 +348,17 @@ namespace Binary_project
         }
         public bool Equal(byte[] numberToCheck, byte[] numberToBeChecked)
         {
-            bool result = false;
-            for (int i = 0; i < Math.Max(numberToBeChecked.Length, numberToCheck.Length); i++)
-            {
-                while (GetAt(numberToCheck, i) == GetAt(numberToBeChecked, i))
-                {
-                    result =  true;
-                    break;
-                }
-                return result;
+            bool result = true;
+            for (int i = Math.Max(numberToBeChecked.Length, numberToCheck.Length); i >= 0 ; i--)
+            {             
+             result = (GetAt(numberToCheck, i) != GetAt(numberToBeChecked, i)) ?  false : true;
+             if (!result)
+             {
+                 return false;
+             }
             }
-            return result;
+            return true;
+
         }
         public bool NotEqual(byte[] numberTocheck, byte[] numberToBeChecked)
         {        
