@@ -298,19 +298,22 @@ namespace Binary_project
         {
             byte[] holder = new byte[firstBits.Length];
 
-            if(Equal(multipler,ToByteConversion(1)))
+            if(LessThan(ToByteConversion(2),multipler))
             {
-                return firstBits;
-            }
-            else if (Equal(multipler, ToByteConversion(2)))
-            {                             
-                return holder = Addition(firstBits, firstBits);
-            }else if(LessThan(ToByteConversion(2),multipler)){
-                while (NotEqual(multipler,ToByteConversion(0)))
+                while (NotEqual(multipler, ToByteConversion(0)))
                 {
                     holder = Addition(holder, firstBits);
                     multipler = Substraction(multipler, ToByteConversion(1));
                 }
+            }
+            else if (Equal(multipler, ToByteConversion(2)))
+            {                             
+                return holder = Addition(firstBits, firstBits);
+            }
+            else if (Equal(multipler, ToByteConversion(1)))
+            {
+                
+                return firstBits;
             }
 
             return holder;
