@@ -109,7 +109,7 @@ namespace Binary_project
         [TestMethod]
         public void Multiplication()
         {
-            CollectionAssert.AreEqual(new byte[] {0, 1, 1, 0 }, Multiplication(ToByteConversion(3),ToByteConversion(2)));            
+            CollectionAssert.AreEqual(new byte[] {0,1, 1, 0 }, Multiplication(ToByteConversion(3),ToByteConversion(2)));            
         }
         [TestMethod]
         public void MultiplicationWithGreaterNumbers()
@@ -120,6 +120,12 @@ namespace Binary_project
         public void MultiplicationThreeTimesFive()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1 }, Multiplication(ToByteConversion(5),ToByteConversion(3)));                       
+            
+        }
+        [TestMethod]
+        public void MultiplicationWithOne()
+        {
+            CollectionAssert.AreEqual(new byte[] {1, 1, 0 }, Multiplication(ToByteConversion(6),ToByteConversion(1)));            
             
         }
         [TestMethod]
@@ -160,6 +166,7 @@ namespace Binary_project
             return bitsExpected;
         }
         public byte[] ToByteConversion(int number)
+        
         {
             byte[] bits = new byte[0];
             int i = 1;
@@ -265,8 +272,7 @@ namespace Binary_project
         }
         public byte[] Addition(byte[] firstBits, byte[] secondBits)
         {
-            byte[] result = new byte[0];
-            Array.Resize(ref result, (Math.Max(firstBits.Length, secondBits.Length) + 4 - Math.Max(firstBits.Length, secondBits.Length)));
+            byte[] result = new byte[Math.Max(firstBits.Length, secondBits.Length) + 4 - Math.Max(firstBits.Length, secondBits.Length)];
             int remainder = 0;
             for (int i = 0; i < result.Length; i++)
             {
@@ -290,22 +296,21 @@ namespace Binary_project
         }
         public byte[] Multiplication(byte[] firstBits, byte[] multipler)
         {
-            byte[] holder = new byte[firstBits.Length + 4 - (firstBits.Length % 4)];
-            double counter = ToDecimalConvert(multipler);
+            byte[] holder = new byte[firstBits.Length];
 
-            if(ToDecimalConvert(multipler) > 2){
-                while ((counter) != 0)
+            if(Equal(multipler,ToByteConversion(1)))
+            {
+                return firstBits;
+            }
+            else if (Equal(multipler, ToByteConversion(2)))
+            {                             
+                return holder = Addition(firstBits, firstBits);
+            }else if(LessThan(ToByteConversion(2),multipler)){
+                while (NotEqual(multipler,ToByteConversion(0)))
                 {
                     holder = Addition(holder, firstBits);
-                    counter--;
+                    multipler = Substraction(multipler, ToByteConversion(1));
                 }
-            }else if(ToDecimalConvert(multipler) == 2)
-            {
-                return holder = Addition(firstBits, firstBits);
-            }
-            else if(ToDecimalConvert(multipler) == 1)
-            {                             
-                return firstBits;
             }
 
             return holder;
