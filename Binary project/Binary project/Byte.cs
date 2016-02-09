@@ -115,23 +115,23 @@ namespace Binary_project
         [TestMethod]
         public void Multiplication()
         {
-            CollectionAssert.AreEqual(ToByteConversion(2*3), Multiplication(ToByteConversion(3),ToByteConversion(2)));            
+            CollectionAssert.AreEqual(ToByteConversionAnyBase((2*3),2), Multiplication(ToByteConversionAnyBase(3,2),ToByteConversionAnyBase(2,2),2));            
         }
         [TestMethod]
         public void MultiplicationWithGreaterNumbers()
         {
-            CollectionAssert.AreEqual(ToByteConversion(3*4), Multiplication(ToByteConversion(3),ToByteConversion(4)));                       
+            CollectionAssert.AreEqual(ToByteConversionAnyBase((3*4),2), Multiplication(ToByteConversionAnyBase(3,2),ToByteConversionAnyBase(4,2),2));                       
         }
         [TestMethod]
         public void MultiplicationThreeTimesFive()
         {
-            CollectionAssert.AreEqual(ToByteConversion(5*3), Multiplication(ToByteConversion(5),ToByteConversion(3)));                       
+            CollectionAssert.AreEqual(ToByteConversion(5*3), Multiplication(ToByteConversion(5),ToByteConversion(3),2));                       
             
         }
         [TestMethod]
         public void MultiplicationWithOne()
         {
-            CollectionAssert.AreEqual(ToByteConversion(6*1), Multiplication(ToByteConversion(6),ToByteConversion(1)));            
+            CollectionAssert.AreEqual(ToByteConversion(6*1), Multiplication(ToByteConversion(6),ToByteConversion(1),2));            
             
         }
         [TestMethod]
@@ -217,6 +217,12 @@ namespace Binary_project
         public void SubStractionWithEleventhBase()
         {
             CollectionAssert.AreEqual(ToByteConversionAnyBase((476 - 250), 11), Substraction(ToByteConversionAnyBase(476, 11), ToByteConversionAnyBase(250, 11), 11));
+            
+        }
+        [TestMethod]
+        public void MultiplicationWithFifthBase()
+        {
+            CollectionAssert.AreEqual(ToByteConversionAnyBase((82*50),5),Multiplication(ToByteConversionAnyBase(82,5),ToByteConversionAnyBase(50,5),5));
             
         }
 
@@ -366,14 +372,14 @@ namespace Binary_project
             }
             return result;
         }
-        public byte[] Multiplication(byte[] firstBits, byte[] multipler)
+        public byte[] Multiplication(byte[] firstBits, byte[] multipler,int baseBits)
         {
             byte[] holder = new byte[firstBits.Length];
           
                 while (NotEqual(multipler, ToByteConversion(0)))
                 {
-                    holder = Addition(holder, firstBits,2);
-                    multipler = Substraction(multipler, ToByteConversion(1),2);
+                    holder = Addition(holder, firstBits, baseBits);
+                    multipler = Substraction(multipler, ToByteConversion(1), baseBits);
                 }           
 
             return holder;
