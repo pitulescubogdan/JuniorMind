@@ -168,6 +168,12 @@ namespace Binary_project
             Assert.AreEqual(true, NotEqual(ToByteConversion(8), ToByteConversion(5)));                   
             
         }
+        [TestMethod]
+        public void TestNumberOfZeroes()
+        {
+            Assert.AreEqual(2, GetNoOfZeros(ReverseBits(ToByteConversion(12))));
+        }
+
         public byte[] NotByte(byte[] bitsExpected)
         {
             for (int i = 0; i < bitsExpected.Length; i++)
@@ -366,6 +372,11 @@ namespace Binary_project
         public bool NotEqual(byte[] numberTocheck, byte[] numberToBeChecked)
         {        
             return !(Equal(numberToBeChecked,numberTocheck));
+        }
+        public int GetNoOfZeros(byte[] bitsInserted)
+        {
+
+            return 0;
         }
     }
 }
