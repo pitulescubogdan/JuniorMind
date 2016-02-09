@@ -131,25 +131,25 @@ namespace Binary_project
         [TestMethod]
         public void DivisionBinary()
         {
-            CollectionAssert.AreEqual(new byte[] {0,0,1,1}, Division(ToByteConversion(12),ToByteConversion(4)));                       
+            CollectionAssert.AreEqual(ToByteConversion(12/4), Division(ToByteConversion(12),ToByteConversion(4)));                       
             
         }
         [TestMethod]
         public void DivisionBetween15and3()
         {
-            CollectionAssert.AreEqual(new byte[] {0,0,0,1}, Division(ToByteConversion(15),ToByteConversion(3)));                       
+            CollectionAssert.AreEqual(ToByteConversion(15/3), Division(ToByteConversion(15),ToByteConversion(3)));                       
             
         }
         [TestMethod]
         public void DivisionWithOne()
         {
-            CollectionAssert.AreEqual(new byte[] {1,1,1,1}, Division(ToByteConversion(15),ToByteConversion(1)));                       
+            CollectionAssert.AreEqual(ToByteConversion(15/1), Division(ToByteConversion(15),ToByteConversion(1)));                       
             
         }
         [TestMethod]
         public void DivisionByTwo()
         {
-            CollectionAssert.AreEqual(new byte[] {0,0,0,0,} ,Division(ToByteConversion(8), ToByteConversion(2)));                       
+            CollectionAssert.AreEqual(ToByteConversion(8/2) ,Division(ToByteConversion(8), ToByteConversion(2)));                       
             
         }
         [TestMethod]
@@ -329,25 +329,16 @@ namespace Binary_project
         }
         public byte[] Division(byte[] firstBits, byte[] divider)
         {          
-            int eachDivider = (int)(ToDecimalConvert(firstBits) / ToDecimalConvert(divider));
-            if (LessThan(ToByteConversion(2),divider))
+            byte[] count = {0};
+
+            while (LessThan(divider, firstBits))
             {
-                while (NotEqual(divider,ToByteConversion(0)))
-                {
-                    firstBits = Substraction(firstBits, ToByteConversion(eachDivider));
-                    divider = Substraction(divider, ToByteConversion(1));
-                }
+                firstBits = Substraction(firstBits, divider);
+                count = Addition(count, ToByteConversion(1));
             }
-            else if (Equal(divider,ToByteConversion(2)))
-            {
-                int half = (int)(ToDecimalConvert((firstBits)) / 2);
-                return Substraction(firstBits, ToByteConversion(half));
-            }
-            else if (Equal(divider, ToByteConversion(1)))
-            {
-                return firstBits;
-            }
-            return firstBits;
+
+            return count;
+
         }
         public bool GreaterThan(byte[] numberToCheck, byte[] numberToBeChecked)
         {
