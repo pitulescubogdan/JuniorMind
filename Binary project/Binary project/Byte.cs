@@ -231,6 +231,11 @@ namespace Binary_project
             CollectionAssert.AreEqual(ToByteConversionAnyBase((275*45),20),Multiplication(ToByteConversionAnyBase(275,20),ToByteConversionAnyBase(45,20),20));
             
         }
+        [TestMethod]
+        public void DivisionWithEightBase()
+        {
+            CollectionAssert.AreEqual(ToByteConversionAnyBase((1024/64),4),Division(ToByteConversionAnyBase(1204,4),ToByteConversionAnyBase(64,4),4));
+        }
 
         public byte[] NotByte(byte[] bitsExpected)
         {
@@ -372,7 +377,7 @@ namespace Binary_project
             int remainder = 0;
             for (int i = 0; i < result.Length; i++)
             {
-                int hold = baseBits + (GetAt(firstBits, i) - GetAt(secondBits, i) - remainder);
+                int hold = (baseBits + (GetAt(firstBits, i) - GetAt(secondBits, i) - remainder));
                 result[result.Length - 1 - i] = (byte)(hold % baseBits);
                 remainder = (hold < baseBits) ? (byte)1 : (byte)0;
             }
@@ -382,10 +387,10 @@ namespace Binary_project
         {
             byte[] holder = new byte[firstBits.Length];
           
-                while (NotEqual(multipler, ToByteConversion(0)))
+                while (NotEqual(multipler, ToByteConversionAnyBase(0,2)))
                 {
                     holder = Addition(holder, firstBits, baseBits);
-                    multipler = Substraction(multipler, ToByteConversion(1), baseBits);
+                    multipler = Substraction(multipler, ToByteConversionAnyBase(1,baseBits), baseBits);
                 }           
 
             return holder;
