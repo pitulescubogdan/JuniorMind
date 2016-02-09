@@ -102,6 +102,12 @@ namespace Binary_project
             CollectionAssert.AreEqual(ToByteConversion(6+6),Addition(ToByteConversion(6),ToByteConversion(6)));
         }
         [TestMethod]
+        public void AdditionWithGreatNumbers()
+        {
+            CollectionAssert.AreEqual(ToByteConversion(20+5),Addition(ToByteConversion(20),ToByteConversion(5)));
+            
+        }
+        [TestMethod]
         public void SubstractionBinary()
         {
             CollectionAssert.AreEqual(ToByteConversion(14-4), Substraction(ToByteConversion(14), ToByteConversion(4))); 
@@ -172,6 +178,17 @@ namespace Binary_project
         public void TestNumberOfZeroes()
         {
             Assert.AreEqual(2, GetNoOfZeroes(ToByteConversion(12)));
+        }
+        [TestMethod]
+        public void ToDecimalConvertInAnyBase()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0 }, ToByteConversion(4));
+        }
+        [TestMethod]
+        public void ToBinaryOfAnyBase()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0 }, ToByteConversionAnyBase(4,2));
+            
         }
 
         public byte[] NotByte(byte[] bitsExpected)
@@ -298,15 +315,14 @@ namespace Binary_project
                 result[result.Length - 1 - i] = (byte)(hold % 2);
                 remainder = hold / 2;               
             }
-
-            if (remainder != 0)
-            {
-                Array.Reverse(result);
-                Array.Resize(ref result, result.Length + 1);
-                result[result.Length - 1] = (byte)1;
-                Array.Reverse(result);
-            }
-
+            
+                if (remainder != 0)
+                {
+                    Array.Reverse(result);
+                    Array.Resize(ref result, result.Length + 1);
+                    result[result.Length - 1] = (byte)1;
+                    Array.Reverse(result);
+                }               
             return result;
         }
         public byte[] Substraction(byte[] firstBits, byte[] secondBits)
@@ -390,6 +406,19 @@ namespace Binary_project
                 }
             }
                 return countZeroes;
+        }
+        public byte[] ToByteConversionAnyBase(int number,int baseBits)
+        {
+            byte[] bits = new byte[0];
+            int i = 1;
+            while (number != 0)
+            {
+                Array.Resize(ref bits, i);
+                bits[i - 1] = (byte)(number % baseBits);
+                i++;
+                number = number / baseBits;
+            }
+            return ReverseBits(bits);
         }
     }
 }
