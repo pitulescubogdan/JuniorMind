@@ -232,9 +232,15 @@ namespace Binary_project
             
         }
         [TestMethod]
-        public void DivisionWithEightBase()
+        public void DivisionWithFourthBase()
         {
-            CollectionAssert.AreEqual(ToByteConversionAnyBase((1024/64),4),Division(ToByteConversionAnyBase(1204,4),ToByteConversionAnyBase(64,4),4));
+            CollectionAssert.AreEqual(ToByteConversionAnyBase((1024/64),4),Division(ToByteConversionAnyBase(1024,4),ToByteConversionAnyBase(64,4),4));
+        }
+        [TestMethod]
+        public void DivisonForEightBase()
+        {
+            CollectionAssert.AreEqual(ToByteConversionAnyBase((1024/64),8),Division(ToByteConversionAnyBase(1024,8),ToByteConversionAnyBase(64,8),8));
+            
         }
 
         public byte[] NotByte(byte[] bitsExpected)
