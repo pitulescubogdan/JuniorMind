@@ -109,23 +109,23 @@ namespace Binary_project
         [TestMethod]
         public void Multiplication()
         {
-            CollectionAssert.AreEqual(new byte[] {0,1, 1, 0 }, Multiplication(ToByteConversion(3),ToByteConversion(2)));            
+            CollectionAssert.AreEqual(ToByteConversion(2*3), Multiplication(ToByteConversion(3),ToByteConversion(2)));            
         }
         [TestMethod]
         public void MultiplicationWithGreaterNumbers()
         {
-            CollectionAssert.AreEqual(new byte[] {1, 1, 0, 0 }, Multiplication(ToByteConversion(3),ToByteConversion(4)));                       
+            CollectionAssert.AreEqual(ToByteConversion(3*4), Multiplication(ToByteConversion(3),ToByteConversion(4)));                       
         }
         [TestMethod]
         public void MultiplicationThreeTimesFive()
         {
-            CollectionAssert.AreEqual(new byte[] { 1,1, 1, 1 }, Multiplication(ToByteConversion(5),ToByteConversion(3)));                       
+            CollectionAssert.AreEqual(ToByteConversion(5*3), Multiplication(ToByteConversion(5),ToByteConversion(3)));                       
             
         }
         [TestMethod]
         public void MultiplicationWithOne()
         {
-            CollectionAssert.AreEqual(new byte[] {1, 1, 0 }, Multiplication(ToByteConversion(6),ToByteConversion(1)));            
+            CollectionAssert.AreEqual(ToByteConversion(6*1), Multiplication(ToByteConversion(6),ToByteConversion(1)));            
             
         }
         [TestMethod]
@@ -137,7 +137,19 @@ namespace Binary_project
         [TestMethod]
         public void DivisionBetween15and3()
         {
-            CollectionAssert.AreEqual(new byte[] {0,1,0,1}, Division(ToByteConversion(15),ToByteConversion(3)));                       
+            CollectionAssert.AreEqual(new byte[] {0,0,0,1}, Division(ToByteConversion(15),ToByteConversion(3)));                       
+            
+        }
+        [TestMethod]
+        public void DivisionWithOne()
+        {
+            CollectionAssert.AreEqual(new byte[] {1,1,1,1}, Division(ToByteConversion(15),ToByteConversion(1)));                       
+            
+        }
+        [TestMethod]
+        public void DivisionByTwo()
+        {
+            CollectionAssert.AreEqual(new byte[] {0,0,0,0,} ,Division(ToByteConversion(8), ToByteConversion(2)));                       
             
         }
         [TestMethod]
@@ -272,7 +284,7 @@ namespace Binary_project
         }
         public byte[] Addition(byte[] firstBits, byte[] secondBits)
         {
-            byte[] result = new byte[Math.Max(firstBits.Length, secondBits.Length) + 4 - Math.Max(firstBits.Length, secondBits.Length)];
+            byte[] result = new byte[Math.Max(firstBits.Length, secondBits.Length)];
             int remainder = 0;
             for (int i = 0; i < result.Length; i++)
             {
@@ -280,6 +292,15 @@ namespace Binary_project
                 result[result.Length - 1 - i] = (byte)(hold % 2);
                 remainder = hold / 2;               
             }
+
+            if (remainder != 0)
+            {
+                Array.Reverse(result);
+                Array.Resize(ref result, result.Length + 1);
+                result[result.Length - 1] = (byte)1;
+                Array.Reverse(result);
+            }
+
             return result;
         }
         public byte[] Substraction(byte[] firstBits, byte[] secondBits)
@@ -297,44 +318,32 @@ namespace Binary_project
         public byte[] Multiplication(byte[] firstBits, byte[] multipler)
         {
             byte[] holder = new byte[firstBits.Length];
-
-            if(LessThan(ToByteConversion(2),multipler))
-            {
+          
                 while (NotEqual(multipler, ToByteConversion(0)))
                 {
                     holder = Addition(holder, firstBits);
                     multipler = Substraction(multipler, ToByteConversion(1));
-                }
-            }
-            else if (Equal(multipler, ToByteConversion(2)))
-            {                             
-                return holder = Addition(firstBits, firstBits);
-            }
-            else if (Equal(multipler, ToByteConversion(1)))
-            {
-                
-                return firstBits;
-            }
+                }           
 
             return holder;
         }
         public byte[] Division(byte[] firstBits, byte[] divider)
-        {
-            int counter = (int)(ToDecimalConvert(divider) - 1);
+        {          
             int eachDivider = (int)(ToDecimalConvert(firstBits) / ToDecimalConvert(divider));
-            if (ToDecimalConvert(divider) > 2)
+            if (LessThan(ToByteConversion(2),divider))
             {
-                while (counter != 0)
+                while (NotEqual(divider,ToByteConversion(0)))
                 {
-                    firstBits = Substraction(firstBits, ToByteConversion(eachDivider));                 
-                    counter--;
+                    firstBits = Substraction(firstBits, ToByteConversion(eachDivider));
+                    divider = Substraction(divider, ToByteConversion(1));
                 }
             }
-            else if (ToDecimalConvert(divider) == 2)
+            else if (Equal(divider,ToByteConversion(2)))
             {
-                return firstBits = Substraction(firstBits, divider);
+                int half = (int)(ToDecimalConvert((firstBits)) / 2);
+                return Substraction(firstBits, ToByteConversion(half));
             }
-            else if (ToDecimalConvert(divider) == 1)
+            else if (Equal(divider, ToByteConversion(1)))
             {
                 return firstBits;
             }
