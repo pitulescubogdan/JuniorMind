@@ -185,9 +185,14 @@ namespace Binary_project
             CollectionAssert.AreEqual(new byte[] { 1, 0, 0 }, ToByteConversion(4));
         }
         [TestMethod]
-        public void ToBinaryOfAnyBase()
+        public void ToBinaryOfBaseTwo()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 0 }, ToByteConversionAnyBase(4,2));
+            CollectionAssert.AreEqual(ToByteConversion(4), ToByteConversionAnyBase(4,2));           
+        }
+        [TestMethod]
+        public void ToBinaryOfThirdBase()
+        {
+            CollectionAssert.AreEqual(new byte[] {1,1,2,1}, ToByteConversionAnyBase(43, 3));           
             
         }
 
