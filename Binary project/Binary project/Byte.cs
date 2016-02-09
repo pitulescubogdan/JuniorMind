@@ -177,7 +177,7 @@ namespace Binary_project
         [TestMethod]
         public void TestNumberOfZeroes()
         {
-            Assert.AreEqual(2, GetNoOfZeroes(ToByteConversion(12)));
+            Assert.AreEqual(0, GetNoOfZeroes(ToByteConversion(12)));
         }
         [TestMethod]
         public void ToDecimalConvertInAnyBase()
@@ -421,8 +421,7 @@ namespace Binary_project
         public bool Equal(byte[] numberToCheck, byte[] numberToBeChecked)
         {
 
-            return (LessThan(numberToCheck, numberToBeChecked) && GreaterThan(numberToCheck, numberToBeChecked)) ? true : false;
-
+            return (LessThan(numberToCheck, numberToBeChecked) && GreaterThan(numberToCheck, numberToBeChecked));
         }
         public bool NotEqual(byte[] numberTocheck, byte[] numberToBeChecked)
         {        
@@ -433,16 +432,13 @@ namespace Binary_project
             int countZeroes = 0;
 
             for (int i = 0; i < bitsInserted.Length; i++)
-            {
-
-                if (GetAt(bitsInserted, i) ==(byte) 0)
-                {
-                    countZeroes++;
-                }
-                else if (GetAt(bitsInserted, i) != (byte)0)
+            {               
+                if (bitsInserted[i] != (byte)0)
                 {
                     return countZeroes;
                 }
+                countZeroes++;
+                
             }
                 return countZeroes;
         }
