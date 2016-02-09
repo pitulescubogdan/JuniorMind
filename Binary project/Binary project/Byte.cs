@@ -99,12 +99,12 @@ namespace Binary_project
         [TestMethod]
         public void AdditionBinary()
         {
-            CollectionAssert.AreEqual(ToByteConversion(6+6),Addition(ToByteConversion(6),ToByteConversion(6)));
+            CollectionAssert.AreEqual(ToByteConversion(6+6),Addition(ToByteConversion(6),ToByteConversion(6),2));
         }
         [TestMethod]
         public void AdditionWithGreatNumbers()
         {
-            CollectionAssert.AreEqual(ToByteConversion(20+5),Addition(ToByteConversion(20),ToByteConversion(5)));
+            CollectionAssert.AreEqual(ToByteConversion(20+5),Addition(ToByteConversion(20),ToByteConversion(5),2));
             
         }
         [TestMethod]
@@ -316,15 +316,15 @@ namespace Binary_project
              return ReverseBits(result);
             
         }
-        public byte[] Addition(byte[] firstBits, byte[] secondBits)
+        public byte[] Addition(byte[] firstBits, byte[] secondBits,int baseBits)
         {
             byte[] result = new byte[Math.Max(firstBits.Length, secondBits.Length)];
             int remainder = 0;
             for (int i = 0; i < result.Length; i++)
             {
                 int hold = GetAt(firstBits, i) + GetAt(secondBits, i) + remainder;
-                result[result.Length - 1 - i] = (byte)(hold % 2);
-                remainder = hold / 2;               
+                result[result.Length - 1 - i] = (byte)(hold % baseBits);
+                remainder = hold / baseBits;               
             }
             
                 if (remainder != 0)
@@ -354,7 +354,7 @@ namespace Binary_project
           
                 while (NotEqual(multipler, ToByteConversion(0)))
                 {
-                    holder = Addition(holder, firstBits);
+                    holder = Addition(holder, firstBits,2);
                     multipler = Substraction(multipler, ToByteConversion(1));
                 }           
 
@@ -367,7 +367,7 @@ namespace Binary_project
             while (LessThan(divider, firstBits))
             {
                 firstBits = Substraction(firstBits, divider);
-                count = Addition(count, ToByteConversion(1));
+                count = Addition(count, ToByteConversion(1),2);
             }
 
             return count;
