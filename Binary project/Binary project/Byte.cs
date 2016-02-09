@@ -201,6 +201,12 @@ namespace Binary_project
             CollectionAssert.AreEqual(new byte[] {1,15,12}, ToByteConversionAnyBase(712, 20));           
             
         }
+        [TestMethod]
+        public void AdditionWithAnyBase()
+        {
+            CollectionAssert.AreEqual(ToByteConversionAnyBase((82+50),3),Addition(ToByteConversionAnyBase(82,3),ToByteConversionAnyBase(50,3),3));
+            
+        }
 
         public byte[] NotByte(byte[] bitsExpected)
         {
