@@ -214,8 +214,9 @@ namespace Binary_project
             
         }
         [TestMethod]
-        public void SubStractionWith()
+        public void SubStractionWithEleventhBase()
         {
+            CollectionAssert.AreEqual(ToByteConversionAnyBase((476 - 250), 11), Substraction(ToByteConversionAnyBase(476, 11), ToByteConversionAnyBase(250, 11), 11));
             
         }
 
