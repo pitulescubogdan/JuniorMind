@@ -137,25 +137,25 @@ namespace Binary_project
         [TestMethod]
         public void DivisionBinary()
         {
-            CollectionAssert.AreEqual(ToByteConversion(12/4), Division(ToByteConversion(12),ToByteConversion(4)));                       
+            CollectionAssert.AreEqual(ToByteConversion(12/4), Division(ToByteConversion(12),ToByteConversion(4),2));                       
             
         }
         [TestMethod]
         public void DivisionBetween15and3()
         {
-            CollectionAssert.AreEqual(ToByteConversion(15/3), Division(ToByteConversion(15),ToByteConversion(3)));                       
+            CollectionAssert.AreEqual(ToByteConversion(15/3), Division(ToByteConversion(15),ToByteConversion(3),2));                       
             
         }
         [TestMethod]
         public void DivisionWithOne()
         {
-            CollectionAssert.AreEqual(ToByteConversion(15/1), Division(ToByteConversion(15),ToByteConversion(1)));                       
+            CollectionAssert.AreEqual(ToByteConversion(15/1), Division(ToByteConversion(15),ToByteConversion(1),2));                       
             
         }
         [TestMethod]
         public void DivisionByTwo()
         {
-            CollectionAssert.AreEqual(ToByteConversion(8/2) ,Division(ToByteConversion(8), ToByteConversion(2)));                       
+            CollectionAssert.AreEqual(ToByteConversion(8/2) ,Division(ToByteConversion(8), ToByteConversion(2),2));                       
             
         }
         [TestMethod]
@@ -223,6 +223,12 @@ namespace Binary_project
         public void MultiplicationWithFifthBase()
         {
             CollectionAssert.AreEqual(ToByteConversionAnyBase((82*50),5),Multiplication(ToByteConversionAnyBase(82,5),ToByteConversionAnyBase(50,5),5));
+            
+        }
+        [TestMethod]
+        public void MultiplicationWithGreatBase()
+        {
+            CollectionAssert.AreEqual(ToByteConversionAnyBase((275*45),20),Multiplication(ToByteConversionAnyBase(275,20),ToByteConversionAnyBase(45,20),20));
             
         }
 
@@ -384,14 +390,14 @@ namespace Binary_project
 
             return holder;
         }
-        public byte[] Division(byte[] firstBits, byte[] divider)
+        public byte[] Division(byte[] firstBits, byte[] divider,int baseBits)
         {          
             byte[] count = {0};
 
             while (LessThan(divider, firstBits))
             {
-                firstBits = Substraction(firstBits, divider,2);
-                count = Addition(count, ToByteConversion(1),2);
+                firstBits = Substraction(firstBits, divider, baseBits);
+                count = Addition(count, ToByteConversion(1), baseBits);
             }
 
             return count;
