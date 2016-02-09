@@ -171,7 +171,7 @@ namespace Binary_project
         [TestMethod]
         public void TestNumberOfZeroes()
         {
-            Assert.AreEqual(2, GetNoOfZeros(ReverseBits(ToByteConversion(12))));
+            Assert.AreEqual(2, GetNoOfZeroes(ToByteConversion(12)));
         }
 
         public byte[] NotByte(byte[] bitsExpected)
@@ -373,10 +373,23 @@ namespace Binary_project
         {        
             return !(Equal(numberToBeChecked,numberTocheck));
         }
-        public int GetNoOfZeros(byte[] bitsInserted)
+        public int GetNoOfZeroes(byte[] bitsInserted)
         {
+            int countZeroes = 0;
 
-            return 0;
+            for (int i = 0; i < bitsInserted.Length; i++)
+            {
+
+                if (GetAt(bitsInserted, i) ==(byte) 0)
+                {
+                    countZeroes++;
+                }
+                else if (GetAt(bitsInserted, i) != (byte)0)
+                {
+                    return countZeroes;
+                }
+            }
+                return countZeroes;
         }
     }
 }
