@@ -410,12 +410,7 @@ namespace Binary_project
         }
         public bool GreaterThan(byte[] numberToCheck, byte[] numberToBeChecked)
         {
-            bool result = true;
-            for (int i = 0; i < Math.Max(numberToBeChecked.Length, numberToCheck.Length); i++)
-            {
-                result = (GetAt(numberToCheck, i) > GetAt(numberToBeChecked, i)) ? true : false;
-            }
-            return result;
+            return LessThan(numberToBeChecked, numberToCheck);
         }
         public bool Equal(byte[] numberToCheck, byte[] numberToBeChecked)
         {
