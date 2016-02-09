@@ -110,7 +110,7 @@ namespace Binary_project
         [TestMethod]
         public void SubstractionBinary()
         {
-            CollectionAssert.AreEqual(ToByteConversion(14-4), Substraction(ToByteConversion(14), ToByteConversion(4))); 
+            CollectionAssert.AreEqual(ToByteConversion(14-4), Substraction(ToByteConversion(14), ToByteConversion(4),2)); 
         }
         [TestMethod]
         public void Multiplication()
@@ -205,6 +205,17 @@ namespace Binary_project
         public void AdditionWithAnyBase()
         {
             CollectionAssert.AreEqual(ToByteConversionAnyBase((82+50),3),Addition(ToByteConversionAnyBase(82,3),ToByteConversionAnyBase(50,3),3));
+            
+        }
+        [TestMethod]
+        public void SubstractionWithAnyBase()
+        {
+            CollectionAssert.AreEqual(ToByteConversionAnyBase((152 - 29), 3), Substraction(ToByteConversionAnyBase(152, 3), ToByteConversionAnyBase(29, 3), 3));
+            
+        }
+        [TestMethod]
+        public void SubStractionWith()
+        {
             
         }
 
@@ -342,15 +353,15 @@ namespace Binary_project
                 }               
             return result;
         }
-        public byte[] Substraction(byte[] firstBits, byte[] secondBits)
+        public byte[] Substraction(byte[] firstBits, byte[] secondBits,int baseBits)
         {
             byte[] result = new byte[firstBits.Length];
             int remainder = 0;
             for (int i = 0; i < result.Length; i++)
-            {              
-                int hold =  2 + (GetAt(firstBits, i) - GetAt(secondBits, i) - remainder);
-                result[result.Length - 1 - i] = (byte)(hold % 2);
-                remainder = (hold < 2) ? (byte)1 : (byte)0;
+            {
+                int hold = baseBits + (GetAt(firstBits, i) - GetAt(secondBits, i) - remainder);
+                result[result.Length - 1 - i] = (byte)(hold % baseBits);
+                remainder = (hold < baseBits) ? (byte)1 : (byte)0;
             }
             return result;
         }
@@ -361,7 +372,7 @@ namespace Binary_project
                 while (NotEqual(multipler, ToByteConversion(0)))
                 {
                     holder = Addition(holder, firstBits,2);
-                    multipler = Substraction(multipler, ToByteConversion(1));
+                    multipler = Substraction(multipler, ToByteConversion(1),2);
                 }           
 
             return holder;
@@ -372,7 +383,7 @@ namespace Binary_project
 
             while (LessThan(divider, firstBits))
             {
-                firstBits = Substraction(firstBits, divider);
+                firstBits = Substraction(firstBits, divider,2);
                 count = Addition(count, ToByteConversion(1),2);
             }
 
