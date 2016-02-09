@@ -414,16 +414,8 @@ namespace Binary_project
         }
         public bool Equal(byte[] numberToCheck, byte[] numberToBeChecked)
         {
-            bool result = true;
-            for (int i = Math.Max(numberToBeChecked.Length, numberToCheck.Length); i >= 0 ; i--)
-            {             
-             result = (GetAt(numberToCheck, i) != GetAt(numberToBeChecked, i)) ?  false : true;
-             if (!result)
-             {
-                 return false;
-             }
-            }
-            return true;
+
+            return (LessThan(numberToCheck, numberToBeChecked) && GreaterThan(numberToCheck, numberToBeChecked)) ? true : false;
 
         }
         public bool NotEqual(byte[] numberTocheck, byte[] numberToBeChecked)
