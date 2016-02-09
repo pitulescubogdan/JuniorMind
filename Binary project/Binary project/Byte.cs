@@ -195,6 +195,12 @@ namespace Binary_project
             CollectionAssert.AreEqual(new byte[] {1,1,2,1}, ToByteConversionAnyBase(43, 3));           
             
         }
+        [TestMethod]
+        public void ToBinaryForAnyBase()
+        {
+            CollectionAssert.AreEqual(new byte[] {1,15,12}, ToByteConversionAnyBase(712, 20));           
+            
+        }
 
         public byte[] NotByte(byte[] bitsExpected)
         {
