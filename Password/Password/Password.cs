@@ -29,14 +29,27 @@ namespace Password
         [TestMethod]
         public void GetPasswordOfSmallCharacters()
         {
-            var password = new Options[] { new Options(1, 0, 0, 0, false, false) };
+            var password = new Options[] { new Options(10, 0, 0, 0, false, false) };
             Assert.AreEqual(true, CheckSmallLettersOfAString(GetPassword(password)));
-        }
+        }      
         [TestMethod]
         public void CheckSmallLetters()
         {
             var smallPassowrd = GetSmallLetters(5);
             Assert.AreEqual(true, CheckSmallLettersOfAString(smallPassowrd));
+        }
+        [TestMethod]
+        public void GetPasswordForSmallAndBigLetters()
+        {
+            var password = new Options[] { new Options(10, 5, 0, 0, false, false) };
+            Assert.AreEqual(true, CheckSmallLettersOfAString(GetPassword(password)));
+        }
+        [TestMethod]
+        public void CheckForBigLetters()
+        {
+            var bigPassword = GetBigLetters(5);
+            Assert.AreEqual(true, CheckUpperLetters(bigPassword));
+            
         }
 
         public string GetPassword(Options[] options)
@@ -63,6 +76,14 @@ namespace Password
             }
             return output;
         }
+        public string GetBigLetters(int noOfLetters)
+        {
+            string output = string.Empty;
+
+            output = GetSmallLetters(noOfLetters);
+
+            return output.ToUpper();
+        }
         public bool CheckSmallLettersOfAString(string inputString)
         {
 
@@ -72,6 +93,16 @@ namespace Password
             }
 
             return true;
+        }
+        public bool CheckUpperLetters(string inputString)
+        {
+
+            for (int i = 0; i < inputString.Length - 1; i++)
+            {
+                if ((!(char.IsUpper(inputString[i])))) return false;
+            }
+            //CheckSmallLettersOfAString(inputString) && 
+                return true;
         }
     }
 }
