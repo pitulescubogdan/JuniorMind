@@ -29,7 +29,8 @@ namespace Password
         [TestMethod]
         public void GetPasswordOfSmallCharacters()
         {
-            Assert.AreEqual("",GetPassword(0));
+            var password = new Options[] { new Options(1, 0, 0, 0, false, false) };
+            Assert.AreEqual(true, CheckSmallLettersOfAString(GetPassword(password)));
         }
         [TestMethod]
         public void CheckSmallLetters()
@@ -38,9 +39,15 @@ namespace Password
             Assert.AreEqual(true, CheckSmallLettersOfAString(smallPassowrd));
         }
 
-        public string GetPassword(int noOfChars)
+        public string GetPassword(Options[] options)
         {
-            return "";
+            string result = string.Empty;
+            for (int i = 0; i < options.Length; i++)
+            {
+                result = GetSmallLetters(options[i].smallChars);         
+            }
+
+            return result;
         }
         public string GetSmallLetters(int noOfSmallLetters)
         {
