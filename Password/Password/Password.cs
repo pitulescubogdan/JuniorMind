@@ -6,11 +6,6 @@ namespace Password
     [TestClass]
     public class Password
     {
-        [TestMethod]
-        public void GetPasswordOfSmallCharacters()
-        {
-            Assert.AreEqual("",GetPassword(0));
-        }
         public struct Options
         {
             public int smallChars;
@@ -31,9 +26,45 @@ namespace Password
             }
 
         }
+        [TestMethod]
+        public void GetPasswordOfSmallCharacters()
+        {
+            Assert.AreEqual("",GetPassword(0));
+        }
+        [TestMethod]
+        public void CheckSmallLetters()
+        {
+            var smallPassowrd = GetSmallLetters(5);
+            Assert.AreEqual(true, CheckSmallLettersOfAString(smallPassowrd));
+        }
+
         public string GetPassword(int noOfChars)
         {
             return "";
+        }
+        public string GetSmallLetters(int noOfSmallLetters)
+        {
+            string output = string.Empty;
+            Random rand = new Random();
+
+            while (noOfSmallLetters != 0)
+            {
+                int randomNumber = rand.Next(0, 26);
+                char holdChar = (char)('a' + randomNumber);
+                output += holdChar;
+                noOfSmallLetters--;
+            }
+            return output;
+        }
+        public bool CheckSmallLettersOfAString(string inputString)
+        {
+
+            for (int i = 0; i < inputString.Length - 1; i++)
+            {
+                if (!(char.IsLower(inputString[i]))) return false;
+            }
+
+            return true;
         }
     }
 }
