@@ -42,7 +42,7 @@ namespace Password
         public void GetPasswordForSmallAndBigLetters()
         {
             var password = new Options[] { new Options(10, 4, 0, 0, false, false) };
-            Assert.AreEqual(true, CheckForLowerAndUpperLetters(GetPassword(password)));
+            Assert.AreEqual("asd", (GetPassword(password)));
         }
         [TestMethod]
         public void CheckForBigLetters()
