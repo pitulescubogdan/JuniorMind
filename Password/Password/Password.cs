@@ -41,8 +41,8 @@ namespace Password
         [TestMethod]
         public void GetPasswordForSmallAndBigLetters()
         {
-            var password = new Options[] { new Options(10, 5, 0, 0, false, false) };
-            Assert.AreEqual(true, CheckSmallLettersOfAString(GetPassword(password)));
+            var password = new Options[] { new Options(10, 4, 0, 0, false, false) };
+            Assert.AreEqual(true, CheckForLowerAndUpperLetters(GetPassword(password)));
         }
         [TestMethod]
         public void CheckForBigLetters()
@@ -51,16 +51,21 @@ namespace Password
             Assert.AreEqual(true, CheckUpperLetters(bigPassword));
             
         }
+        [TestMethod]
+        public void CheckForLowerAndUpperLetters()
+        {
+            Assert.AreEqual(true, CheckForLowerAndUpperLetters("AsfaSfSr"));
+        }
 
         public string GetPassword(Options[] options)
         {
             string result = string.Empty;
             for (int i = 0; i < options.Length; i++)
             {
-                result = GetSmallLetters(options[i].smallChars);         
+                result = GetSmallLetters(options[i].smallChars - options[i].noOfUpperChars);
+                result += GetBigLetters(options[i].noOfUpperChars);
             }
-
-            return result;
+            return  result;
         }
         public string GetSmallLetters(int noOfSmallLetters)
         {
@@ -78,9 +83,7 @@ namespace Password
         }
         public string GetBigLetters(int noOfLetters)
         {
-            string output = string.Empty;
-
-            output = GetSmallLetters(noOfLetters);
+            string output = GetSmallLetters(noOfLetters);
 
             return output.ToUpper();
         }
@@ -100,9 +103,13 @@ namespace Password
             for (int i = 0; i < inputString.Length - 1; i++)
             {
                 if ((!(char.IsUpper(inputString[i])))) return false;
-            }
-            //CheckSmallLettersOfAString(inputString) && 
+            } 
                 return true;
         }
+        public bool CheckForLowerAndUpperLetters(string inputString)
+        {
+            return (CheckSmallLettersOfAString(inputString) && CheckUpperLetters(inputString)) ? false : true;
+        }
+        
     }
 }
