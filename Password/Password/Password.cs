@@ -48,7 +48,7 @@ namespace Password
         public void CheckForBigLetters()
         {
             var bigPassword = GetBigLetters(5);
-            Assert.AreEqual(true, CheckUpperLetters(bigPassword));
+            Assert.AreEqual(4, CountUpperLetters(bigPassword));
             
         }
         [TestMethod]
@@ -97,19 +97,20 @@ namespace Password
 
             return true;
         }
-        public bool CheckUpperLetters(string inputString)
+        public int CountUpperLetters(string inputString)
         {
-
+            int count = 0;
             for (int i = 0; i < inputString.Length - 1; i++)
             {
-                if ((!(char.IsUpper(inputString[i])))) return false;
+                if ((char.IsUpper(inputString[i]))) count++;
             } 
-                return true;
+                return count;
         }
         public bool CheckForLowerAndUpperLetters(string inputString)
         {
-            return (CheckSmallLettersOfAString(inputString) && CheckUpperLetters(inputString)) ? false : true;
+            return (CheckSmallLettersOfAString(inputString) && (CountUpperLetters(inputString) > 0)) ? false : true;
         }
+       
         
     }
 }
