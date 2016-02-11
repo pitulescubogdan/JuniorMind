@@ -42,7 +42,7 @@ namespace Password
         public void GetPasswordForSmallAndBigLetters()
         {
             var password = new Options[] { new Options(10, 4, 0, 0, false, false) };
-            Assert.AreEqual("asd", (GetPassword(password)));
+            Assert.AreEqual("asdas", (GetPassword(password))); 
         }
         [TestMethod]
         public void CheckForBigLetters()
@@ -57,7 +57,7 @@ namespace Password
             Assert.AreEqual(true, CheckForLowerAndUpperLetters("AsfaSfSr"));
         }
 
-        public string GetPassword(Options[] options)
+        public string GetPassword(Options[] options) // same string generated for both functions!
         {
             string result = string.Empty;
             for (int i = 0; i < options.Length; i++)
