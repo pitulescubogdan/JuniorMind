@@ -42,7 +42,7 @@ namespace Password
         public void GetPasswordForSmallAndBigLetters()
         {
             var password = new Options[] { new Options(10, 4, 0, 0, false, false) };
-            Assert.AreEqual("asdas", (GetPassword(password))); 
+            Assert.AreEqual(true, CheckForLowerAndUpperLetters(GetPassword(password))); 
         }
         [TestMethod]
         public void CheckForBigLetters()
@@ -55,6 +55,11 @@ namespace Password
         public void CheckForLowerAndUpperLetters()
         {
             Assert.AreEqual(true, CheckForLowerAndUpperLetters("AsfaSfSr"));
+        }
+        [TestMethod]
+        public void GetNumbersInPassword()
+        {
+            Assert.AreEqual(5,CountNumbers(GetNumbers(5)));
         }
 
         public string GetPassword(Options[] options) // same string generated for both functions!
@@ -87,6 +92,21 @@ namespace Password
 
             return output.ToUpper();
         }
+        public string GetNumbers(int noOfNumbers)
+        {
+            int holder = 0;
+            string output = string.Empty;
+            Random rand = new Random();
+
+            while (noOfNumbers != 0)
+            {
+                holder = rand.Next(0, 9);
+                output += holder;
+                noOfNumbers--;
+            }
+
+            return output;
+        }
         public bool CheckSmallLettersOfAString(string inputString)
         {
 
@@ -110,7 +130,21 @@ namespace Password
         {
             return (CheckSmallLettersOfAString(inputString) && (CountUpperLetters(inputString) > 0)) ? false : true;
         }
-       
-        
+        public int CountNumbers(string inputString)
+        {
+            int count = 0;
+
+            for (int i = 0; i < inputString.Length;i++ )
+            {
+                int nr = (int)Char.GetNumericValue(inputString[i]);
+                if (nr >= 0 && nr <= 9)
+                {
+                    count++;
+                } 
+            }
+
+            return count;
+        }
+             
     }
 }
