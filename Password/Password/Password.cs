@@ -41,7 +41,7 @@ namespace Password
         [TestMethod]
         public void GetPasswordForSmallAndBigLetters()
         {
-            var password = new Options[] { new Options(10, 4, 3, 0, false, false) };
+            var password = new Options[] { new Options(10, 4, 3, 0, true, false) };
             Assert.AreEqual(10, CountChars(GetPassword(password))); 
         }
         [TestMethod]
@@ -74,14 +74,30 @@ namespace Password
             int smallChars = 0;
             int upperChars = 0;
             int numberChars= 0;
-            for (int i = 0; i < options.Length; i++)
-            {
-                 smallChars = (options[i].smallChars - options[i].noOfUpperChars - options[i].noOfNumbers);
-                 upperChars = (options[i].noOfUpperChars);
-                 numberChars = options[i].noOfNumbers;
-                 result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
-            }
-            return result;          
+                        
+                for (int i = 0; i < options.Length; i++)
+                {
+
+                    smallChars = options[i].smallChars - options[i].noOfUpperChars - options[i].noOfNumbers;
+                    upperChars = options[i].noOfUpperChars;
+                    numberChars = options[i].noOfNumbers;
+                    if (!(options[i].notIncludedAmbigueChars))
+                    {
+                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars); 
+                    }
+                    else
+                    {
+                        while (result.Length != options[i].smallChars)
+                        {
+                            result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                            result = RemoveChars(result);
+                        }  
+                    }
+                                
+                }
+
+
+                return result;         
         }
         
         public string GetSmallLetters(int noOfSmallLetters)
