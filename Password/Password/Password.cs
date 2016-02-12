@@ -48,7 +48,7 @@ namespace Password
         public void CheckForBigLetters()
         {
             var bigPassword = GetBigLetters(5);
-            Assert.AreEqual(4, CountUpperLetters(bigPassword));
+            Assert.AreEqual(5, CountChars(bigPassword));
             
         }
         [TestMethod]
@@ -59,13 +59,14 @@ namespace Password
         [TestMethod]
         public void GetNumbersInPassword()
         {
-            Assert.AreEqual(5,CountNumbers(GetNumbers(5)));
+            Assert.AreEqual(5, CountChars(GetNumbers(5)));
         }
         [TestMethod]
         public void RemoveSimilarChars()
         {
             Assert.AreEqual("safb",RemoveSimilarChars("ssaaffbb"));
         }
+        Random rand = new Random();
 
         public string GetPassword(Options[] options) // same string generated for both functions!
         {
@@ -80,13 +81,12 @@ namespace Password
                  numberChars = options[i].noOfNumbers;
                  result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
             }
-            return result;
-            ;
+            return result;          
         }
+        
         public string GetSmallLetters(int noOfSmallLetters)
         {
-            string output = string.Empty;
-            Random rand = new Random();
+            string output = string.Empty;          
 
             while (noOfSmallLetters != 0)
             {
@@ -154,6 +154,15 @@ namespace Password
                 } 
             }
 
+            return count;
+        }
+        public int CountChars(string inputString)
+        {
+            int count = 0;
+            foreach (char x in inputString.ToCharArray())
+            {
+                count++;
+            }
             return count;
         }
         public string RemoveSimilarChars(string inputString)
