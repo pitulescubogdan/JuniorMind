@@ -41,8 +41,8 @@ namespace Password
         [TestMethod]
         public void GetPasswordForSmallAndBigLetters()
         {
-            var password = new Options[] { new Options(10, 4, 0, 0, false, false) };
-            Assert.AreEqual(true, CheckForLowerAndUpperLetters(GetPassword(password))); 
+            var password = new Options[] { new Options(10, 4, 3, 0, false, false) };
+            Assert.AreEqual("asda", (GetPassword(password))); 
         }
         [TestMethod]
         public void CheckForBigLetters()
@@ -61,16 +61,27 @@ namespace Password
         {
             Assert.AreEqual(5,CountNumbers(GetNumbers(5)));
         }
+        [TestMethod]
+        public void RemoveSimilarChars()
+        {
+            Assert.AreEqual("safb",RemoveSimilarChars("ssaaffbb"));
+        }
 
         public string GetPassword(Options[] options) // same string generated for both functions!
         {
-            string result = string.Empty;
+            string result = string.Empty;           
+            int smallChars = 0;
+            int upperChars = 0;
+            int numberChars= 0;
             for (int i = 0; i < options.Length; i++)
             {
-                result = GetSmallLetters(options[i].smallChars - options[i].noOfUpperChars);
-                result += GetBigLetters(options[i].noOfUpperChars);
+                 smallChars = (options[i].smallChars - options[i].noOfUpperChars - options[i].noOfNumbers);
+                 upperChars = (options[i].noOfUpperChars);
+                 numberChars = options[i].noOfNumbers;
+                 result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
             }
-            return  result;
+            return result;
+            ;
         }
         public string GetSmallLetters(int noOfSmallLetters)
         {
@@ -144,6 +155,13 @@ namespace Password
             }
 
             return count;
+        }
+        public string RemoveSimilarChars(string inputString)
+        {
+            string output = string.Empty;
+
+            return output;
+            
         }
              
     }
