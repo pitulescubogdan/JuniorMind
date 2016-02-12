@@ -42,7 +42,7 @@ namespace Password
         public void GetPasswordForSmallAndBigLetters()
         {
             var password = new Options[] { new Options(10, 4, 3, 0, false, false) };
-            Assert.AreEqual("asda", (GetPassword(password))); 
+            Assert.AreEqual(10, CountChars(GetPassword(password))); 
         }
         [TestMethod]
         public void CheckForBigLetters()
@@ -62,9 +62,9 @@ namespace Password
             Assert.AreEqual(5, CountChars(GetNumbers(5)));
         }
         [TestMethod]
-        public void RemoveSimilarChars()
+        public void RemoveChars()
         {
-            Assert.AreEqual("safb",RemoveSimilarChars("ssaaffbb"));
+            Assert.AreEqual("afkaL234", RemoveChars("afkal1Lo01234"));
         }
         Random rand = new Random();
 
@@ -165,11 +165,15 @@ namespace Password
             }
             return count;
         }
-        public string RemoveSimilarChars(string inputString)
+        public string RemoveChars(string inputString)
         {
-            string output = string.Empty;
+            inputString = inputString.Replace("l", "");
+            inputString = inputString.Replace("1", "");
+            inputString = inputString.Replace("I", "");
+            inputString = inputString.Replace("o", "");
+            inputString = inputString.Replace("0", "");
 
-            return output;
+            return inputString;
             
         }
              
