@@ -41,7 +41,7 @@ namespace Password
         [TestMethod]
         public void GetPasswordForSmallAndBigLetters()
         {
-            var password = new Options[] { new Options(10, 4, 3, 0, false, false) };
+            var password = new Options[] { new Options(10, 4, 3, 0, true, false) };
             Assert.AreEqual(10, CountChars(GetPassword(password)));
         }
         [TestMethod]
@@ -71,6 +71,12 @@ namespace Password
         {
             Assert.AreEqual("assa", RemoveAmbigueChars("{}assa[]()~"));
         }
+        [TestMethod]
+        public void ShuffleStringTest()
+        {
+            string checkString = "abcdefgh";
+            Assert.AreEqual(CountChars(checkString), CountChars(ShuffleString(checkString)));
+        }
         Random rand = new Random();
 
         public string GetPassword(Options[] options)
@@ -82,35 +88,38 @@ namespace Password
 
             for (int i = 0; i < options.Length; i++)
             {
-
-                smallChars = options[i].smallChars - options[i].noOfUpperChars - options[i].noOfNumbers;
-                upperChars = options[i].noOfUpperChars;
-                numberChars = options[i].noOfNumbers;
-                if (!(options[i].notIncludedAmbigueChars) && !(options[i].notIncludedSimilarChars))
+                while (options[i].smallChars != result.Length)
                 {
-                    while (result.Length != options[i].smallChars)
+                    smallChars = options[i].smallChars - options[i].noOfUpperChars - options[i].noOfNumbers;
+                    upperChars = options[i].noOfUpperChars;
+                    numberChars = options[i].noOfNumbers;
+                    if (!(options[i].notIncludedAmbigueChars) && !(options[i].notIncludedSimilarChars))
+                    {
+                        while (result.Length != options[i].smallChars)
+                        {
+                            result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                            result = RemoveChars(result);
+                        }
+                    }
+                    else if (options[i].notIncludedSimilarChars && options[i].notIncludedAmbigueChars)
+                    {
+                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                        result = RemoveAmbigueChars(result);
+                        result = RemoveChars(result);
+                    }
+                    else if (options[i].notIncludedSimilarChars && !(options[i].notIncludedAmbigueChars))
                     {
                         result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
                         result = RemoveChars(result);
                     }
-                }
-                else if (options[i].notIncludedSimilarChars && options[i].notIncludedAmbigueChars)
-                {
-                    result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
-                    result = RemoveAmbigueChars(result);
-                    result = RemoveChars(result);
-                }
-                else if(options[i].notIncludedSimilarChars && !(options[i].notIncludedAmbigueChars))
-                {
-                    result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
-                    result = RemoveChars(result);
-                }else
-                {
-                    result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
-                    result = RemoveAmbigueChars(result);
+                    else
+                    {
+                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                        result = RemoveAmbigueChars(result);
+                    }
                 }
             }
-            return result;
+            return ShuffleString(result);
         }
 
         public string GetSmallLetters(int noOfSmallLetters)
@@ -203,7 +212,7 @@ namespace Password
             inputString = inputString.Replace("0", "");
             return inputString;
         }
-        public string RemoveAmbigueChars(string inputString)//{}[]()/\'"~,;.<>
+        public string RemoveAmbigueChars(string inputString)
         {
             inputString = inputString.Replace("{", "");
             inputString = inputString.Replace("}", "");
@@ -222,6 +231,22 @@ namespace Password
 
             return inputString;
         }
-
+        public string ShuffleString(string inputString)
+        {
+            char[] charsFromString = inputString.ToCharArray();
+            Random rend = new Random();
+            int counter = inputString.Length;
+            string result = string.Empty;
+            while (counter > 0)
+            {
+                counter--;
+                int k = rend.Next(counter + 1);
+                var hold = charsFromString[k];
+                charsFromString[k] = charsFromString[counter];
+                charsFromString[counter] = hold;
+                result += hold;
+            }
+            return result;
+        }
     }
 }
