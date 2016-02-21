@@ -23,11 +23,22 @@ namespace Alarm
         {
             Assert.AreEqual(false, CheckAlarmForWeekDays((Days.Saturday), 8, 0));
         }
+        [TestMethod]
+        public void CheckAlarmForBothDaysOfWeekend()
+        {
+            Days weekend = Days.Sunday | Days.Saturday;
+            Assert.AreEqual(true,CheckAlarmForWeekend(weekend, 8, 0));
+
+        }
         public bool CheckAlarmForWeekDays(Days weekDay,int hour, int minutes)
         {
             var dayToCheck = Days.Monday | Days.Tuesday | Days.Wednesday | Days.Thursday | Days.Friday;
             bool testDay = (dayToCheck & weekDay) == weekDay;
             return testDay;
+        }
+        public bool CheckAlarmForWeekend(Days weekendDays, int hour, int minutes)
+        {
+            return !(CheckAlarmForWeekDays(weekendDays,8,0));
         }
     }
 }
