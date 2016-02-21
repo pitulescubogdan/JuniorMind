@@ -32,13 +32,22 @@ namespace Alarm
         }
         public bool CheckAlarmForWeekDays(Days weekDay,int hour, int minutes)
         {
-            var dayToCheck = Days.Monday | Days.Tuesday | Days.Wednesday | Days.Thursday | Days.Friday;
-            bool testDay = (dayToCheck & weekDay) == weekDay;
-            return testDay;
+            if (hour == 6)
+            {
+                var dayToCheck = Days.Monday | Days.Tuesday | Days.Wednesday | Days.Thursday | Days.Friday;
+                bool testDay = (dayToCheck & weekDay) == weekDay;
+                return testDay;
+            }
+            else return false;
+            
         }
         public bool CheckAlarmForWeekend(Days weekendDays, int hour, int minutes)
         {
-            return !(CheckAlarmForWeekDays(weekendDays,8,0));
+            if(hour == 8)
+            {
+                return !(CheckAlarmForWeekDays(weekendDays, 8, 0));
+            }
+            return false;
         }
     }
 }
