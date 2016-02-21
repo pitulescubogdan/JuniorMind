@@ -31,7 +31,7 @@ namespace Password
         {
             var password = new Options[] { new Options(10, 0, 0, 0, false, false) };
             Assert.AreEqual(true, CheckSmallLettersOfAString(GetPassword(password)));
-        }      
+        }
         [TestMethod]
         public void CheckSmallLetters()
         {
@@ -41,15 +41,15 @@ namespace Password
         [TestMethod]
         public void GetPasswordForSmallAndBigLetters()
         {
-            var password = new Options[] { new Options(10, 4, 3, 0, true, false) };
-            Assert.AreEqual(10, CountChars(GetPassword(password))); 
+            var password = new Options[] { new Options(10, 4, 3, 0, false, false) };
+            Assert.AreEqual(10, CountChars(GetPassword(password)));
         }
         [TestMethod]
         public void CheckForBigLetters()
         {
             var bigPassword = GetBigLetters(5);
             Assert.AreEqual(5, CountChars(bigPassword));
-            
+
         }
         [TestMethod]
         public void CheckForLowerAndUpperLetters()
@@ -66,43 +66,56 @@ namespace Password
         {
             Assert.AreEqual("afkaL234", RemoveChars("afkal1Lo01234"));
         }
+        [TestMethod]
+        public void RemoveAmbigueCharsTest()
+        {
+            Assert.AreEqual("assa", RemoveAmbigueChars("{}assa[]()~"));
+        }
         Random rand = new Random();
 
-        public string GetPassword(Options[] options) // same string generated for both functions!
+        public string GetPassword(Options[] options)
         {
-            string result = string.Empty;           
+            string result = string.Empty;
             int smallChars = 0;
             int upperChars = 0;
-            int numberChars= 0;
-                        
-                for (int i = 0; i < options.Length; i++)
+            int numberChars = 0;
+
+            for (int i = 0; i < options.Length; i++)
+            {
+
+                smallChars = options[i].smallChars - options[i].noOfUpperChars - options[i].noOfNumbers;
+                upperChars = options[i].noOfUpperChars;
+                numberChars = options[i].noOfNumbers;
+                if (!(options[i].notIncludedAmbigueChars) && !(options[i].notIncludedSimilarChars))
                 {
-
-                    smallChars = options[i].smallChars - options[i].noOfUpperChars - options[i].noOfNumbers;
-                    upperChars = options[i].noOfUpperChars;
-                    numberChars = options[i].noOfNumbers;
-                    if (!(options[i].notIncludedAmbigueChars))
+                    while (result.Length != options[i].smallChars)
                     {
-                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars); 
+                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                        result = RemoveChars(result);
                     }
-                    else
-                    {
-                        while (result.Length != options[i].smallChars)
-                        {
-                            result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
-                            result = RemoveChars(result);
-                        }  
-                    }
-                                
                 }
-
-
-                return result;         
+                else if (options[i].notIncludedSimilarChars && options[i].notIncludedAmbigueChars)
+                {
+                    result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                    result = RemoveAmbigueChars(result);
+                    result = RemoveChars(result);
+                }
+                else if(options[i].notIncludedSimilarChars && !(options[i].notIncludedAmbigueChars))
+                {
+                    result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                    result = RemoveChars(result);
+                }else
+                {
+                    result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                    result = RemoveAmbigueChars(result);
+                }
+            }
+            return result;
         }
-        
+
         public string GetSmallLetters(int noOfSmallLetters)
         {
-            string output = string.Empty;          
+            string output = string.Empty;
 
             while (noOfSmallLetters != 0)
             {
@@ -150,8 +163,8 @@ namespace Password
             for (int i = 0; i < inputString.Length - 1; i++)
             {
                 if ((char.IsUpper(inputString[i]))) count++;
-            } 
-                return count;
+            }
+            return count;
         }
         public bool CheckForLowerAndUpperLetters(string inputString)
         {
@@ -161,13 +174,13 @@ namespace Password
         {
             int count = 0;
 
-            for (int i = 0; i < inputString.Length;i++ )
+            for (int i = 0; i < inputString.Length; i++)
             {
                 int nr = (int)Char.GetNumericValue(inputString[i]);
                 if (nr >= 0 && nr <= 9)
                 {
                     count++;
-                } 
+                }
             }
 
             return count;
@@ -188,10 +201,27 @@ namespace Password
             inputString = inputString.Replace("I", "");
             inputString = inputString.Replace("o", "");
             inputString = inputString.Replace("0", "");
+            return inputString;
+        }
+        public string RemoveAmbigueChars(string inputString)//{}[]()/\'"~,;.<>
+        {
+            inputString = inputString.Replace("{", "");
+            inputString = inputString.Replace("}", "");
+            inputString = inputString.Replace("[", "");
+            inputString = inputString.Replace("]", "");
+            inputString = inputString.Replace("(", "");
+            inputString = inputString.Replace(")", "");
+            inputString = inputString.Replace("/", "");
+            inputString = inputString.Replace(",", "");
+            inputString = inputString.Replace("'", "");
+            inputString = inputString.Replace("~", "");
+            inputString = inputString.Replace(";", "");
+            inputString = inputString.Replace(".", "");
+            inputString = inputString.Replace("<", "");
+            inputString = inputString.Replace(">", "");
 
             return inputString;
-            
         }
-             
+
     }
 }
