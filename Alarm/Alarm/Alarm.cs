@@ -11,43 +11,50 @@ namespace Alarm
         [TestMethod]
         public void AlarmForMonday()
         {
-            Assert.AreEqual(true, CheckAlarmForWeekDays(Days.Monday,6,0));
+            Assert.AreEqual(true, CheckAlarm(Days.Monday,6));
         }
         [TestMethod]
         public void AlarmForTuesdayAndFriday()
         {
-            Assert.AreEqual(true, CheckAlarmForWeekDays(Days.Tuesday & Days.Friday, 6, 0));
+            Assert.AreEqual(true, CheckAlarm(Days.Tuesday & Days.Friday, 6));
         }
         [TestMethod]
         public void CheckAlarmForWeekend()
         {
-            Assert.AreEqual(false, CheckAlarmForWeekDays((Days.Saturday), 8, 0));
+            Assert.AreEqual(true, CheckAlarm((Days.Saturday), 8));
         }
         [TestMethod]
         public void CheckAlarmForBothDaysOfWeekend()
         {
             Days weekend = Days.Sunday | Days.Saturday;
-            Assert.AreEqual(true,CheckAlarmForWeekend(weekend, 8, 0));
+            Assert.AreEqual(true, CheckAlarm(weekend, 8));
+        }
+        [TestMethod]
+        public void CheckForAnyDayAndHour()
+        {
+            Assert.AreEqual(false, CheckAlarm(Days.Monday, 10));
+        }
+        [TestMethod]
+        public void CheckAnotherAlarmForAnyDays()
+        {
+            Days daysToCheck = Days.Monday | Days.Friday;
+            Assert.AreEqual(false, CheckAlarm(daysToCheck, 12));
+        }
+        public bool CheckAlarm(Days weekDay,int hour)
+        {
+            var dayToCheck = Days.Monday | Days.Tuesday | Days.Wednesday | Days.Thursday | Days.Friday;
+            var daysOfWeekend = Days.Saturday | Days.Sunday;
 
-        }
-        public bool CheckAlarmForWeekDays(Days weekDay,int hour, int minutes)
-        {
-            if (hour == 6)
+            if (hour == 6 && (dayToCheck & weekDay) == weekDay)
             {
-                var dayToCheck = Days.Monday | Days.Tuesday | Days.Wednesday | Days.Thursday | Days.Friday;
-                bool testDay = (dayToCheck & weekDay) == weekDay;
-                return testDay;
+                return true;
             }
-            else return false;
-            
-        }
-        public bool CheckAlarmForWeekend(Days weekendDays, int hour, int minutes)
-        {
-            if(hour == 8)
+            else if (hour == 8 && (daysOfWeekend & weekDay) == weekDay)
             {
-                return !(CheckAlarmForWeekDays(weekendDays, 8, 0));
+                return true;
             }
             return false;
+            
         }
     }
 }
