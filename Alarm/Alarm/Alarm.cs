@@ -11,12 +11,18 @@ namespace Alarm
         [TestMethod]
         public void AlarmForMonday()
         {
-            var weekDays = Days.Monday | Days.Tuesday | Days.Wednesday | Days.Thursday | Days.Friday | Days.Saturday | Days.Sunday;
-            Assert.AreEqual(true, SetAlarmForWeekDays(weekDays,6,0));
+            Assert.AreEqual(true, CheckAlarmForWeekDays(Days.Monday,6,0));
         }
-        public bool SetAlarmForWeekDays(Days weekDays,int hour, int minutes)
+        [TestMethod]
+        public void AlarmForTuesdayAndFriday()
         {
-            return true;
+            Assert.AreEqual(true, CheckAlarmForWeekDays(Days.Tuesday & Days.Friday, 6, 0));
+        }
+        public bool CheckAlarmForWeekDays(Days weekDay,int hour, int minutes)
+        {
+            var dayToCheck = Days.Monday | Days.Tuesday | Days.Wednesday | Days.Thursday | Days.Friday | Days.Saturday | Days.Sunday;
+            bool test = (dayToCheck & weekDay) == weekDay;
+            return test;
         }
     }
 }
