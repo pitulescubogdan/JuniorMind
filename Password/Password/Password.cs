@@ -82,6 +82,12 @@ namespace Password
         {
             Assert.AreEqual(CountChars(GenerateSymbols(5)), CountChars(GenerateSymbols(5)));
         }
+        [TestMethod]
+        public void GetPasswordWithAllOptions()
+        {
+            var password = new Options[] { new Options(10, 4, 3, 2, true, true) };
+            Assert.AreEqual(10, CountChars(GetPassword(password)));
+        }
         Random rand = new Random();
 
         public string GetPassword(Options[] options)
@@ -90,31 +96,33 @@ namespace Password
             int smallChars = 0;
             int upperChars = 0;
             int numberChars = 0;
+            int noOfsymbols;
 
             for (int i = 0; i < options.Length; i++)
             {
                 while (options[i].smallChars != result.Length)
                 {
-                    smallChars = options[i].smallChars - options[i].noOfUpperChars - options[i].noOfNumbers;
+                    smallChars = options[i].smallChars - options[i].noOfUpperChars - options[i].noOfNumbers - options[i].noOfSymbols;
                     upperChars = options[i].noOfUpperChars;
                     numberChars = options[i].noOfNumbers;
+                    noOfsymbols = options[i].noOfSymbols;
                     if (!(options[i].notIncludedAmbigueChars) && !(options[i].notIncludedSimilarChars))
                     {
                         while (result.Length != options[i].smallChars)
                         {
-                            result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                            result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars) + GenerateSymbols(noOfsymbols);
                             result = RemoveChars(result);
                         }
                     }
                     else if (options[i].notIncludedSimilarChars && options[i].notIncludedAmbigueChars)
                     {
-                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars) + GenerateSymbols(noOfsymbols);
                         result = RemoveAmbigueChars(result);
                         result = RemoveChars(result);
                     }
                     else if (options[i].notIncludedSimilarChars && !(options[i].notIncludedAmbigueChars))
                     {
-                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
+                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars) + GenerateSymbols(noOfsymbols);
                         result = RemoveChars(result);
                     }
                     else
