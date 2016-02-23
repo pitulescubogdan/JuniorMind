@@ -77,6 +77,11 @@ namespace Password
             string checkString = "abcdefgh";
             Assert.AreEqual(CountChars(checkString), CountChars(ShuffleString(checkString)));
         }
+        [TestMethod]
+        public void GenerateSomeSymbols()
+        {
+            Assert.AreEqual(CountChars(GenerateSymbols(5)), CountChars(GenerateSymbols(5)));
+        }
         Random rand = new Random();
 
         public string GetPassword(Options[] options)
@@ -145,7 +150,6 @@ namespace Password
         {
             int holder = 0;
             string output = string.Empty;
-            Random rand = new Random();
 
             while (noOfNumbers != 0)
             {
@@ -232,6 +236,20 @@ namespace Password
                 result += hold;
             }
             return result;
+        }
+        
+        public string GenerateSymbols(int numberOfSymbols)
+        {
+            int holder;
+            string output = string.Empty;
+
+            while(numberOfSymbols != 0)
+            {
+                holder = rand.Next(' ', '/');
+                output += (char)holder;
+                numberOfSymbols--;
+            }
+            return output;
         }
     }
 }
