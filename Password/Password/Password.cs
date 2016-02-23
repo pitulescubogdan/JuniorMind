@@ -203,33 +203,18 @@ namespace Password
             }
             return count;
         }
-        public string RemoveChars(string inputString)
+        public string RemoveChars(string inputString,string charsToRemove = "l1IoO0")
         {
-            inputString = inputString.Replace("l", "");
-            inputString = inputString.Replace("1", "");
-            inputString = inputString.Replace("I", "");
-            inputString = inputString.Replace("o", "");
-            inputString = inputString.Replace("0", "");
-            return inputString;
+            string result = string.Empty;
+            foreach(char c in inputString)
+            {
+                if (!charsToRemove.Contains(c.ToString())) result += c;             
+            }
+            return result;
         }
         public string RemoveAmbigueChars(string inputString)
-        {
-            inputString = inputString.Replace("{", "");
-            inputString = inputString.Replace("}", "");
-            inputString = inputString.Replace("[", "");
-            inputString = inputString.Replace("]", "");
-            inputString = inputString.Replace("(", "");
-            inputString = inputString.Replace(")", "");
-            inputString = inputString.Replace("/", "");
-            inputString = inputString.Replace(",", "");
-            inputString = inputString.Replace("'", "");
-            inputString = inputString.Replace("~", "");
-            inputString = inputString.Replace(";", "");
-            inputString = inputString.Replace(".", "");
-            inputString = inputString.Replace("<", "");
-            inputString = inputString.Replace(">", "");
-
-            return inputString;
+        {           
+            return RemoveChars(inputString, "{}[]()/\'~,;.<> ");
         }
         public string ShuffleString(string inputString)
         {
