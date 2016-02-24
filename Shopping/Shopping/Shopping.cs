@@ -6,27 +6,31 @@ namespace Shopping
     [TestClass]
     public class Shopping
     {
-        struct List
+        public struct ShoppingList
         {
-            int milk;
-            int bread;
-            int oil;
-            public List(int milk,int bread, int oil)
+            public string nameOfProduct;
+            public double amount;
+            public ShoppingList(string nameOfProduct, double amount)
             {
-                this.milk = milk;
-                this.bread = bread;
-                this.oil = oil;
+                this.nameOfProduct = nameOfProduct;
+                this.amount = amount;
             }
 
         }
         [TestMethod]
         public void ShoppingTest()
         {
-            Assert.AreEqual(0, CalculateTotalPrice());
+            var shopping = new ShoppingList[] { new ShoppingList("bread",3.4),new ShoppingList("milk",3.7),new ShoppingList("oil",7) };
+            Assert.AreEqual(14.1, CalculateTotalPrice(shopping));
         }
-        public int CalculateTotalPrice()
+        public double CalculateTotalPrice(ShoppingList[] shoppingList)
         {
-            return 0;
+            double result = 0;
+            for (int i = 0; i < shoppingList.Length; i++)
+            {
+                result += shoppingList[i].amount;
+            }
+            return result;
         }
     }
 }
