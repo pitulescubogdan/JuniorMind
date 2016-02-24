@@ -8,14 +8,16 @@ namespace Alarm
     {
 
         [Flags]
-        public enum Days {
+        public enum Days
+        {
             Monday = 0x1,
             Tuesday = 0x2,
             Wednesday = 0x4,
             Thursday = 0x8,
             Friday = 0x10,
             Saturday = 0x20,
-            Sunday = 0x40 }
+            Sunday = 0x40
+        }
         public struct AlarmConfig
         {
             public Days day;
@@ -55,27 +57,21 @@ namespace Alarm
             bool result = false;
             for (int i = 0; i < alarm.Length; i++)
             {
-              result = (CheckDays(alarm[i].day, day) && CheckHour(alarm[i].hour, hour) && CheckMinute(alarm[i].minute, minute));           
+                result = (CheckDays(alarm[i].day, day, alarm[i].hour, hour, alarm[i].minute, minute));
             }
             return result;
         }
 
-        private bool CheckDays(Days day1, Days day2)
+        private bool CheckDays(Days dayConfig, Days dayAlarm, int hourConfig, int hourAlarm, int minuteConfig, int minuteAlarm)
         {
-            return ((day1 & day2) != 0) ? true : false;
+            return (((dayConfig & dayAlarm) != 0) &&
+                (hourConfig == hourAlarm) &&
+                (minuteConfig == minuteAlarm)) ? true : false;
         }
-        private bool CheckHour(int hour1,int hour2)
-        {
-            return (hour1 == hour2) ? true : false;
-        }
-        private bool CheckMinute(int minutes1,int minutes2)
-        {
-            return (minutes1 == minutes2) ? true : false;
-        }
-       
+
     }
-       
-    }
+
+}
 
 
 
