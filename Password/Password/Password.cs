@@ -107,12 +107,9 @@ namespace Password
                     numberChars = options[i].noOfNumbers;
                     noOfsymbols = options[i].noOfSymbols;
                     if (!(options[i].notIncludedAmbigueChars) && !(options[i].notIncludedSimilarChars))
-                    {
-                        while (result.Length != options[i].smallChars)
-                        {
+                    {                      
                             result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars) + GenerateSymbols(noOfsymbols);
-                            result = RemoveChars(result);
-                        }
+                            result = RemoveChars(result);                       
                     }
                     else if (options[i].notIncludedSimilarChars && options[i].notIncludedAmbigueChars)
                     {
@@ -244,8 +241,7 @@ namespace Password
                 result += hold;
             }
             return result;
-        }
-        
+        }    
         public string GenerateSymbols(int numberOfSymbols)
         {
             int holder;
