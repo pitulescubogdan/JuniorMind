@@ -47,8 +47,14 @@ namespace Shopping
         public void EliminateTheHighestBetweenTwoObjects()
         {
             var shopping = new ShoppingList[] { new ShoppingList("oil", 7), new ShoppingList("bread", 3.4),  };
-            CollectionAssert.AreEqual(new ShoppingList[] { new ShoppingList("bread", 3.4) }, RemoveTheMostExpensive(shopping));
-
+            CollectionAssert.AreEqual(new ShoppingList[] { new ShoppingList("bread", 3.4) }, 
+                RemoveTheMostExpensive(shopping));
+        }
+        [TestMethod]
+        public void AddObject()
+        {
+            var actualShopping = new ShoppingList[] { new ShoppingList("chocolate", 5), new ShoppingList("honey", 15) };
+            Assert.AreEqual(3, CountObjects(AddObject(actualShopping)));
         }
 
         public double CalculateTotalPrice(ShoppingList[] shoppingList)
@@ -81,22 +87,32 @@ namespace Shopping
         }
         public ShoppingList[] RemoveTheMostExpensive(ShoppingList[] shoppingObjects)
         {
-            for(int i = 0; i < shoppingObjects.Length; i++)
-               for(int j = 0; j < shoppingObjects.Length - 1; j++)
+            SortObjectsAscendend(shoppingObjects);
+            Array.Resize(ref shoppingObjects, shoppingObjects.Length - 1);
+            return shoppingObjects;
+        }
+
+        private static void SortObjectsAscendend(ShoppingList[] shoppingObjects)
+        {
+            for (int i = 0; i < shoppingObjects.Length; i++)
+                for (int j = 0; j < shoppingObjects.Length - 1; j++)
                 {
-                    if(shoppingObjects[j].amount > shoppingObjects[j+1].amount)
+                    if (shoppingObjects[j].amount > shoppingObjects[j + 1].amount)
                     {
                         ShoppingList higherValue = shoppingObjects[j];
                         shoppingObjects[j] = shoppingObjects[j + 1];
                         shoppingObjects[j + 1] = higherValue;
                     }
                 }
-            Array.Resize(ref shoppingObjects, shoppingObjects.Length - 1);
-            return shoppingObjects;
         }
+
         public int CountObjects(ShoppingList[] shoppingObjects)
         {
             return shoppingObjects.Length;
+        }
+        public ShoppingList[] AddObject(ShoppingList[] shoppingObjects)
+        {
+            return shoppingObjects;
         }
 
     }
