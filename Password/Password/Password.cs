@@ -102,29 +102,15 @@ namespace Password
             {
                 while (options[i].smallChars != result.Length)
                 {
-                    smallChars = options[i].smallChars - options[i].noOfUpperChars - options[i].noOfNumbers - options[i].noOfSymbols;
-                    upperChars = options[i].noOfUpperChars;
-                    numberChars = options[i].noOfNumbers;
-                    noOfsymbols = options[i].noOfSymbols;
-                    if (!(options[i].notIncludedAmbigueChars) && !(options[i].notIncludedSimilarChars))
+                    result = GetSmallLetters(options[i].smallChars) + GetBigLetters(options[i].noOfUpperChars)
+                        + GetNumbers(options[i].noOfNumbers) + GenerateSymbols(options[i].noOfSymbols);
+
+                    if (options[i].notIncludedSimilarChars)
                     {                      
-                            result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars) + GenerateSymbols(noOfsymbols);
                             result = RemoveChars(result);                       
                     }
-                    else if (options[i].notIncludedSimilarChars && options[i].notIncludedAmbigueChars)
+                    if (options[i].notIncludedAmbigueChars)
                     {
-                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars) + GenerateSymbols(noOfsymbols);
-                        result = RemoveAmbigueChars(result);
-                        result = RemoveChars(result);
-                    }
-                    else if (options[i].notIncludedSimilarChars && !(options[i].notIncludedAmbigueChars))
-                    {
-                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars) + GenerateSymbols(noOfsymbols);
-                        result = RemoveChars(result);
-                    }
-                    else
-                    {
-                        result = GetSmallLetters(smallChars) + GetBigLetters(upperChars) + GetNumbers(numberChars);
                         result = RemoveAmbigueChars(result);
                     }
                 }
@@ -186,7 +172,7 @@ namespace Password
         }
         public bool CheckForLowerAndUpperLetters(string inputString)
         {
-            return (CheckSmallLettersOfAString(inputString) && (CountUpperLetters(inputString) > 0)) ? false : true;
+            return !(CheckSmallLettersOfAString(inputString) && (CountUpperLetters(inputString) > 0));
         }
         public int CountNumbers(string inputString)
         {
