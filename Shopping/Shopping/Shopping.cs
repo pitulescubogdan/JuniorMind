@@ -47,7 +47,7 @@ namespace Shopping
         public void EliminateTheHighestBetweenTwoObjects()
         {
             var shopping = new ShoppingList[] { new ShoppingList("oil", 7), new ShoppingList("bread", 3.4),  };
-            CollectionAssert.AreEqual(new ShoppingList[] { new ShoppingList("oil", 3.4) }, RemoveTheMostExpensive(shopping));
+            CollectionAssert.AreEqual(new ShoppingList[] { new ShoppingList("bread", 3.4) }, RemoveTheMostExpensive(shopping));
 
         }
 
@@ -86,9 +86,9 @@ namespace Shopping
                 {
                     if(shoppingObjects[j].amount > shoppingObjects[j+1].amount)
                     {
-                        double higherValue = shoppingObjects[j].amount;
-                        shoppingObjects[j].amount = shoppingObjects[j + 1].amount;
-                        shoppingObjects[j + 1].amount = higherValue;
+                        ShoppingList higherValue = shoppingObjects[j];
+                        shoppingObjects[j] = shoppingObjects[j + 1];
+                        shoppingObjects[j + 1] = higherValue;
                     }
                 }
             Array.Resize(ref shoppingObjects, shoppingObjects.Length - 1);
