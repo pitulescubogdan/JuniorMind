@@ -54,7 +54,17 @@ namespace Shopping
         public void AddObject()
         {
             var actualShopping = new ShoppingList[] { new ShoppingList("chocolate", 5), new ShoppingList("honey", 15) };
-            Assert.AreEqual(3, CountObjects(AddObject(actualShopping)));
+            var newObject = new ShoppingList("Oreo", 4);
+            Assert.AreEqual(3, CountObjects(AddObject(actualShopping,newObject)));
+        }
+        [TestMethod]
+        public void AddAnObjectToChart()
+        {
+            var actualShopping = new ShoppingList[] { new ShoppingList("chocolate", 5), new ShoppingList("honey", 15) };
+            var newObject = new ShoppingList("Oreo", 4);
+            var newListOfObjects = new ShoppingList[] { new ShoppingList("chocolate", 5), new ShoppingList("honey", 15), new ShoppingList("Oreo", 4) };
+            CollectionAssert.AreEqual(newListOfObjects, AddObject(actualShopping, newObject));
+
         }
 
         public double CalculateTotalPrice(ShoppingList[] shoppingList)
@@ -110,8 +120,10 @@ namespace Shopping
         {
             return shoppingObjects.Length;
         }
-        public ShoppingList[] AddObject(ShoppingList[] shoppingObjects)
+        public ShoppingList[] AddObject(ShoppingList[] shoppingObjects,ShoppingList newObject)
         {
+            Array.Resize(ref shoppingObjects, shoppingObjects.Length + 1);
+            shoppingObjects[shoppingObjects.Length - 1] = newObject;
             return shoppingObjects;
         }
 
