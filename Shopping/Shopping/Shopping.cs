@@ -20,7 +20,7 @@ namespace Shopping
         [TestMethod]
         public void GreatestPrice()
         {
-            var shopping = new ShoppingList[] { new ShoppingList("bread",3.4),new ShoppingList("milk",3.7),new ShoppingList("oil",7) };
+            var shopping = new ShoppingList[] { new ShoppingList("bread", 3.4), new ShoppingList("milk", 3.7), new ShoppingList("oil", 7) };
             Assert.AreEqual(14.1, CalculateTotalPrice(shopping));
         }
         [TestMethod]
@@ -35,6 +35,13 @@ namespace Shopping
         {
             var shopping = new ShoppingList[] { new ShoppingList("milk", 3.7), new ShoppingList("bread", 3.4), new ShoppingList("oil", 7) };
             Assert.AreEqual(4.7, CalculateAverageShopping(shopping));
+        }
+        [TestMethod]
+        public void EliminateTheHighest()
+        {
+            var shopping = new ShoppingList[] { new ShoppingList("milk", 3.7), new ShoppingList("bread", 3.4), new ShoppingList("oil", 7) };
+
+            Assert.AreEqual(3,CountObjects(RemoveTheMostExpensive(shopping)));
         }
 
         public double CalculateTotalPrice(ShoppingList[] shoppingList)
@@ -52,10 +59,10 @@ namespace Shopping
         {
             ShoppingList firstObject = shoppingObject[0];
             double result = 0;
-            for(int i = 0; i < shoppingObject.Length ; i++)
+            for (int i = 0; i < shoppingObject.Length; i++)
             {
                 result = (firstObject.amount < shoppingObject[i].amount) ? result : shoppingObject[i].amount;
-                
+
             }
             return result;
         }
@@ -65,5 +72,14 @@ namespace Shopping
 
             return CalculateTotalPrice(shoppingObject) / counter;
         }
+        public ShoppingList[] RemoveTheMostExpensive(ShoppingList[] shoppingObjects)
+        {
+            return shoppingObjects;
+        }
+        public int CountObjects(ShoppingList[] shoppingObjects)
+        {
+            return shoppingObjects.Length;
+        }
+
     }
 }
