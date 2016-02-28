@@ -66,7 +66,7 @@ namespace Alarm
         {
             return (((dayConfig & dayAlarm) != 0) &&
                 (hourConfig == hourAlarm) &&
-                (minuteConfig == minuteAlarm)) ? true : false;
+                (minuteConfig == minuteAlarm));
         }
 
     }
