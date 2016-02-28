@@ -23,11 +23,16 @@ namespace Cyclometer
         public void TotalDistance()
         {
             var participant = new Cycle[] { new Cycle("Bogdan", 250, 28) };
-            Assert.AreEqual(100, CalculateTotalDistance(participant));
+            Assert.AreEqual(439.6, CalculateTotalDistance(participant));
         }
         public double CalculateTotalDistance(Cycle[] participants)
         {
-            return 0;
+            double result = 0;
+            for (int i = 0; i < participants.Length; i++)
+            {
+                result += (2 * 3.14 * 0.28) * participants[i].rotationPerSecond;
+            }
+            return result;
         }
     }
 }
