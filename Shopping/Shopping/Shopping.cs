@@ -28,6 +28,7 @@ namespace Shopping
         {
             var shopping = new ShoppingList[] { new ShoppingList("milk", 3.7), new ShoppingList("bread", 3.4), new ShoppingList("oil", 7) };
             Assert.AreEqual(3.4, CalculateTheMinimumObject(shopping));
+
         }
         [TestMethod]
         public void AveragePrice()
@@ -36,10 +37,10 @@ namespace Shopping
             Assert.AreEqual(4.7, CalculateAverageShopping(shopping));
         }
 
-        int counter = 0;
         public double CalculateTotalPrice(ShoppingList[] shoppingList)
         {
             double result = 0;
+            int counter = 0;
             for (int i = 0; i < shoppingList.Length; i++)
             {
                 result += shoppingList[i].amount;
@@ -60,6 +61,8 @@ namespace Shopping
         }
         public double CalculateAverageShopping(ShoppingList[] shoppingObject)
         {
+            int counter = shoppingObject.Length;
+
             return CalculateTotalPrice(shoppingObject) / counter;
         }
     }
