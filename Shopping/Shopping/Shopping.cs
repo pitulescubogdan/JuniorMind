@@ -41,7 +41,14 @@ namespace Shopping
         {
             var shopping = new ShoppingList[] { new ShoppingList("milk", 3.7), new ShoppingList("bread", 3.4), new ShoppingList("oil", 7) };
 
-            Assert.AreEqual(3,CountObjects(RemoveTheMostExpensive(shopping)));
+            Assert.AreEqual(2,CountObjects(RemoveTheMostExpensive(shopping)));
+        }
+        [TestMethod]
+        public void EliminateTheHighestBetweenTwoObjects()
+        {
+            var shopping = new ShoppingList[] { new ShoppingList("oil", 7), new ShoppingList("bread", 3.4),  };
+            CollectionAssert.AreEqual(new ShoppingList[] { new ShoppingList("oil", 3.4) }, RemoveTheMostExpensive(shopping));
+
         }
 
         public double CalculateTotalPrice(ShoppingList[] shoppingList)
@@ -74,6 +81,17 @@ namespace Shopping
         }
         public ShoppingList[] RemoveTheMostExpensive(ShoppingList[] shoppingObjects)
         {
+            for(int i = 0; i < shoppingObjects.Length; i++)
+               for(int j = 0; j < shoppingObjects.Length - 1; j++)
+                {
+                    if(shoppingObjects[j].amount > shoppingObjects[j+1].amount)
+                    {
+                        double higherValue = shoppingObjects[j].amount;
+                        shoppingObjects[j].amount = shoppingObjects[j + 1].amount;
+                        shoppingObjects[j + 1].amount = higherValue;
+                    }
+                }
+            Array.Resize(ref shoppingObjects, shoppingObjects.Length - 1);
             return shoppingObjects;
         }
         public int CountObjects(ShoppingList[] shoppingObjects)
