@@ -27,7 +27,14 @@ namespace Shopping
         public void CheapestObject()
         {
             var shopping = new ShoppingList[] { new ShoppingList("milk", 3.7), new ShoppingList("bread", 3.4), new ShoppingList("oil", 7) };
-            Assert.AreEqual(3.4, CalculateTheMinimumObject(shopping));
+            Assert.AreEqual(new ShoppingList("bread", 3.4), CalculateTheMinimumObject(shopping));
+
+        }
+        [TestMethod]
+        public void HighestObject()
+        {
+            var shopping = new ShoppingList[] { new ShoppingList("milk", 3.7), new ShoppingList("bread", 3.4), new ShoppingList("oil", 7) };
+            Assert.AreEqual(new ShoppingList("oil", 7), GetTheHighestPrice(shopping));
 
         }
         [TestMethod]
@@ -64,8 +71,7 @@ namespace Shopping
             var newObject = new ShoppingList("Oreo", 4);
             var newListOfObjects = new ShoppingList[] { new ShoppingList("chocolate", 5), new ShoppingList("honey", 15), new ShoppingList("Oreo", 4) };
             CollectionAssert.AreEqual(newListOfObjects, AddObject(actualShopping, newObject));
-
-        }
+        }       
 
         public double CalculateTotalPrice(ShoppingList[] shoppingList)
         {
@@ -78,13 +84,13 @@ namespace Shopping
             }
             return result;
         }
-        public double CalculateTheMinimumObject(ShoppingList[] shoppingObject)
+        public ShoppingList CalculateTheMinimumObject(ShoppingList[] shoppingObject)
         {
             ShoppingList firstObject = shoppingObject[0];
-            double result = 0;
+            ShoppingList result = shoppingObject[0];
             for (int i = 0; i < shoppingObject.Length; i++)
             {
-                result = (firstObject.amount < shoppingObject[i].amount) ? result : shoppingObject[i].amount;
+                result = (firstObject.amount < shoppingObject[i].amount) ? result : shoppingObject[i];
 
             }
             return result;
@@ -97,23 +103,19 @@ namespace Shopping
         }
         public ShoppingList[] RemoveTheMostExpensive(ShoppingList[] shoppingObjects)
         {
-            SortObjectsAscendend(shoppingObjects);
-            Array.Resize(ref shoppingObjects, shoppingObjects.Length - 1);
             return shoppingObjects;
         }
 
-        private static void SortObjectsAscendend(ShoppingList[] shoppingObjects)
+        public ShoppingList GetTheHighestPrice(ShoppingList[] shoppingObjects)
         {
+            ShoppingList firstObject = shoppingObjects[0];
+            ShoppingList result = shoppingObjects[0];
             for (int i = 0; i < shoppingObjects.Length; i++)
-                for (int j = 0; j < shoppingObjects.Length - 1; j++)
-                {
-                    if (shoppingObjects[j].amount > shoppingObjects[j + 1].amount)
-                    {
-                        ShoppingList higherValue = shoppingObjects[j];
-                        shoppingObjects[j] = shoppingObjects[j + 1];
-                        shoppingObjects[j + 1] = higherValue;
-                    }
-                }
+            {
+                result = (firstObject.amount > shoppingObjects[i].amount) ? result : shoppingObjects[i];
+
+            }
+            return result;
         }
 
         public int CountObjects(ShoppingList[] shoppingObjects)
