@@ -29,7 +29,7 @@ namespace Password
         [TestMethod]
         public void GetPasswordOfSmallCharacters()
         {
-            var password = new Options[] { new Options(10, 0, 0, 0, false, false) };
+            var password = new Options(10, 0, 0, 0, false, false);
             Assert.AreEqual(true, CheckSmallLettersOfAString(GetPassword(password)));
         }
         [TestMethod]
@@ -41,7 +41,7 @@ namespace Password
         [TestMethod]
         public void GetPasswordForSmallAndBigLetters()
         {
-            var password = new Options[] { new Options(10, 4, 3, 0, true, false) };
+            var password = new Options(10, 4, 3, 0, true, false);
             Assert.AreEqual(10, CountChars(GetPassword(password)));
         }
         [TestMethod]
@@ -85,36 +85,29 @@ namespace Password
         [TestMethod]
         public void GetPasswordWithAllOptions()
         {
-            var password = new Options[] { new Options(10, 4, 3, 2, true, true) };
+            var password = new Options(10, 4, 3, 2, true, true);
             Assert.AreEqual(10, CountChars(GetPassword(password)));
         }
         Random rand = new Random();
 
-        public string GetPassword(Options[] options)
+        public string GetPassword(Options options)
         {
             string result = string.Empty;
-            int smallChars = 0;
-            int upperChars = 0;
-            int numberChars = 0;
-            int noOfsymbols;
 
-            for (int i = 0; i < options.Length; i++)
-            {
-                while (options[i].smallChars != result.Length)
+                while (options.smallChars != result.Length)
                 {
-                    result = GetSmallLetters(options[i].smallChars) + GetBigLetters(options[i].noOfUpperChars)
-                        + GetNumbers(options[i].noOfNumbers) + GenerateSymbols(options[i].noOfSymbols);
+                    result = GetSmallLetters(options.smallChars) + GetBigLetters(options.noOfUpperChars)
+                        + GetNumbers(options.noOfNumbers) + GenerateSymbols(options.noOfSymbols);
 
-                    if (options[i].notIncludedSimilarChars)
+                    if (options.notIncludedSimilarChars)
                     {                      
                             result = RemoveChars(result);                       
                     }
-                    if (options[i].notIncludedAmbigueChars)
+                    if (options.notIncludedAmbigueChars)
                     {
                         result = RemoveAmbigueChars(result);
                     }
                 }
-            }
             return ShuffleString(result);
         }
 
