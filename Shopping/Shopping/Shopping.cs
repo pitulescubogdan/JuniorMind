@@ -103,6 +103,11 @@ namespace Shopping
         }
         public ShoppingList[] RemoveTheMostExpensive(ShoppingList[] shoppingObjects)
         {
+
+            Array.Sort(shoppingObjects);
+            
+            Array.Resize(ref shoppingObjects, shoppingObjects.Length - 1);
+
             return shoppingObjects;
         }
 
