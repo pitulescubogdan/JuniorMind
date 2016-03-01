@@ -32,34 +32,17 @@ namespace Password
             var password = new Options(10, 0, 0, 0, false, false);
             Assert.AreEqual(true, CheckSmallLettersOfAString(GetPassword(password)));
         }
-        [TestMethod]
-        public void CheckSmallLetters()
-        {
-            var smallPassowrd = GetSmallLetters(5);
-            Assert.AreEqual(true, CheckSmallLettersOfAString(smallPassowrd));
-        }
+        
         [TestMethod]
         public void GetPasswordForSmallAndBigLetters()
         {
             var password = new Options(10, 4, 3, 0, true, false);
             Assert.AreEqual(10, CountChars(GetPassword(password)));
-        }
-        [TestMethod]
-        public void CheckForBigLetters()
-        {
-            var bigPassword = GetBigLetters(5);
-            Assert.AreEqual(5, CountChars(bigPassword));
-
-        }
+        }    
         [TestMethod]
         public void CheckForLowerAndUpperLetters()
         {
             Assert.AreEqual(true, CheckForLowerAndUpperLetters("AsfaSfSr"));
-        }
-        [TestMethod]
-        public void GetNumbersInPassword()
-        {
-            Assert.AreEqual(5, CountChars(GetNumbers(5)));
         }
         [TestMethod]
         public void RemoveChars()
@@ -69,7 +52,7 @@ namespace Password
         [TestMethod]
         public void RemoveAmbigueCharsTest()
         {
-            Assert.AreEqual("assa", RemoveAmbigueChars("{}assa[]()~"));
+            Assert.AreEqual("assa", RemoveChars("{}assa[]()~", "{}[]()/\'~,;.<>"));
         }
         [TestMethod]
         public void ShuffleStringTest()
@@ -80,7 +63,7 @@ namespace Password
         [TestMethod]
         public void GenerateSomeSymbols()
         {
-            Assert.AreEqual(CountChars(GenerateSymbols(5)), CountChars(GenerateSymbols(5)));
+            Assert.AreEqual(5, CountChars(GetString(5, ' ', '/' + 1,true)));
         }
         [TestMethod]
         public void GetPasswordWithAllOptions()
@@ -93,57 +76,32 @@ namespace Password
         public string GetPassword(Options options)
         {
             string result = string.Empty;
-
-                while (options.smallChars != result.Length)
-                {
-                    result = GetSmallLetters(options.smallChars) + GetBigLetters(options.noOfUpperChars)
-                        + GetNumbers(options.noOfNumbers) + GenerateSymbols(options.noOfSymbols);
-
-                    if (options.notIncludedSimilarChars)
-                    {                      
-                            result = RemoveChars(result);                       
-                    }
-                    if (options.notIncludedAmbigueChars)
-                    {
-                        result = RemoveAmbigueChars(result);
-                    }
-                }
+            var smallChars = options.smallChars - options.noOfUpperChars - options.noOfNumbers - options.noOfSymbols;
+            result += GetString(smallChars, 'a', 'z' + 1,options.notIncludedSimilarChars);
+            result += GetString(options.noOfUpperChars,'A','Z'+1, options.notIncludedSimilarChars);
+            result += GetString(options.noOfNumbers,0,9, options.notIncludedSimilarChars);
+            result += GetString(options.noOfSymbols,' ','/'+1,options.notIncludedAmbigueChars,"{}[]()/\\'\"/~/,/;/./<> ");
+           
             return ShuffleString(result);
         }
 
-        public string GetSmallLetters(int noOfSmallLetters)
+        public string GetString(int noOfSmallLetters, int startRange, int endRange, bool removeChars,string toRemove = "l1IoO0")
         {
             string output = string.Empty;
 
             while (noOfSmallLetters != 0)
             {
-                int randomNumber = rand.Next(0, 26);
-                char holdChar = (char)('a' + randomNumber);
+                char holdChar = (char)rand.Next(startRange,endRange);
+                if(!removeChars)
+                {
+                    output = RemoveChars(output,toRemove);
+                }
                 output += holdChar;
                 noOfSmallLetters--;
+
             }
             return output;
-        }
-        public string GetBigLetters(int noOfLetters)
-        {
-            string output = GetSmallLetters(noOfLetters);
-
-            return output.ToUpper();
-        }
-        public string GetNumbers(int noOfNumbers)
-        {
-            int holder = 0;
-            string output = string.Empty;
-
-            while (noOfNumbers != 0)
-            {
-                holder = rand.Next(0, 9);
-                output += holder;
-                noOfNumbers--;
-            }
-
-            return output;
-        }
+        }       
         public bool CheckSmallLettersOfAString(string inputString)
         {
 
@@ -191,19 +149,15 @@ namespace Password
             }
             return count;
         }
-        public string RemoveChars(string inputString,string charsToRemove = "l1IoO0")
+        public string RemoveChars(string inputString, string charsToRemove = "l1IoO0")
         {
             string result = string.Empty;
-            foreach(char c in inputString)
+            foreach (char c in inputString)
             {
-                if (!charsToRemove.Contains(c.ToString())) result += c;             
+                if (!charsToRemove.Contains(c.ToString())) result += c;
             }
             return result;
-        }
-        public string RemoveAmbigueChars(string inputString)
-        {           
-            return RemoveChars(inputString, "{}[]()/\'~,;.<> ");
-        }
+        }      
         public string ShuffleString(string inputString)
         {
             char[] charsFromString = inputString.ToCharArray();
@@ -220,19 +174,6 @@ namespace Password
                 result += hold;
             }
             return result;
-        }    
-        public string GenerateSymbols(int numberOfSymbols)
-        {
-            int holder;
-            string output = string.Empty;
-
-            while(numberOfSymbols != 0)
-            {
-                holder = rand.Next(' ', '/');
-                output += (char)holder;
-                numberOfSymbols--;
-            }
-            return output;
-        }
+        }     
     }
 }
