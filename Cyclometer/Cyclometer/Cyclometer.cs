@@ -53,8 +53,7 @@ namespace Cyclometer
         {
             var participants = new Participant[] { new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) }),
                 new Participant("Mihai", 0.28,new Record[] {new Record(8,1),new Record(11,2) }) };
-            var maxSpeed = new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) });
-            Assert.AreEqual(maxSpeed, CalculateMaxSpeed(participants));
+            Assert.AreEqual(participants[0], CalculateMaxSpeed(participants));
         }
 
         public double CalculateTotalDistance(Participant[] participants)
