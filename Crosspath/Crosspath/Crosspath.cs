@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Crosspath
 {
@@ -28,13 +29,21 @@ namespace Crosspath
             ,new Directions(true,false,false,true),new Directions(false,true,true,false)};
             Assert.AreEqual("2,2", ReturnFistIntersection(directions));
         }
+        [TestMethod]
+        public void GetFirstIntersection()
+        {
+            var directions = new Directions[] { new Directions(true, false, false, true), new Directions(true, false, false, true)
+            ,new Directions(true,false,false,true),new Directions(true,false,false,true),new Directions(false,true,true,false)};
+            Assert.AreEqual("3,3", ReturnFistIntersection(directions));
+
+        }
 
         public string ReturnFistIntersection(Directions[] directions)
         {
             int xCoord = 0;
             int yCoord = 0;
             int[] holdCoords = new int[2];
-            int[][] checkPoints = new int[directions.Length][];
+            int[][] checkPoints = new int[0][];
 
             for (int i = 0; i < directions.Length; i++)
             {
@@ -43,10 +52,10 @@ namespace Crosspath
                 if (directions[i].left) yCoord--;
                 if (directions[i].right) yCoord++;
                 int[] coords = { xCoord, yCoord };
-
+                Array.Resize(ref checkPoints, i+1);
                 for (int j = 0; j < checkPoints.Length - 1; j++)
                 {
-                    if (Array.Equals(checkPoints[j],coords)) 
+                    if (checkPoints[j].SequenceEqual(coords)) 
                     {
                         return xCoord + "," + yCoord;
                     }
