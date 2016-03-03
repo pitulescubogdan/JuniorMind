@@ -58,9 +58,15 @@ namespace Cyclometer
         [TestMethod]
         public void AverageSpeed()
         {
+            var participants = new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) });
+            Assert.AreEqual(4.2, CalculateAverageSpeed(participants));
+        }
+        [TestMethod]
+        public void BestAverageSpeed()
+        {
             var participants = new Participant[] { new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) }),
-                new Participant("Mihai", 0.28, new Record[] { new Record(8, 1), new Record(11, 2) }) };
-            Assert.AreEqual(0, CalculateAverageSpeed(participants));
+                new Participant("Mihai", 0.28,new Record[] {new Record(8,1),new Record(11,2) }) };
+            Assert.AreEqual(participants[0], GetMaximumAverageParticipant(participants));
         }
 
         public double CalculateTotalDistance(Participant[] participants)
@@ -107,9 +113,17 @@ namespace Cyclometer
             }
             return result;
         }
-        public double CalculateAverageSpeed(Participant[] participant)
+        public double CalculateAverageSpeed(Participant participant)
         {
-            return 0;
+            double avgSpeed = 0;
+
+            avgSpeed = CalculateSpeed(participant);
+
+            return avgSpeed / participant.recordings.Length;
+        }
+        public Participant GetMaximumAverageParticipant(Participant[] participant)
+        {
+            return participant[0];
         }
     }
 }
