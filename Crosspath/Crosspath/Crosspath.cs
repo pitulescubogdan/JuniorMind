@@ -24,7 +24,8 @@ namespace Crosspath
         [TestMethod]
         public void GetFirstIntersectionPoint()
         {
-            var directions = new Directions[] { new Directions(true, false, false, true), new Directions(true, false, false, true) };
+            var directions = new Directions[] { new Directions(true, false, false, true), new Directions(true, false, false, true)
+            ,new Directions(true,false,false,true),new Directions(false,true,true,false)};
             Assert.AreEqual("2,2", ReturnFistIntersection(directions));
         }
 
@@ -41,11 +42,19 @@ namespace Crosspath
                 if (directions[i].down) xCoord--;
                 if (directions[i].left) yCoord--;
                 if (directions[i].right) yCoord++;
+                int[] coords = { xCoord, yCoord };
 
-                int[] coords = {  xCoord,  yCoord };
+                for (int j = 0; j < checkPoints.Length - 1; j++)
+                {
+                    if (Array.Equals(checkPoints[j],coords)) 
+                    {
+                        return xCoord + "," + yCoord;
+                    }
+                }
                 checkPoints[i] = coords;
+
             }
-            return xCoord + "," + yCoord;
+            return 0 + "," + 0;
         }
     }
 }
