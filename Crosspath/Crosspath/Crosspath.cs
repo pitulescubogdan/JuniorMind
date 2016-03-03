@@ -24,24 +24,28 @@ namespace Crosspath
         [TestMethod]
         public void GetFirstIntersectionPoint()
         {
-            var directions = new Directions[] { new Directions(true, false, false, true), new Directions(true,false,false,true) };
-            Assert.AreEqual("", ReturnFistIntersection(directions));
+            var directions = new Directions[] { new Directions(true, false, false, true), new Directions(true, false, false, true) };
+            Assert.AreEqual("2,2", ReturnFistIntersection(directions));
         }
 
         public string ReturnFistIntersection(Directions[] directions)
         {
             int xCoord = 0;
             int yCoord = 0;
+            int[] holdCoords = new int[2];
+            int[][] checkPoints = new int[directions.Length][];
 
-                for (int i = 0; i < directions.Length; i++)
+            for (int i = 0; i < directions.Length; i++)
             {
                 if (directions[i].up) xCoord++;
                 if (directions[i].down) xCoord--;
                 if (directions[i].left) yCoord--;
-                if (directions[i].right) yCoord++; 
+                if (directions[i].right) yCoord++;
 
+                int[] coords = {  xCoord,  yCoord };
+                checkPoints[i] = coords;
             }
-            return "(" + xCoord + ", " + yCoord + ")";
+            return xCoord + "," + yCoord;
         }
     }
 }
