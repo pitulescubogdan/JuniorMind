@@ -123,7 +123,14 @@ namespace Cyclometer
         }
         public Participant GetMaximumAverageParticipant(Participant[] participant)
         {
-            return participant[0];
+            var firstParticipant = participant[0];
+            for(int i = 0; i < participant.Length; i++)
+            {
+                firstParticipant = (CalculateAverageSpeed(firstParticipant) > CalculateAverageSpeed(participant[i]))
+                    ? firstParticipant : participant[i];
+            }
+
+            return firstParticipant;
         }
     }
 }
