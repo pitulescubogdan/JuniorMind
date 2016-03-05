@@ -68,7 +68,7 @@ namespace Cyclometer
         public void AverageSpeed()
         {
             var participants = new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) });
-            Assert.AreEqual(4.2, CalculateAverageSpeed(participants));
+            Assert.AreEqual(8.796, CalculateAverageSpeed(participants),0.001);
         }
         [TestMethod]
         public void BestAverageSpeed()
@@ -91,7 +91,7 @@ namespace Cyclometer
                 new Participant("Mihai",0.28,new Record[] {new Record (8,1),new Record(19,2)}),
                 new Participant("Alex",0.28,new Record[] {new Record(9,1), new Record(22,2)})
             };
-            Assert.AreEqual(new PersonNameSecond("Bogdan",3), CalculateMaxSpeed(participants));
+            Assert.AreEqual(new PersonNameSecond("Alex",2), CalculateMaxSpeed(participants));
         }
        
 
@@ -119,7 +119,7 @@ namespace Cyclometer
             Participant maxParticipant = participant[0];
             for (int i = 0; i < participant.Length; i++)
             {
-                double speed = participant[i].diameter * GetMaximRotations(participant[i]);
+                var speed = CalculateSpeed(participant[i]);
                 maxParticipant = (CalculateSpeed(maxParticipant) > speed) ? maxParticipant : participant[i];
                 output = GetNameAndSecond(maxParticipant, GetPositionOfMaxSpeed(maxParticipant));
             }
@@ -145,7 +145,7 @@ namespace Cyclometer
         }
         public double CalculateSpeed(Participant participant)
         {
-            return participant.diameter * GetRotations(participant);
+            return participant.diameter * GetMaximRotations(participant);
         }
         public double GetRotations(Participant participant)
         {
@@ -167,9 +167,8 @@ namespace Cyclometer
         }
         public double CalculateAverageSpeed(Participant participant)
         {
-            double avgSpeed = 0;
 
-            avgSpeed = CalculateSpeed(participant);
+            double avgSpeed = CalculateDistance(participant);
 
             return avgSpeed / participant.recordings.Length;
         }
