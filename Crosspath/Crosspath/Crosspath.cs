@@ -7,36 +7,42 @@ namespace Crosspath
     [TestClass]
     public class Crosspath
     {
-        public struct Directions
-        {
-            public bool up;
-            public bool down;
-            public bool left;
-            public bool right;
-
-            public Directions(bool up, bool down, bool left, bool right)
-            {
-                this.up = up;
-                this.down = down;
-                this.left = left;
-                this.right = right;
-            }
-        }
         [TestMethod]
         public void GetFirstIntersectionPoint()
         {
-            var directions = new Directions[] { new Directions(true, false, false, true), new Directions(true, false, false, true)
-            ,new Directions(true,false,false,true),new Directions(false,true,true,false)};
-            Assert.AreEqual("2,2", ReturnFistIntersection(directions));
+            Directions[] firstIntersection = new Directions[]
+           {
+                Directions.up,
+                Directions.up,
+                Directions.right,
+                Directions.down,
+                Directions.left
+            };
+            Assert.AreEqual("1,0", ReturnFistIntersection(firstIntersection));
         }
         [TestMethod]
         public void GetFirstIntersection()
         {
-            var directions = new Directions[] { new Directions(true, false, false, true), new Directions(true, false, false, true)
-            ,new Directions(true,false,false,true),new Directions(true,false,false,true),new Directions(false,true,true,false)};
-            Assert.AreEqual("3,3", ReturnFistIntersection(directions));
-
+            Directions[] intersection = new Directions[]
+                       {
+                Directions.up,
+                Directions.right,
+                Directions.right,
+                Directions.down,
+                Directions.left,
+                Directions.up
+                        };
+            Assert.AreEqual("1,1", ReturnFistIntersection(intersection));
         }
+        [Flags]
+        public enum Directions
+        {
+            up = 0x01,
+            down = 0x02,
+            left = 0x04,
+            right = 0x08
+        }
+
 
         public string ReturnFistIntersection(Directions[] directions)
         {
@@ -47,15 +53,15 @@ namespace Crosspath
 
             for (int i = 0; i < directions.Length; i++)
             {
-                if (directions[i].up) xCoord++;
-                if (directions[i].down) xCoord--;
-                if (directions[i].left) yCoord--;
-                if (directions[i].right) yCoord++;
+                if (directions[i] == Directions.up) xCoord++;
+                if (directions[i] == Directions.down) xCoord--;
+                if (directions[i] == Directions.left) yCoord--;
+                if (directions[i] == Directions.right) yCoord++;
                 int[] coords = { xCoord, yCoord };
-                Array.Resize(ref checkPoints, i+1);
+                Array.Resize(ref checkPoints, i + 1);
                 for (int j = 0; j < checkPoints.Length - 1; j++)
                 {
-                    if (checkPoints[j].SequenceEqual(coords)) 
+                    if (checkPoints[j].SequenceEqual(coords))
                     {
                         return xCoord + "," + yCoord;
                     }

@@ -105,7 +105,7 @@ namespace Cyclometer
         }
         public PersonNameSecond CalculateMaxSpeed(Participant[] participant)
         {
-            PersonNameSecond output = GetNameAndSecond(participant[0],0);
+            PersonNameSecond output = GetNameAndSecond(participant[0], 0);
             Participant maxParticipant = participant[0];
             double firstSpeed = participant[0].diameter * GetMaximRotations(participant[0]);
             for (int i = 0; i < participant.Length; i++)
@@ -117,7 +117,7 @@ namespace Cyclometer
             }
             return output;
         }
-        
+
         private static PersonNameSecond GetNameAndSecond(Participant maxParticipant, int i)
         {
             return new PersonNameSecond(maxParticipant.name, maxParticipant.recordings[i].second);
