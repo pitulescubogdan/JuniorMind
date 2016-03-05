@@ -68,6 +68,13 @@ namespace Cyclometer
                 new Participant("Mihai", 0.28,new Record[] {new Record(8,1),new Record(11,2) }) };
             Assert.AreEqual(participants[0], GetMaximumAverageParticipant(participants));
         }
+        [TestMethod]
+        public void GetMaxRotationsTest()
+        {
+            var participants = new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) });
+            Assert.AreEqual(new Record(20,3), GetMaximRotations(participants));
+
+        }
 
         public double CalculateTotalDistance(Participant[] participants)
         {
@@ -90,11 +97,11 @@ namespace Cyclometer
         public Participant CalculateMaxSpeed(Participant[] participant)
         {
             Participant maxParticipant = participant[0];
-            double firstSpeed = participant[0].diameter * getRotations(participant[0]);
+            double firstSpeed = participant[0].diameter * GetRotations(participant[0]);
             double result = 0;
             for (int i = 0; i < participant.Length; i++)
             {
-                double speed = participant[i].diameter * getRotations(participant[i]);
+                double speed = CalculateSpeed(participant[i]);
                 result = Math.Max(result, speed);
                 maxParticipant = (firstSpeed > speed) ? maxParticipant : participant[i];
             }
@@ -102,14 +109,23 @@ namespace Cyclometer
         }
         public double CalculateSpeed(Participant participant)
         {
-            return (double)participant.diameter * getRotations(participant);
+            return (double)participant.diameter * GetRotations(participant);
         }
-        public double getRotations(Participant participant)
+        public double GetRotations(Participant participant)
         {
             double result = 0;
             for (int i = 0; i < participant.recordings.Length; i++)
             {
                 result += participant.recordings[i].rotations;
+            }
+            return result;
+        }
+        public Record GetMaximRotations(Participant participant)
+        {
+            Record result = participant.recordings[0];
+            for(int i = 0; i < participant.recordings.Length; i++)
+            {
+                result = (result.rotations > participant.recordings[i].rotations) ? result : participant.recordings[i];
             }
             return result;
         }
@@ -124,7 +140,7 @@ namespace Cyclometer
         public Participant GetMaximumAverageParticipant(Participant[] participant)
         {
             var firstParticipant = participant[0];
-            for(int i = 0; i < participant.Length; i++)
+            for (int i = 0; i < participant.Length; i++)
             {
                 firstParticipant = (CalculateAverageSpeed(firstParticipant) > CalculateAverageSpeed(participant[i]))
                     ? firstParticipant : participant[i];
