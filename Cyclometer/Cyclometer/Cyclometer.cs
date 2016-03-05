@@ -80,10 +80,20 @@ namespace Cyclometer
         [TestMethod]
         public void GetMaxRotationsTest()
         {
-            var participants = new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) });
-            Assert.AreEqual(20, GetMaximRotations(participants));
-
+            var participant = new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) });
+            Assert.AreEqual(20, GetMaximRotations(participant));
         }
+        [TestMethod]
+        public void MaximumRotationsBetweenThreeParticipants()
+        {
+            var participants = new Participant[] {
+                new Participant("Bogdan",0.28,new Record[] { new Record(10,1),new Record(20,3)}),
+                new Participant("Mihai",0.28,new Record[] {new Record (8,1),new Record(19,2)}),
+                new Participant("Alex",0.28,new Record[] {new Record(9,1), new Record(22,2)})
+            };
+            Assert.AreEqual(new PersonNameSecond("Bogdan",3), CalculateMaxSpeed(participants));
+        }
+       
 
         public double CalculateTotalDistance(Participant[] participants)
         {
@@ -105,27 +115,38 @@ namespace Cyclometer
         }
         public PersonNameSecond CalculateMaxSpeed(Participant[] participant)
         {
-            PersonNameSecond output = GetNameAndSecond(participant[0], 0);
+            PersonNameSecond output = GetNameAndSecond(participant[0],0);
             Participant maxParticipant = participant[0];
-            double firstSpeed = participant[0].diameter * GetMaximRotations(participant[0]);
             for (int i = 0; i < participant.Length; i++)
-
             {
                 double speed = participant[i].diameter * GetMaximRotations(participant[i]);
-                maxParticipant = (firstSpeed > speed) ? maxParticipant : participant[i];
-                output = GetNameAndSecond(maxParticipant, i);
+                maxParticipant = (CalculateSpeed(maxParticipant) > speed) ? maxParticipant : participant[i];
+                Record[] hold = maxParticipant.recordings;
+                output = GetNameAndSecond(maxParticipant, GetPositionOfMaxSpeed(hold, maxParticipant));
             }
+
             return output;
         }
 
-        private static PersonNameSecond GetNameAndSecond(Participant maxParticipant, int i)
+        private static PersonNameSecond GetNameAndSecond(Participant maxParticipant,int position)
         {
-            return new PersonNameSecond(maxParticipant.name, maxParticipant.recordings[i].second);
+            return new PersonNameSecond(maxParticipant.name, maxParticipant.recordings[position].second);
         }
+        public int GetPositionOfMaxSpeed(Record[] recordings , Participant participant)
+        {
+            int position = 0;
 
+            for(int i = 0; i < recordings.Length; i++)
+            {
+                double firstSpeed = participant.diameter * recordings[0].rotations;
+                double actualSpeed = participant.diameter * recordings[i].rotations;
+                position = (firstSpeed > actualSpeed) ? 0 : i;
+            }            
+            return position;
+        }
         public double CalculateSpeed(Participant participant)
         {
-            return (double)participant.diameter * GetRotations(participant);
+            return participant.diameter * GetRotations(participant);
         }
         public double GetRotations(Participant participant)
         {
