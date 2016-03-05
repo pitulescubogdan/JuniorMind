@@ -121,8 +121,7 @@ namespace Cyclometer
             {
                 double speed = participant[i].diameter * GetMaximRotations(participant[i]);
                 maxParticipant = (CalculateSpeed(maxParticipant) > speed) ? maxParticipant : participant[i];
-                Record[] hold = maxParticipant.recordings;
-                output = GetNameAndSecond(maxParticipant, GetPositionOfMaxSpeed(hold, maxParticipant));
+                output = GetNameAndSecond(maxParticipant, GetPositionOfMaxSpeed(maxParticipant));
             }
 
             return output;
@@ -132,14 +131,14 @@ namespace Cyclometer
         {
             return new PersonNameSecond(maxParticipant.name, maxParticipant.recordings[position].second);
         }
-        public int GetPositionOfMaxSpeed(Record[] recordings , Participant participant)
+        public int GetPositionOfMaxSpeed(Participant participant)
         {
             int position = 0;
 
-            for(int i = 0; i < recordings.Length; i++)
+            for(int i = 0; i < participant.recordings.Length; i++)
             {
-                double firstSpeed = participant.diameter * recordings[0].rotations;
-                double actualSpeed = participant.diameter * recordings[i].rotations;
+                double firstSpeed = participant.diameter * participant.recordings[0].rotations;
+                double actualSpeed = participant.diameter * participant.recordings[i].rotations;
                 position = (firstSpeed > actualSpeed) ? 0 : i;
             }            
             return position;
