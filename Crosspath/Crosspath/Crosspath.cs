@@ -16,9 +16,10 @@ namespace Crosspath
                 Directions.up,
                 Directions.right,
                 Directions.down,
+                Directions.down,
                 Directions.left
             };
-            Assert.AreEqual("1,0", ReturnFistIntersection(firstIntersection));
+            Assert.AreEqual(new Point(0, 0), ReturnFistIntersection(firstIntersection));
         }
         [TestMethod]
         public void GetFirstIntersection()
@@ -32,24 +33,32 @@ namespace Crosspath
                 Directions.left,
                 Directions.up
                         };
-            Assert.AreEqual("1,1", ReturnFistIntersection(intersection));
+            Assert.AreEqual(new Point(1, 1), ReturnFistIntersection(intersection));
         }
-        [Flags]
         public enum Directions
         {
-            up = 0x01,
-            down = 0x02,
-            left = 0x04,
-            right = 0x08
+            up,
+            down,
+            left,
+            right,
+        }
+        public struct Point
+        {
+            public int xCoord;
+            public int yCoord;
+
+            public Point(int xCoord, int yCoord)
+            {
+                this.xCoord = xCoord;
+                this.yCoord = yCoord;
+            }
         }
 
-
-        public string ReturnFistIntersection(Directions[] directions)
+        public Point ReturnFistIntersection(Directions[] directions)
         {
             int xCoord = 0;
             int yCoord = 0;
-            int[] holdCoords = new int[2];
-            int[][] checkPoints = new int[0][];
+            Point[] checkPoints = new Point[directions.Length];
 
             for (int i = 0; i < directions.Length; i++)
             {
@@ -57,19 +66,20 @@ namespace Crosspath
                 if (directions[i] == Directions.down) xCoord--;
                 if (directions[i] == Directions.left) yCoord--;
                 if (directions[i] == Directions.right) yCoord++;
-                int[] coords = { xCoord, yCoord };
-                Array.Resize(ref checkPoints, i + 1);
-                for (int j = 0; j < checkPoints.Length - 1; j++)
+
+                for (int j = 0; j < directions.Length; j++)
                 {
-                    if (checkPoints[j].SequenceEqual(coords))
+                    if (checkPoints[j].xCoord == xCoord && checkPoints[j].yCoord == yCoord)
                     {
-                        return xCoord + "," + yCoord;
+                        return checkPoints[j];
                     }
                 }
-                checkPoints[i] = coords;
+
+                checkPoints[i].xCoord = xCoord;
+                checkPoints[i].yCoord = yCoord;
 
             }
-            return 0 + "," + 0;
+            return checkPoints[0];
         }
     }
 }
