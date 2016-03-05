@@ -67,19 +67,22 @@ namespace Crosspath
                 if (directions[i] == Directions.left) yCoord--;
                 if (directions[i] == Directions.right) yCoord++;
 
-                for (int j = 0; j < directions.Length; j++)
+                for (int j = 0; j < checkPoints.Length; j++)
                 {
-                    if (checkPoints[j].xCoord == xCoord && checkPoints[j].yCoord == yCoord)
-                    {
-                        return checkPoints[j];
-                    }
+                    if (SearchIntersectPoint(xCoord, yCoord, checkPoints, j)) return checkPoints[j];
                 }
+
 
                 checkPoints[i].xCoord = xCoord;
                 checkPoints[i].yCoord = yCoord;
 
             }
             return checkPoints[0];
+        }
+
+        private static bool SearchIntersectPoint(int xCoord, int yCoord, Point[] checkPoints, int j)
+        {
+            return (checkPoints[j].xCoord == xCoord && checkPoints[j].yCoord == yCoord);
         }
     }
 }
