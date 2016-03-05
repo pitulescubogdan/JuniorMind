@@ -31,7 +31,16 @@ namespace Cyclometer
                 this.recordings = recordings;
             }
         }
-
+        public struct PersonNameSecond
+        {
+            string name;
+            double second;
+            public PersonNameSecond(string name, double second)
+            {
+                this.name = name;
+                this.second = second;
+            }
+        }
         [TestMethod]
         public void TotalDistanceForOneParticipant()
         {
@@ -53,7 +62,7 @@ namespace Cyclometer
         {
             var participants = new Participant[] { new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) }),
                 new Participant("Mihai", 0.28,new Record[] {new Record(8,1),new Record(11,2) })};
-            Assert.AreEqual(participants[0], CalculateMaxSpeed(participants));
+            Assert.AreEqual(new PersonNameSecond("Bogdan", 3), CalculateMaxSpeed(participants));
         }
         [TestMethod]
         public void AverageSpeed()
@@ -94,17 +103,26 @@ namespace Cyclometer
             }
             return result;
         }
-        public Participant CalculateMaxSpeed(Participant[] participant)
+        public PersonNameSecond CalculateMaxSpeed(Participant[] participant)
         {
+            PersonNameSecond output = GetNameAndSecond(participant[0],0);
             Participant maxParticipant = participant[0];
             double firstSpeed = participant[0].diameter * GetMaximRotations(participant[0]);
             for (int i = 0; i < participant.Length; i++)
+
             {
                 double speed = participant[i].diameter * GetMaximRotations(participant[i]);
                 maxParticipant = (firstSpeed > speed) ? maxParticipant : participant[i];
+                output = GetNameAndSecond(maxParticipant, i);
             }
-            return maxParticipant;
+            return output;
         }
+        
+        private static PersonNameSecond GetNameAndSecond(Participant maxParticipant, int i)
+        {
+            return new PersonNameSecond(maxParticipant.name, maxParticipant.recordings[i].second);
+        }
+
         public double CalculateSpeed(Participant participant)
         {
             return (double)participant.diameter * GetRotations(participant);
@@ -121,7 +139,7 @@ namespace Cyclometer
         public double GetMaximRotations(Participant participant)
         {
             double result = participant.recordings[0].rotations;
-            for(int i = 0; i < participant.recordings.Length; i++)
+            for (int i = 0; i < participant.recordings.Length; i++)
             {
                 result = (result > participant.recordings[i].rotations) ? result : participant.recordings[i].rotations;
             }
