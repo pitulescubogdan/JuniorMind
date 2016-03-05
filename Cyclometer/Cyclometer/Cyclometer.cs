@@ -52,7 +52,7 @@ namespace Cyclometer
         public void TheMaximumSpeed()
         {
             var participants = new Participant[] { new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) }),
-                new Participant("Mihai", 0.28,new Record[] {new Record(8,1),new Record(11,2) }) };
+                new Participant("Mihai", 0.28,new Record[] {new Record(8,1),new Record(11,2) })};
             Assert.AreEqual(participants[0], CalculateMaxSpeed(participants));
         }
         [TestMethod]
@@ -72,7 +72,7 @@ namespace Cyclometer
         public void GetMaxRotationsTest()
         {
             var participants = new Participant("Bogdan", 0.28, new Record[] { new Record(10, 1), new Record(20, 3) });
-            Assert.AreEqual(new Record(20,3), GetMaximRotations(participants));
+            Assert.AreEqual(20, GetMaximRotations(participants));
 
         }
 
@@ -97,12 +97,10 @@ namespace Cyclometer
         public Participant CalculateMaxSpeed(Participant[] participant)
         {
             Participant maxParticipant = participant[0];
-            double firstSpeed = participant[0].diameter * GetRotations(participant[0]);
-            double result = 0;
+            double firstSpeed = participant[0].diameter * GetMaximRotations(participant[0]);
             for (int i = 0; i < participant.Length; i++)
             {
-                double speed = CalculateSpeed(participant[i]);
-                result = Math.Max(result, speed);
+                double speed = participant[i].diameter * GetMaximRotations(participant[i]);
                 maxParticipant = (firstSpeed > speed) ? maxParticipant : participant[i];
             }
             return maxParticipant;
@@ -120,12 +118,12 @@ namespace Cyclometer
             }
             return result;
         }
-        public Record GetMaximRotations(Participant participant)
+        public double GetMaximRotations(Participant participant)
         {
-            Record result = participant.recordings[0];
+            double result = participant.recordings[0].rotations;
             for(int i = 0; i < participant.recordings.Length; i++)
             {
-                result = (result.rotations > participant.recordings[i].rotations) ? result : participant.recordings[i];
+                result = (result > participant.recordings[i].rotations) ? result : participant.recordings[i].rotations;
             }
             return result;
         }
