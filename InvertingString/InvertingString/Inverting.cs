@@ -16,6 +16,12 @@ namespace InvertingString
         {
             Assert.AreEqual("tulaS", ReverseString("Salut"));
         }
+        [TestMethod]
+        public void ReverseSentence()
+        {
+            Assert.AreEqual("!asaomurf iz o etse izatsA", ReverseString("Astazi este o zi frumoasa!"));
+
+        }
 
         public string ReverseString(string inputString)
         {
