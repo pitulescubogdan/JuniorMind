@@ -7,14 +7,24 @@ namespace Fibonnaci
     public class Fibonnacci
     {
         [TestMethod]
-        public void Fibbonacci()
+        public void Fibonacci()
         {
-            Assert.AreEqual(5, CalculateFibonnacci(5));
+            Assert.AreEqual(5, CalculateFibonacci(5));
         }
-        public int CalculateFibonnacci(int number)
+        [TestMethod]
+        public void FibonacciOfSix()
+        {
+            Assert.AreEqual(8, CalculateFibonacci(6));
+        }
+        [TestMethod]
+        public void FibonacciOf65()
+        {
+            Assert.AreEqual(6765, CalculateFibonacci(20));
+        }
+        public int CalculateFibonacci(int number)
         {
             if (number < 2) return number;
-            else return (CalculateFibonnacci(number - 1) + CalculateFibonnacci(number - 2));
+            else return (CalculateFibonacci(number - 1) + CalculateFibonacci(number - 2));
         }
     }
 }
