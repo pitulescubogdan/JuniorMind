@@ -9,20 +9,12 @@ namespace Fibonnaci
         [TestMethod]
         public void Fibbonacci()
         {
-            Assert.AreEqual(8, CalculateFibonnacci(6));
+            Assert.AreEqual(5, CalculateFibonnacci(5));
         }
-        public int CalculateFibonnacci(int n)
-        {
-            int previous = 0;
-            return CalculateFibonnacci(n, ref previous);
-        }
-        public int CalculateFibonnacci(int number, ref int previous)
+        public int CalculateFibonnacci(int number)
         {
             if (number < 2) return number;
-            int beforePrevious = 0;
-            previous = CalculateFibonnacci(number - 1, ref beforePrevious);
-
-            return previous + beforePrevious;
+            else return (CalculateFibonnacci(number - 1) + CalculateFibonnacci(number - 2));
         }
     }
 }
