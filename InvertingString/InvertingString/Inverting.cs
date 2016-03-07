@@ -14,7 +14,12 @@ namespace InvertingString
 
         public string ReverseString(string inputString)
         {
-            return "cba";
+            if(inputString.Length > 0)
+            {
+                return inputString[inputString.Length - 1] + ReverseString(inputString.Substring(0,inputString.Length - 1));
+            }
+
+            return inputString;
         }
 
     }
