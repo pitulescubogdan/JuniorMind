@@ -11,6 +11,11 @@ namespace InvertingString
         {
             Assert.AreEqual("cba", ReverseString("abc"));
         }
+        [TestMethod]
+        public void RecursiveBiggerStringer()
+        {
+            Assert.AreEqual("tulaS", ReverseString("Salut"));
+        }
 
         public string ReverseString(string inputString)
         {
