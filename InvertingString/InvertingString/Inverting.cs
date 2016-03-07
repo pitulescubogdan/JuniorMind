@@ -25,13 +25,11 @@ namespace InvertingString
 
         public string ReverseString(string inputString)
         {
-            if(inputString.Length > 0)
+            if(inputString.Length == 0)
             {
-                return inputString[inputString.Length - 1] + ReverseString(inputString.Substring(0,inputString.Length - 1));
+                return inputString;
             }
-
-            return inputString;
+            return inputString[inputString.Length - 1] + ReverseString(inputString.Substring(0, inputString.Length - 1));
         }
-
     }
 }
