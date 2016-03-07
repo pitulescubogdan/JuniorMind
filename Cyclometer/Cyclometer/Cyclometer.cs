@@ -167,10 +167,7 @@ namespace Cyclometer
         }
         public double CalculateAverageSpeed(Participant participant)
         {
-
-            double avgSpeed = CalculateDistance(participant);
-
-            return avgSpeed / participant.recordings.Length;
+            return CalculateDistance(participant) / participant.recordings.Length;
         }
         public Participant GetMaximumAverageParticipant(Participant[] participant)
         {
