@@ -16,17 +16,22 @@ namespace ReplaceChar
         public void CheckSwapWithTwoLeters()
         {
             Assert.AreEqual("aHiHic", ReplaceChars("abbc", "Hi", 'b'));
+        }
+        [TestMethod]
+        public void ReplaceAtBeginningAandAtTheEnd()
+        {
+            Assert.AreEqual("HiabHibHicHi", ReplaceChars("xabxbxcx", "Hi", 'x'));
 
         }
         public string ReplaceChars(string inputString,string wordToReplace,char charReplaced)
         {
             string result = string.Empty;
-            if (!inputString.Contains(charReplaced))
+            if (inputString.Length <= 1) return inputString;
+            if (inputString[inputString.Length - 1].ToString().Contains(charReplaced))
             {
-                return inputString;
+                return ReplaceChars(inputString.Substring(0, inputString.Length - 1), wordToReplace, charReplaced) + wordToReplace;
             }
-
-            return inputString.Replace(charReplaced.ToString(),wordToReplace);
+            return ReplaceChars(inputString.Substring(0, inputString.Length - 1),wordToReplace,charReplaced) + inputString[inputString.Length-1];
         }
     }
 }
