@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace ReplaceChar
 {
@@ -9,11 +10,23 @@ namespace ReplaceChar
         [TestMethod]
         public void CheckReplacement()
         {
-            Assert.AreEqual("SALUTSALUTSALUT", ReplaceChars("abc","SALUT"));
+            Assert.AreEqual("aHic", ReplaceChars("abc","Hi",'b'));
         }
-        public string ReplaceChars(string inputString,string wordToReplace)
+        [TestMethod]
+        public void CheckSwapWithTwoLeters()
         {
-            return "SALUTSALUTSALUT";
+            Assert.AreEqual("aHiHic", ReplaceChars("abbc", "Hi", 'b'));
+
+        }
+        public string ReplaceChars(string inputString,string wordToReplace,char charReplaced)
+        {
+            string result = string.Empty;
+            if (!inputString.Contains(charReplaced))
+            {
+                return inputString;
+            }
+
+            return inputString.Replace(charReplaced.ToString(),wordToReplace);
         }
     }
 }
