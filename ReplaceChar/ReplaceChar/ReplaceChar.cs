@@ -29,9 +29,7 @@ namespace ReplaceChar
             
             if (inputString.Length <= 1)
             {
-                if(inputString[0].ToString().Contains(charReplaced))  return wordToReplace;
-                if (inputString[1].ToString().Contains(charReplaced)) return wordToReplace;
-                return inputString;
+                return (inputString[0].ToString().Contains(charReplaced)) ? wordToReplace : inputString;
             }
             if (inputString[inputString.Length - 1].ToString().Contains(charReplaced))
             {
