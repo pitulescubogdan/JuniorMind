@@ -23,7 +23,7 @@ namespace Calculator
         public void CalculateMoreAdditions()
         {
             int index = 0;
-            Assert.AreEqual(8, Calculate("+ 1 2 + 2 3",ref index));
+            Assert.AreEqual(8, Calculate("+ + 1 2 + 2 3",ref index));
 
         }
         public double Calculate(string inputString, ref int index)
