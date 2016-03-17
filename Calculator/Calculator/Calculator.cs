@@ -11,6 +11,18 @@ namespace Calculator
         {
             Assert.AreEqual(3, Calculate("+ 1 2"));
         }
+        [TestMethod]
+        public void Substraction()
+        {
+            Assert.AreEqual(2, Calculate("- 5 3"));
+
+        }
+        [TestMethod]
+        public void CalculateMoreAdditions()
+        {
+            Assert.AreEqual(8, Calculate("+ 1 2 + 2 3"));
+
+        }
         public double Calculate(string inputString)
         {
             string[] elements = inputString.Split(' ');
