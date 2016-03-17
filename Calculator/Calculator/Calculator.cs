@@ -24,7 +24,12 @@ namespace Calculator
         {
             int index = 0;
             Assert.AreEqual(8, Calculate("+ + 1 2 + 2 3",ref index));
-
+        }
+        [TestMethod]
+        public void Multiply()
+        {
+            int index = 0;
+            Assert.AreEqual(12, Calculate("* 3 4", ref index));
         }
         public double Calculate(string inputString, ref int index)
         {
@@ -41,6 +46,7 @@ namespace Calculator
             switch (firstElement)
             {
                 case "+": return Calculate(inputString,ref index) + Calculate(inputString,ref index);
+                case "*": return Calculate(inputString, ref index) * Calculate(inputString, ref index);
                 default: return Calculate(inputString, ref index) - Calculate(inputString, ref index);
             }
         }
