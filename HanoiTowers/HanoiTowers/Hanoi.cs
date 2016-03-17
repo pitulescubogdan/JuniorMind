@@ -7,13 +7,25 @@ namespace HanoiTowers
     public class Hanoi
     {
         [TestMethod]
-        public void HanoiTowers()
+        public void MoveOneDisk()
         {
-            Assert.AreEqual(true, MoveDisks(3));
+            int[] source = { 1,2,3 };
+            int[] destination = new int[source.Length];
+            int[] auxiliar = new int[source.Length];
+            CollectionAssert.AreEqual(new int[] { 1,0,0 }, MoveDisks(3,source,destination,auxiliar));
         }
-        public bool MoveDisks(int disk)
+        public int[] MoveDisks(int disk, int[] source, int[] destination, int[] auxiliar)
         {
-            return true;
+            if(disk == 1)
+            {
+                destination[disk - 1] = source[disk - 1];
+                Array.Resize(ref source, source.Length - 1);
+            }
+            else
+            {
+                MoveDisks(disk - 1, source, auxiliar, destination);
+            }
+            return destination;
         }
     }
 }
