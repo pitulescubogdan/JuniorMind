@@ -14,11 +14,11 @@ namespace PascalTriangle
         
         public int GetPascal(int row, int column)
         {
-            if (row == 0 || column == 0)
+            if (row == 1 || column == 1)
             {
                 return 1;
             }
-            return 1;
+            return GetPascal(row - 1, column - 1) + GetPascal(row - 1, column);
         }
     }
 }
