@@ -9,10 +9,10 @@ namespace HanoiTowers
         [TestMethod]
         public void MoveOneDisk()
         {
-            int[] source = { 1,2,3 };
+            int[] source = { 1,2,3,4 };
             int[] destination = new int[source.Length];
             int[] auxiliar = new int[source.Length];
-            CollectionAssert.AreEqual(new int[] { 1,0,0 }, MoveDisks(3,source,destination,auxiliar));
+            CollectionAssert.AreEqual(new int[] { 1,2,3,4 }, MoveDisks(4,source,destination,auxiliar));
         }
         [TestMethod]
         public void MoveTwoDisks()
@@ -20,7 +20,7 @@ namespace HanoiTowers
             int[] source = { 1, 2, 3 };
             int[] destination = new int[source.Length];
             int[] auxiliar = new int[source.Length];
-            CollectionAssert.AreEqual(new int[] { 0, 2, 0 }, MoveDisks(3, source, destination, auxiliar));
+            CollectionAssert.AreEqual(new int[] { 1, 2, 3 }, MoveDisks(3, source, destination, auxiliar));
         }
         public int[] MoveDisks(int disk, int[] source, int[] destination, int[] auxiliar)
         {
@@ -34,9 +34,9 @@ namespace HanoiTowers
                 MoveDisks(disk - 1, source, auxiliar, destination);
                 destination[disk - 1] = source[disk - 1];
                 Array.Resize(ref source, source.Length - 1);
-
+                MoveDisks(disk - 1, auxiliar, destination, source);
             }
-            return auxiliar;
+            return destination;
         }
     }
 }
