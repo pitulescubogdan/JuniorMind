@@ -9,35 +9,39 @@ namespace Calculator
         [TestMethod]
         public void CalculateOnePlusTwo()
         {
-            Assert.AreEqual(3, Calculate("+ 1 2"));
+            int index = 0;
+            Assert.AreEqual(3, Calculate("+ 1 2",ref index));
         }
         [TestMethod]
         public void Substraction()
         {
-            Assert.AreEqual(2, Calculate("- 5 3"));
+            int index = 0;
+            Assert.AreEqual(2, Calculate("- 5 3",ref index));
 
         }
         [TestMethod]
         public void CalculateMoreAdditions()
         {
-            Assert.AreEqual(8, Calculate("+ 1 2 + 2 3"));
+            int index = 0;
+            Assert.AreEqual(8, Calculate("+ 1 2 + 2 3",ref index));
 
         }
-        public double Calculate(string inputString)
+        public double Calculate(string inputString, ref int index)
         {
-            string[] elements = inputString.Split(' ');
-            string firstElement = elements[0];
+            string[] elements = inputString.Split(' '); 
+            string firstElement = elements[index++];
             double number;
+            
 
-            if(Double.TryParse(elements[0],out number))
+            if(Double.TryParse(firstElement,out number))
             {
                 return number;
             }
 
             switch (firstElement)
             {
-                case "+": return Calculate(elements[1]) + Calculate(elements[2]);
-                default: return Calculate(elements[1]) - Calculate(elements[2]);
+                case "+": return Calculate(inputString,ref index) + Calculate(inputString,ref index);
+                default: return Calculate(inputString, ref index) - Calculate(inputString, ref index);
             }
         }
     }
