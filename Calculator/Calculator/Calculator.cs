@@ -38,7 +38,12 @@ namespace Calculator
             Assert.AreEqual(4, Calculate("/ 12 3",ref index));
 
         }
-
+        [TestMethod]
+        public void MultipleOperations()
+        {
+            int index = 0;
+            Assert.AreEqual(4, Calculate("* + 1 1 2",ref index));
+        }
 
         public double Calculate(string inputString, ref int index)
         {
