@@ -7,18 +7,25 @@ namespace PascalTriangle
     public class PascalTriangle
     {
         [TestMethod]
-        public void Pascal()
+        public void PascalOneRow()
         {
             CollectionAssert.AreEqual(new int[] { 1 }, GetPascal(1));
         }
 
         [TestMethod]
-        public void PascalForRowThreeColumnTwo()
+        public void PascalForRowThree()
         {
             CollectionAssert.AreEqual(new int[] { 1, 2, 1 }, GetPascal(3));
 
         }
-    public int[] GetPascal(int row)
+        [TestMethod]
+        public void PascalForFourthRow()
+        {
+            CollectionAssert.AreEqual(new int[] { 1, 3,3, 1 }, GetPascal(4));
+
+        }
+
+        public int[] GetPascal(int row)
         {
             int[] output = new int[row];
             if (row == 1 )
@@ -27,18 +34,15 @@ namespace PascalTriangle
             }
             output[0] = 1;
             output[row - 1] = 1;
+            int[] beforeRow = GetPascal(row - 1);
             for (int i = 1;i< row - 1; i++)
             {
-                
-                output[i] = GetNumber(GetPascal(i)) + GetNumber(GetPascal(i+1));
+                output[i] = beforeRow[i-1] + beforeRow[i];
             }
            
             return output;
         }
-        public int GetSum(int[] row)
-        {
-          return row[row.Length - 1] + row[row.Length - 2];
-        }
+       
         public int GetNumber(int[] number)
         {
             return number[0];
