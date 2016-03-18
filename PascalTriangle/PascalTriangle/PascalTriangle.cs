@@ -9,16 +9,29 @@ namespace PascalTriangle
         [TestMethod]
         public void Pascal()
         {
-            Assert.AreEqual(1, GetPascal(1, 1));
+            int row = 1;
+            CollectionAssert.AreEqual(new int[] { 1 }, GetPascal(1,ref row));
         }
-        
-        public int GetPascal(int row, int column)
+
+        [TestMethod]
+        public void PascalForRowThreeColumnTwo()
         {
-            if (row == 1 || column == 1)
+            int row = 3;
+            CollectionAssert.AreEqual(new int[] { 1, 2, 1 }, GetPascal(3,ref row));
+
+        }
+    public int[] GetPascal(int row, ref int actualRow)
+        {
+            int[] output = new int[row];
+            if (row == 1 )
             {
-                return 1;
+                return new int[] { 1 };
             }
-            return GetPascal(row - 1, column - 1) + GetPascal(row - 1, column);
+             return GetSum(output) + GetPascal(row);
+        }
+        public int GetSum(int[] row)
+        {
+          return row[row.Length - 1] + row[row.Length - 2];
         }
     }
 }
