@@ -34,24 +34,22 @@ namespace PascalTriangle
         public int[] GetPascal(int row)
         {
             int[] output = new int[row];
+
             if (row == 1)
             {
                 return new int[] { 1 };
             }
             output[0] = 1;
             output[row - 1] = 1;
+
             int[] beforeRow = GetPascal(row - 1);
+
             for (int i = 1; i < row - 1; i++)
             {
                 output[i] = beforeRow[i - 1] + beforeRow[i];
             }
 
             return output;
-        }
-
-        public int GetNumber(int[] number)
-        {
-            return number[0];
         }
     }
 }
