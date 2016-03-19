@@ -9,8 +9,8 @@ namespace RepairService
         [TestMethod]
         public void TwoIssues()
         {
-            Issue[] issues = new Issue[] { new Issue("Gasoline leaking", "High"),
-                new Issue("Tire change","Low") };
+            Issue[] issues = new Issue[] { new Issue("Gasoline leaking", 3),
+                new Issue("Tire change",1) };
 
             Assert.AreEqual(issues[0], SortByPriority(issues));
         }
@@ -18,9 +18,9 @@ namespace RepairService
         public void FourIssues()
         {
             Issue[] issues = new Issue[] {
-            new Issue("Cleaning","Low"),
-            new Issue("Painting","Medium"),
-            new Issue("Direction broken","High") };
+            new Issue("Cleaning",1),
+            new Issue("Painting",2),
+            new Issue("Direction broken",3) };
 
             Assert.AreEqual(issues[2], SortByPriority(issues));
         }
@@ -28,8 +28,8 @@ namespace RepairService
         public void SamePriority()
         {
             Issue[] issues = new Issue[] {
-            new Issue("Cleaning","Low"),
-            new Issue("Change leather","Low"),
+            new Issue("Cleaning",1),
+            new Issue("Change leather",1),
             };
 
             Assert.AreEqual(issues[1], SortByPriority(issues));
@@ -38,8 +38,8 @@ namespace RepairService
         public struct Issue
         {
             public string nameOfTheIssue;
-            public string priority;
-            public Issue(string nameOfIssue, string priority)
+            public int priority;
+            public Issue(string nameOfIssue, int priority)
             {
                 this.nameOfTheIssue = nameOfIssue;
                 this.priority = priority;
@@ -48,22 +48,19 @@ namespace RepairService
 
         public Issue SortByPriority(Issue[] issue)
         {
+            int length = issue.Length;
             Issue highestPriority = issue[0];
-            for (int i = 1; i < issue.Length; i++)
+            while (length != 0)
             {
-                highestPriority = (GetPriority(issue[i - 1]) > GetPriority(issue[i])) ? issue[i - 1] : issue[i];
+                for (int i = 1; i < issue.Length; i++)
+                {
+                    highestPriority = (issue[i - 1].priority > issue[i].priority) ? issue[i - 1] : issue[i];
+                }
+                length--;
             }
             return highestPriority;
         }
-        public int GetPriority(Issue issue)
-        {
-            string priority = issue.priority;
-            switch (priority)
-            {
-                case "High": return 3;
-                case "Medium": return 2;
-                default: return 1;
-            }
-        }
+        
+
     }
 }
