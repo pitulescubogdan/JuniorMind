@@ -7,16 +7,28 @@ namespace RepairService
     public class RepairService
     {
         [TestMethod]
-        public void OneIssue()
+        public void TwoIssues()
         {
-            Issue oneIssue = new Issue("Gasoline leaking", "High");
-            CollectionAssert.AreEqual(new string[] { "High" }, SortByPriority(oneIssue));
+            Issue[] issues = new Issue[] { new Issue("Gasoline leaking", "High"),
+                new Issue("Tire change","Low") };
+
+            Assert.AreEqual(issues[0], SortByPriority(issues));
+        }
+        [TestMethod]
+        public void FourIssues()
+        {
+            Issue[] issues = new Issue[] {
+            new Issue("Cleaning","Low"),
+            new Issue("Painting","Medium"),
+            new Issue("Direction broken","High") };
+
+            Assert.AreEqual(issues[2], SortByPriority(issues));
         }
 
         public struct Issue
         {
-            string nameOfTheIssue;
-            string priority;
+            public string nameOfTheIssue;
+            public string priority;
             public Issue(string nameOfIssue, string priority)
             {
                 this.nameOfTheIssue = nameOfIssue;
@@ -24,10 +36,24 @@ namespace RepairService
             }
         }
 
-        public string[] SortByPriority(Issue issue)
+        public Issue SortByPriority(Issue[] issue)
         {
-            return new string[] { "High" };
+            Issue highestPriority = issue[0];
+            for (int i = 1; i < issue.Length; i++)
+            {
+                highestPriority = (GetPriority(issue[i - 1]) > GetPriority(issue[i])) ? issue[i - 1] : issue[i];
+            }
+            return highestPriority;
         }
-
+        public int GetPriority(Issue issue)
+        {
+            string priority = issue.priority;
+            switch (priority)
+            {
+                case "High": return 3;
+                case "Medium": return 2;
+                default: return 1;
+            }
+        }
     }
 }
