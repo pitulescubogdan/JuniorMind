@@ -24,6 +24,16 @@ namespace RepairService
 
             Assert.AreEqual(issues[2], SortByPriority(issues));
         }
+        [TestMethod]
+        public void SamePriority()
+        {
+            Issue[] issues = new Issue[] {
+            new Issue("Cleaning","Low"),
+            new Issue("Change leather","Low"),
+            };
+
+            Assert.AreEqual(issues[1], SortByPriority(issues));
+        }
 
         public struct Issue
         {
