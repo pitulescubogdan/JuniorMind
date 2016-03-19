@@ -9,7 +9,8 @@ namespace LottoExtraction
         [TestMethod]
         public void TestSort()
         {
-            CollectionAssert.AreEqual(new int[] { 0 }, SortNumbers(1, 10, 5));
+            
+            Assert.IsTrue(AreSorted(SortNumbers(1, 10, 5)));
         }
         [TestMethod]
         public void AreSortedTest()
@@ -28,11 +29,9 @@ namespace LottoExtraction
 
             return SortNumbers(numbers);
         }
-
         private static void GenerateNumbersAndStoreThem(int start, int end, int amount, ref int number, int[] numbers, ref int i)
         {
             Random rand = new Random();
-
             while (amount != 0)
             {
                 number = rand.Next(start, end);
@@ -42,17 +41,18 @@ namespace LottoExtraction
         }
         public int[] SortNumbers(int[] inputArray)
         {
-            int[] sortedArray = new int[inputArray.Length];
-            for (int i = 1; i < inputArray.Length; i++)
+            while (!AreSorted(inputArray))
             {
-                if(inputArray[i-1] > inputArray[i])
+                for (int i = 1; i < inputArray.Length; i++)
                 {
-                    int hold = inputArray[i - 1];
-                    inputArray[i - 1] = inputArray[i];
-                    inputArray[i] = hold;
+                    if (inputArray[i - 1] > inputArray[i])
+                    {
+                        int hold = inputArray[i - 1];
+                        inputArray[i - 1] = inputArray[i];
+                        inputArray[i] = hold;
+                    }
                 }
             }
-
             return inputArray;
         }
         public bool AreSorted(int[] inputNumbers)
