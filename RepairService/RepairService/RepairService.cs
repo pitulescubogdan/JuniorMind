@@ -12,7 +12,7 @@ namespace RepairService
             Issue[] issues = new Issue[] { new Issue("Gasoline leaking", 3),
                 new Issue("Tire change",1) };
 
-            Assert.AreEqual(issues[0], SortByPriority(issues));
+            CollectionAssert.AreEqual(issues, SortByPriority(issues));
         }
         [TestMethod]
         public void FourIssues()
@@ -22,7 +22,12 @@ namespace RepairService
             new Issue("Painting",2),
             new Issue("Direction broken",3) };
 
-            Assert.AreEqual(issues[2], SortByPriority(issues));
+            Issue[] sortedServices = new Issue[] {
+            new Issue("Direction broken",3),
+            new Issue("Painting",2),
+            new Issue("Cleaning",1) };
+
+            CollectionAssert.AreEqual(sortedServices, SortByPriority(issues));
         }
         [TestMethod]
         public void SamePriority()
@@ -32,7 +37,7 @@ namespace RepairService
             new Issue("Change leather",1),
             };
 
-            Assert.AreEqual(issues[1], SortByPriority(issues));
+            CollectionAssert.AreEqual(issues, SortByPriority(issues));
         }
 
         public struct Issue
@@ -46,19 +51,23 @@ namespace RepairService
             }
         }
 
-        public Issue SortByPriority(Issue[] issue)
+        public Issue[] SortByPriority(Issue[] issue)
         {
             int length = issue.Length;
-            Issue highestPriority = issue[0];
             while (length != 0)
             {
                 for (int i = 1; i < issue.Length; i++)
                 {
-                    highestPriority = (issue[i - 1].priority > issue[i].priority) ? issue[i - 1] : issue[i];
+                    if(issue[i - 1].priority < issue[i].priority)
+                    {
+                        Issue hold = issue[i - 1];
+                        issue[i - 1] = issue[i];
+                        issue[i] = hold;
+                    }
                 }
                 length--;
             }
-            return highestPriority;
+            return issue;
         }
         
 
