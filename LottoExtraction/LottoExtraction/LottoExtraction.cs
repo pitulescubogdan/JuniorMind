@@ -18,6 +18,11 @@ namespace LottoExtraction
             int[] numbers = { 0, 5, 6, 9 };
             Assert.IsTrue(AreSorted(numbers));
         }
+        [TestMethod]
+        public void SortingForBigIntervals()
+        {
+            Assert.IsTrue(AreSorted(SortNumbers(1, 49, 6)));
+        }
 
         public int[] SortNumbers(int start, int end, int amount)
         {
