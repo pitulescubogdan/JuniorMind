@@ -21,17 +21,16 @@ namespace Words
             Assert.AreEqual(2, GetOccurences(check, "positive"));
         }
         [TestMethod]
-        public void CheckUniqueWords()
+        public void PlaceNumber()
         {
-            string text = "da da nu nu si";
-
-            Assert.AreEqual("da", UniqueWords(text.Split(' ')));
+            int[] numbers = { 6, 5, 2, 1, 8 };
+            CollectionAssert.AreEqual(new int[] { 6, 2, 5, 1, 8 }, PlaceNumberAtACertainIndex(numbers, 1,2));
         }
         [TestMethod]
         public void QuickSortTest()
         {
             int[] numbers = { 6, 5, 2, 1, 8 };
-            CollectionAssert.AreEqual(new int[] { 6, 2, 5, 1, 8 }, PlaceNumberAtACertainIndex(numbers, 1,2));
+            CollectionAssert.AreEqual(new int[] { 1, 2, 5, 6, 8 }, QuickSort(numbers));
         }
 
         public string[] OrdinateWords(string inputText)
@@ -77,12 +76,27 @@ namespace Words
         public int[] PlaceNumberAtACertainIndex(int[] numbers, int indexPlacement,int pivotIndex)
         {
             int holder = numbers[pivotIndex];
-            for (int i = numbers.Length / 2 - 1; i >= indexPlacement; i--)
+            for (int i = pivotIndex -1; i >= indexPlacement; i--)
             {
                 numbers[i + 1] = numbers[i];
             }
             numbers[indexPlacement] = holder;
 
+            return numbers;
+        }
+        public int[] QuickSort(int[] numbers)
+        {
+            PlaceNumberAtACertainIndex(numbers, 0, numbers.Length / 2);
+            int length = numbers.Length;
+            int k = 0;
+            while (k < numbers.Length)
+            {
+                for (int i = k; i < numbers.Length; i++)
+                {
+                    if(numbers[k] > numbers[i]) PlaceNumberAtACertainIndex(numbers, k, i);
+                }
+                k++;
+            }
             return numbers;
         }
     }
