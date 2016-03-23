@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Words
 {
@@ -19,11 +20,25 @@ namespace Words
             string[] check = text.Split(' ');
             Assert.AreEqual(2, GetOccurences(check, "positive"));
         }
+        [TestMethod]
+        public void CheckUniqueWords()
+        {
+            string text = "da da nu nu si";
+
+            Assert.AreEqual("da", UniqueWords(text.Split(' ')));
+        }
+        [TestMethod]
+        public void QuickSortTest()
+        {
+            int[] numbers = { 6, 5, 2, 1, 8 };
+            CollectionAssert.AreEqual(new int[] { 1, 2, 5, 6, 8 }, QuickSort(numbers));
+        }
 
         public string[] OrdinateWords(string inputText)
         {
             string[] words = inputText.Split(' ');
             int length = words.Length;
+
             while (length != 0)
             {
                 for (int i = 1; i < length; i++)
@@ -48,6 +63,22 @@ namespace Words
             var holder = text[indexToReplace];
             text[indexToReplace] = text[indexReplacement];
             text[indexReplacement] = holder;
+        }
+        public string UniqueWords(string[] inputText)
+        {
+            string[] storeUniqueWords = new string[inputText.Length];
+
+            for(int i = 0; i < inputText.Length; i++)
+            {
+
+            }
+            return "";
+        }
+        public int[] QuickSort(int[] numbers)
+        {
+            int pivot = numbers.Length / 2;
+
+            return new int[] { 1 };
         }
     }
 }
