@@ -31,7 +31,7 @@ namespace Words
         public void QuickSortTest()
         {
             int[] numbers = { 6, 5, 2, 1, 8 };
-            CollectionAssert.AreEqual(new int[] { 1, 2, 5, 6, 8 }, QuickSort(numbers));
+            CollectionAssert.AreEqual(new int[] { 6, 2, 5, 1, 8 }, PlaceNumberAtACertainIndex(numbers, 1,2));
         }
 
         public string[] OrdinateWords(string inputText)
@@ -68,17 +68,22 @@ namespace Words
         {
             string[] storeUniqueWords = new string[inputText.Length];
 
-            for(int i = 0; i < inputText.Length; i++)
+            for (int i = 0; i < inputText.Length; i++)
             {
 
             }
             return "";
         }
-        public int[] QuickSort(int[] numbers)
+        public int[] PlaceNumberAtACertainIndex(int[] numbers, int indexPlacement,int pivotIndex)
         {
-            int pivot = numbers.Length / 2;
+            int holder = numbers[pivotIndex];
+            for (int i = numbers.Length / 2 - 1; i >= indexPlacement; i--)
+            {
+                numbers[i + 1] = numbers[i];
+            }
+            numbers[indexPlacement] = holder;
 
-            return new int[] { 1 };
+            return numbers;
         }
     }
 }
