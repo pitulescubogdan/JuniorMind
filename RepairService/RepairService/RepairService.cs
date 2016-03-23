@@ -9,8 +9,8 @@ namespace RepairService
         [TestMethod]
         public void TwoIssues()
         {
-            Issue[] issues = new Issue[] { new Issue("Gasoline leaking", 3),
-                new Issue("Tire change",1) };
+            Issue[] issues = new Issue[] { new Issue("Gasoline leaking", Priority.High),
+                new Issue("Tire change",Priority.Low) };
 
             CollectionAssert.AreEqual(issues, SortByPriority(issues));
         }
@@ -18,14 +18,14 @@ namespace RepairService
         public void FourIssues()
         {
             Issue[] issues = new Issue[] {
-            new Issue("Cleaning",1),
-            new Issue("Painting",2),
-            new Issue("Direction broken",3) };
+            new Issue("Cleaning",Priority.Low),
+            new Issue("Painting",Priority.Medium),
+            new Issue("Direction broken",Priority.High) };
 
             Issue[] sortedServices = new Issue[] {
-            new Issue("Direction broken",3),
-            new Issue("Painting",2),
-            new Issue("Cleaning",1) };
+            new Issue("Direction broken",Priority.High),
+            new Issue("Painting",Priority.Medium),
+            new Issue("Cleaning",Priority.Low) };
 
             CollectionAssert.AreEqual(sortedServices, SortByPriority(issues));
         }
@@ -33,8 +33,8 @@ namespace RepairService
         public void SamePriority()
         {
             Issue[] issues = new Issue[] {
-            new Issue("Cleaning",1),
-            new Issue("Change leather",1),
+            new Issue("Cleaning",Priority.High),
+            new Issue("Change leather",Priority.High),
             };
 
             CollectionAssert.AreEqual(issues, SortByPriority(issues));
@@ -43,12 +43,18 @@ namespace RepairService
         public struct Issue
         {
             public string nameOfTheIssue;
-            public int priority;
-            public Issue(string nameOfIssue, int priority)
+            public Priority priority;
+            public Issue(string nameOfIssue, Priority priority)
             {
                 this.nameOfTheIssue = nameOfIssue;
                 this.priority = priority;
             }
+        }
+        public enum Priority
+        {
+            Low = 1,
+            Medium = 2,
+            High = 3
         }
 
         public Issue[] SortByPriority(Issue[] issue)
