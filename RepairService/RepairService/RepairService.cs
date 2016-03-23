@@ -59,23 +59,24 @@ namespace RepairService
 
         public Issue[] SortByPriority(Issue[] issue)
         {
-            int length = issue.Length;
-            while (length != 0)
+            int no = issue.Length;
+            while (no != 0)
             {
                 for (int i = 1; i < issue.Length; i++)
                 {
-                    if(issue[i - 1].priority < issue[i].priority)
-                    {
-                        Issue hold = issue[i - 1];
-                        issue[i - 1] = issue[i];
-                        issue[i] = hold;
-                    }
+                    if (issue[i - 1].priority < issue[i].priority) Swap(issue, i, i - 1);
                 }
-                length--;
+                no--;
             }
+
             return issue;
         }
-        
+        public void Swap(Issue[] issue, int indexToReplace, int indexReplacement)
+        {
+            var holder = issue[indexToReplace];
+            issue[indexToReplace] = issue[indexReplacement];
+            issue[indexReplacement] = holder;
+        }
 
     }
 }
