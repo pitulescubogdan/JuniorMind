@@ -32,7 +32,32 @@ namespace Words
             int[] numbers = { 6, 5, 2, 1, 8 };
             CollectionAssert.AreEqual(new int[] { 1, 2, 5, 6, 8 }, QuickSort(numbers));
         }
+        [TestMethod]
+        public void SentenceInformation()
+        {
+            string text = "A positive person has positive energy";
+            string[] check = text.Split(' ');
+            Word[] sentenceInfo = new Word[] {
+                new Word("A",1),
+                new Word("positive",2),
+                new Word("person",1),
+                new Word("has",1),
+                new Word("positive",2),
+                new Word("energy",1)
+            };
+            CollectionAssert.AreEqual(sentenceInfo, SetWordAndOccurences(check));
+        }
 
+        public struct Word
+        {
+            public string word;
+            public int occurences;
+            public Word(string word, int occurences)
+            {
+                this.word = word;
+                this.occurences = occurences;
+            }
+        }
         public string[] OrdinateWords(string inputText)
         {
             string[] words = inputText.Split(' ');
@@ -98,6 +123,17 @@ namespace Words
                 k++;
             }
             return numbers;
+        }
+        public Word[] SetWordAndOccurences(string[] inputText)
+        {
+            Word[] wordAndOcc = new Word[inputText.Length];
+
+            for(int i = 0; i < inputText.Length; i++)
+            {
+                wordAndOcc[i].word = inputText[i];
+                wordAndOcc[i].occurences = GetOccurences(inputText, inputText[i]);
+            }
+            return wordAndOcc;
         }
     }
 }
