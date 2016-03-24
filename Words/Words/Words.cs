@@ -10,7 +10,7 @@ namespace Words
         [TestMethod]
         public void ArrangedWords()
         {
-            string[] result = { "positive", "positive", "A", "person", "has", "energy" };
+            string[] result = { "positive", "has", "A", "person", "energy"};
             CollectionAssert.AreEqual(result, OrdinateWords("A positive person has positive energy"));
         }
         [TestMethod]
@@ -21,16 +21,28 @@ namespace Words
             Assert.AreEqual(2, GetOccurences(check, "positive"));
         }
         [TestMethod]
-        public void PlaceNumber()
-        {
-            int[] numbers = { 6, 5, 2, 1, 8 };
-            CollectionAssert.AreEqual(new int[] { 6, 2, 5, 1, 8 }, PlaceNumberAtACertainIndex(numbers, 1,2));
-        }
-        [TestMethod]
         public void QuickSortTest()
         {
-            int[] numbers = { 6, 5, 2, 1, 8 };
-            CollectionAssert.AreEqual(new int[] { 1, 2, 5, 6, 8 }, QuickSort(numbers));
+            string text = "A positive person has positive energy";
+            string[] check = text.Split(' ');
+            Word[] sentenceInfo = new Word[] {
+                new Word("A",1),
+                new Word("positive",2),
+                new Word("person",1),
+                new Word("has",1),
+                new Word("positive",2),
+                new Word("energy",1)
+            };
+            Word[] sortedWords = new Word[] {
+                new Word("positive",2),
+                new Word("positive",2),
+                new Word("has",1),
+                new Word("A",1),
+                new Word("person",1),
+                new Word("energy",1)
+            };
+
+            CollectionAssert.AreEqual(sortedWords, QuickSort(sentenceInfo));
         }
         [TestMethod]
         public void SentenceInformation()
@@ -61,18 +73,36 @@ namespace Words
         public string[] OrdinateWords(string inputText)
         {
             string[] words = inputText.Split(' ');
-            int length = words.Length;
+            string[] uniqueWords = new string[words.Length];
 
-            while (length != 0)
-            {
-                for (int i = 1; i < length; i++)
-                {
-                    if (GetOccurences(words, words[i - 1]) < GetOccurences(words, words[i])) Swap(words, i - 1, i);
-                }
-                length--;
-            }
-            return words;
+            Word[] wordsInfo = SetWordAndOccurences(words);
+            QuickSort(wordsInfo);
+            return GetUniqueWords(wordsInfo, uniqueWords);
         }
+
+        private string[] GetUniqueWords(Word[] words, string[] uniqueWords)
+        {
+            int k = 0;
+            int countCommon = 0;
+            int length = words.Length;
+            for (int i = 0; i < length; i++)
+                for (int j = 0; j < length; j++)
+                {
+                    if (words[i].word.Equals(uniqueWords[j]))
+                    {
+                        countCommon++;
+                        break;
+                    }
+                    else {
+                        uniqueWords[k] = words[i].word;
+                        k++;
+                        break;
+                    }
+                }
+            Array.Resize(ref uniqueWords, uniqueWords.Length - countCommon);
+            return uniqueWords;
+        }
+
         public int GetOccurences(string[] inputText, string wordToSearch)
         {
             int count = 0;
@@ -88,47 +118,37 @@ namespace Words
             text[indexToReplace] = text[indexReplacement];
             text[indexReplacement] = holder;
         }
-        public string UniqueWords(string[] inputText)
+        public Word[] PlaceNumberAtACertainIndex(Word[] wordsInfo, int indexPlacement, int pivotIndex)
         {
-            string[] storeUniqueWords = new string[inputText.Length];
-
-            for (int i = 0; i < inputText.Length; i++)
+            Word holder = wordsInfo[pivotIndex];
+            for (int i = pivotIndex - 1; i >= indexPlacement; i--)
             {
-
+                wordsInfo[i + 1] = wordsInfo[i];
             }
-            return "";
-        }
-        public int[] PlaceNumberAtACertainIndex(int[] numbers, int indexPlacement,int pivotIndex)
-        {
-            int holder = numbers[pivotIndex];
-            for (int i = pivotIndex -1; i >= indexPlacement; i--)
-            {
-                numbers[i + 1] = numbers[i];
-            }
-            numbers[indexPlacement] = holder;
+            wordsInfo[indexPlacement] = holder;
 
-            return numbers;
+            return wordsInfo;
         }
-        public int[] QuickSort(int[] numbers)
+        public Word[] QuickSort(Word[] words)
         {
-            PlaceNumberAtACertainIndex(numbers, 0, numbers.Length / 2);
-            int length = numbers.Length;
+            PlaceNumberAtACertainIndex(words, 0, words.Length / 2);
+            int length = words.Length;
             int k = 0;
-            while (k < numbers.Length)
+            while (k < length)
             {
-                for (int i = k; i < numbers.Length; i++)
+                for (int i = k; i < length; i++)
                 {
-                    if(numbers[k] > numbers[i]) PlaceNumberAtACertainIndex(numbers, k, i);
+                    if (words[k].occurences < words[i].occurences) PlaceNumberAtACertainIndex(words, k, i);
                 }
                 k++;
             }
-            return numbers;
+            return words;
         }
         public Word[] SetWordAndOccurences(string[] inputText)
         {
             Word[] wordAndOcc = new Word[inputText.Length];
 
-            for(int i = 0; i < inputText.Length; i++)
+            for (int i = 0; i < inputText.Length; i++)
             {
                 wordAndOcc[i].word = inputText[i];
                 wordAndOcc[i].occurences = GetOccurences(inputText, inputText[i]);
