@@ -10,7 +10,7 @@ namespace Words
         [TestMethod]
         public void ArrangedWords()
         {
-            string[] result = { "positive", "has", "A", "person", "energy"};
+            string[] result = { "positive", "A", "has", "person", "energy" };
             CollectionAssert.AreEqual(result, OrdinateWords("A positive person has positive energy"));
         }
         [TestMethod]
@@ -36,9 +36,9 @@ namespace Words
             Word[] sortedWords = new Word[] {
                 new Word("positive",2),
                 new Word("positive",2),
-                new Word("has",1),
-                new Word("A",1),
                 new Word("person",1),
+                new Word("A",1),
+                new Word("has",1),
                 new Word("energy",1)
             };
 
@@ -73,32 +73,34 @@ namespace Words
         public string[] OrdinateWords(string inputText)
         {
             string[] words = inputText.Split(' ');
-            string[] uniqueWords = new string[words.Length];
 
             Word[] wordsInfo = SetWordAndOccurences(words);
             QuickSort(wordsInfo);
-            return GetUniqueWords(wordsInfo, uniqueWords);
+            return GetUniqueWords(wordsInfo);
         }
 
-        private string[] GetUniqueWords(Word[] words, string[] uniqueWords)
+        private string[] GetUniqueWords(Word[] words)
         {
-            int k = 0;
+            string[] uniqueWords = new string[words.Length];
             int countCommon = 0;
+            int k = 0;
             int length = words.Length;
+
             for (int i = 0; i < length; i++)
+            {
                 for (int j = 0; j < length; j++)
                 {
                     if (words[i].word.Equals(uniqueWords[j]))
                     {
                         countCommon++;
-                        break;
                     }
                     else {
-                        uniqueWords[k] = words[i].word;
-                        k++;
+                        uniqueWords[k++] = words[j].word;
                         break;
                     }
                 }
+            }
+
             Array.Resize(ref uniqueWords, uniqueWords.Length - countCommon);
             return uniqueWords;
         }
@@ -131,18 +133,26 @@ namespace Words
         }
         public Word[] QuickSort(Word[] words)
         {
-            PlaceNumberAtACertainIndex(words, 0, words.Length / 2);
-            int length = words.Length;
-            int k = 0;
-            while (k < length)
-            {
-                for (int i = k; i < length; i++)
-                {
-                    if (words[k].occurences < words[i].occurences) PlaceNumberAtACertainIndex(words, k, i);
-                }
-                k++;
-            }
+
+            QuickSort(words, 0, words.Length - 1);
             return words;
+        }
+        public void QuickSort(Word[] words, int start, int end)
+        {
+            int l = start; int r = end;
+            var pivot = words[(start + end) / 2].occurences;
+
+            if (end - start < 0) return;
+            if (l < r) SwapNumbers(words, l++, r--);
+            if (start < r) QuickSort(words, start, r);
+            if (l < end) QuickSort(words, l, end);
+
+        }
+        public void SwapNumbers(Word[] words, int indexReplaced, int indexToReplace)
+        {
+            var holder = words[indexToReplace];
+            words[indexToReplace] = words[indexReplaced];
+            words[indexReplaced] = holder;
         }
         public Word[] SetWordAndOccurences(string[] inputText)
         {
