@@ -10,7 +10,7 @@ namespace Words
         [TestMethod]
         public void ArrangedWords()
         {
-            string[] result = { "positive", "A", "has", "person", "energy" };
+            string[] result = { "positive", "person", "has", "energy", "A"};
             CollectionAssert.AreEqual(result, OrdinateWords("A positive person has positive energy"));
         }
         [TestMethod]
@@ -37,9 +37,9 @@ namespace Words
                 new Word("positive",2),
                 new Word("positive",2),
                 new Word("person",1),
-                new Word("A",1),
                 new Word("has",1),
-                new Word("energy",1)
+                new Word("energy",1),
+                new Word("A",1)
             };
 
             CollectionAssert.AreEqual(sortedWords, QuickSort(sentenceInfo));
@@ -93,9 +93,10 @@ namespace Words
                     if (words[i].word.Equals(uniqueWords[j]))
                     {
                         countCommon++;
+                        break;
                     }
                     else {
-                        uniqueWords[k++] = words[j].word;
+                        uniqueWords[k++] = words[i].word;
                         break;
                     }
                 }
@@ -142,7 +143,7 @@ namespace Words
             int l = start; int r = end;
             var pivot = words[(start + end) / 2].occurences;
 
-            if (end - start < 0) return;
+            if (words[end].occurences - words[start].occurences < 0) return;
             if (l < r) SwapNumbers(words, l++, r--);
             if (start < r) QuickSort(words, start, r);
             if (l < end) QuickSort(words, l, end);
