@@ -10,8 +10,15 @@ namespace Words
         [TestMethod]
         public void ArrangedWords()
         {
-            string[] result = { "positive", "person", "has", "energy", "A"};
+            string[] result = { "positive", "person", "has", "A", "energy" };
             CollectionAssert.AreEqual(result, OrdinateWords("A positive person has positive energy"));
+        }
+        [TestMethod]
+        public void BigText()
+        {
+            string[] result = { "it", "your", "mind", "believes", "then" };
+            string text = "if your mind believes it then your body can do it so believe it";
+            CollectionAssert.AreEqual(result, OrdinateWords(text));
         }
         [TestMethod]
         public void Occurences()
@@ -38,8 +45,8 @@ namespace Words
                 new Word("positive",2),
                 new Word("person",1),
                 new Word("has",1),
-                new Word("energy",1),
-                new Word("A",1)
+                new Word("A",1),
+                new Word("energy",1)
             };
 
             CollectionAssert.AreEqual(sortedWords, QuickSort(sentenceInfo));
@@ -140,13 +147,27 @@ namespace Words
         }
         public void QuickSort(Word[] words, int start, int end)
         {
-            int l = start; int r = end;
-            var pivot = words[(start + end) / 2].occurences;
 
-            if (words[end].occurences - words[start].occurences < 0) return;
-            if (l < r) SwapNumbers(words, l++, r--);
-            if (start < r) QuickSort(words, start, r);
-            if (l < end) QuickSort(words, l, end);
+            if (words.Length <= 1) return;
+            if (start < end)
+            {
+                var pivot = Partitioning(words, start, end);
+                QuickSort(words, start, pivot - 1);
+                QuickSort(words, pivot + 1, end);
+            }
+        }
+        public int Partitioning(Word[] words, int left, int right)
+        {
+            int pivot = right;
+            int k = left - 1;
+
+            for (int j = left; j < right; j++)
+            {
+                if (words[j].occurences >= words[pivot].occurences) SwapNumbers(words, ++k, j);
+            }
+
+            SwapNumbers(words, pivot, k + 1);
+            return k + 1;
 
         }
         public void SwapNumbers(Word[] words, int indexReplaced, int indexToReplace)
