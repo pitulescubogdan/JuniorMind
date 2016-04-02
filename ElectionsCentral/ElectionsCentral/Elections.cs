@@ -41,7 +41,7 @@ namespace ElectionsCentral
                 new Candidates("Dan",94),
                 new Candidates("Mih",200)
             };
-            CollectionAssert.AreEqual(sorted, SortCandidates(list));
+            CollectionAssert.AreEqual(sorted, SortAlphabetical(list));
         }
         [TestMethod]
         public void MixAllVotes()
@@ -58,17 +58,31 @@ namespace ElectionsCentral
                     new Candidates("Bogdan",500)
                 })
             };
-            var result = new Sections[]
-            {
-               new Sections(100, new Candidates[]
+            var result =new Candidates[]
                 {
-                    new Candidates("George",550),
                     new Candidates("Bogdan",500),
                     new Candidates("Bogdan",500),
-                    new Candidates("George", 400)
-                }) };
+                    new Candidates("George",400),
+                    new Candidates("George", 550)
+                };
 
-            CollectionAssert.AreEqual(result, CombineAllElections(sections));
+            CollectionAssert.AreEqual(result, CombineAllElections(sections[0].candidates, sections));
+        }
+        [TestMethod]
+        public void SortCandidatesByVotes()
+        {
+            var list = new Candidates[] {
+                new Candidates("Bog",100),
+                new Candidates("Mih",200),
+                new Candidates("Dan",94)
+            };
+            var sorted = new Candidates[]
+            {
+                new Candidates("Mih",200),
+                new Candidates("Bog",100),
+                new Candidates("Dan",94)
+            };
+            CollectionAssert.AreEqual(sorted, SortByVotes(list));
         }
 
         public struct Candidates
@@ -95,26 +109,43 @@ namespace ElectionsCentral
         {
             return sectionsLists;
         }
-        public Sections[] CombineAllElections(Sections[] lists)
+        public Candidates[] CombineAllElections(Candidates[] candidates, Sections[] sections)
         {
-            Sections[] allVotes = new Sections[lists.Length * lists[0].candidates.Length];
-            allVotes[0].section = 100;
-            for (int i = 0; i < lists.Length; i++)
+
+            var list = new Candidates[candidates.Length * sections.Length];
+            int arrayLength = 0;
+
+            for (int i = 0; i < sections.Length; i++)
             {
-                int k = 0;
-                Array.Copy(lists[i].candidates, k, allVotes, lists[i].candidates.Length - 1, lists[i].candidates.Length);
-                k = lists[i + 1].candidates.Length - 1;
+                sections[i].candidates.CopyTo(list, arrayLength);
+                arrayLength += candidates.Length;
             }
-            return allVotes;
+
+            return SortAlphabetical(list);
         }
-        public Candidates[] SortCandidates(Candidates[] canditates)
+
+        public Candidates[] SortAlphabetical(Candidates[] canditates)
         {
             for (int i = 0; i < canditates.Length - 1; i++)
             {
                 int k = i + 1;
                 while (k > 0)
                 {
-                    if (canditates[k-1].name[0] > canditates[k].name[0]) SwapCandidates(canditates, k);
+                    if (canditates[k - 1].name[0] > canditates[k].name[0]) SwapCandidates(canditates, k);
+
+                    k--;
+                }
+            }
+            return canditates;
+        }
+        public Candidates[] SortByVotes(Candidates[] canditates)
+        {
+            for (int i = 0; i < canditates.Length - 1; i++)
+            {
+                int k = i + 1;
+                while (k > 0)
+                {
+                    if (canditates[k - 1].noOfVotes < canditates[k].noOfVotes) SwapCandidates(canditates, k);
 
                     k--;
                 }
