@@ -13,7 +13,7 @@ namespace ElectionsCentral
             {
                 new Sections(1,new Candidates[] {
                     new Candidates("Bogdan",500),
-                    new Candidates("George", 400)
+                    new Candidates("George",400)
                 }),
                 new Sections(2,new Candidates[]
                 {
@@ -23,8 +23,9 @@ namespace ElectionsCentral
             };
 
             CollectionAssert.AreEqual(new Candidates[] {
-                new Candidates("Bogdan", 1000),
-                new Candidates("George", 950) },
+                new Candidates("Bogdan",1000),
+                new Candidates("George",950),
+            },
                 GetElections(sections));
         }
         [TestMethod]
@@ -58,7 +59,7 @@ namespace ElectionsCentral
                     new Candidates("Bogdan",500)
                 })
             };
-            var result =new Candidates[]
+            var result = new Candidates[]
                 {
                     new Candidates("Bogdan",500),
                     new Candidates("Bogdan",500),
@@ -66,7 +67,7 @@ namespace ElectionsCentral
                     new Candidates("George", 550)
                 };
 
-            CollectionAssert.AreEqual(result, CombineAllElections(sections[0].candidates, sections));
+            CollectionAssert.AreEqual(result, CombineAllElections(sections));
         }
         [TestMethod]
         public void SortCandidatesByVotes()
@@ -105,25 +106,50 @@ namespace ElectionsCentral
                 this.candidates = candidates;
             }
         }
-        public Sections[] GetElections(Sections[] sectionsLists)
-        {
-            return sectionsLists;
-        }
-        public Candidates[] CombineAllElections(Candidates[] candidates, Sections[] sections)
+        public Candidates[] GetElections(Sections[] sectionsLists)
         {
 
-            var list = new Candidates[candidates.Length * sections.Length];
+            var finalList = CombineAllElections(sectionsLists);
+            return SortByVotes(CalculateVotes(finalList));
+        }
+        public Candidates[] CombineAllElections(Sections[] sections)
+        {
+            int noOfCandidates = sections[0].candidates.Length;
+            var list = new Candidates[noOfCandidates * sections.Length];
             int arrayLength = 0;
 
             for (int i = 0; i < sections.Length; i++)
             {
                 sections[i].candidates.CopyTo(list, arrayLength);
-                arrayLength += candidates.Length;
+                arrayLength += noOfCandidates;
             }
 
             return SortAlphabetical(list);
         }
 
+        public Candidates[] CalculateVotes(Candidates[] candidates)
+        {
+            int index = 0;
+            int countCommon = 1;
+            Candidates[] finalList = new Candidates[countCommon];
+            for (int j = 0; j <= countCommon; j++)
+                for (int i = j + 1; i < candidates.Length; i++)
+                {
+                    if (candidates[j].name.Equals(candidates[i].name))
+                    {
+                        candidates[j].noOfVotes += candidates[i].noOfVotes;
+                        finalList[index++] = candidates[j];
+                        Array.Resize(ref finalList, ++countCommon);
+                    }
+                }
+            Array.Resize(ref finalList, finalList.Length - 1);
+            return SortByVotes(finalList);
+        }
+
+        public int GetUniqueCandidatesLength(Candidates[] list)
+        {
+            return list.Length;
+        }
         public Candidates[] SortAlphabetical(Candidates[] canditates)
         {
             for (int i = 0; i < canditates.Length - 1; i++)
@@ -138,6 +164,7 @@ namespace ElectionsCentral
             }
             return canditates;
         }
+
         public Candidates[] SortByVotes(Candidates[] canditates)
         {
             for (int i = 0; i < canditates.Length - 1; i++)
@@ -152,7 +179,6 @@ namespace ElectionsCentral
             }
             return canditates;
         }
-
 
         private static void SwapCandidates(Candidates[] canditates, int k)
         {
