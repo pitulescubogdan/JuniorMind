@@ -93,6 +93,24 @@ namespace Catalog
             };
             Assert.AreEqual(3, GetHighestNumberOfTens(pupils));
         }
+        [TestMethod]
+        public void PupilsWithLowesMarks()
+        {
+            Pupil[] pupils = new Pupil[]
+           {
+                new Pupil("Bogdan", new Classes[] {new Classes("Info",new int[] {8,10,9 }) }),
+                new Pupil("Mihai",new Classes[] { new Classes("Mate",new int[] {9,9,10 }) }),
+                new Pupil("Andrei", new Classes[] { new Classes("Sport",new int[] { 10, 10, 10 }) }),
+                new Pupil("Razvan", new Classes[] {new Classes("Romana", new int[] { 10,10,10}) }),
+                new Pupil("Paul", new Classes[] {new Classes("Civica",new int[] { 9,10,8})})
+           };
+            Pupil[] result = new Pupil[]
+            {
+                pupils[0],
+                pupils[4]
+            };
+            CollectionAssert.AreEqual(result, GetPupilsWithLowestAvgMark(pupils));
+        }
 
         public struct Pupil
         {
@@ -177,7 +195,6 @@ namespace Catalog
             Array.Resize(ref result, result.Length - 1);
             return result;
         }
-
         public int GetHighestNumberOfTens(Pupil[] pupils)
         {
             int highest = 0;
@@ -188,7 +205,6 @@ namespace Catalog
             }
             return highest;
         }
-
         private static void SwapPupils(Pupil[] pupils, int k)
         {
             var temp = pupils[k - 1];
@@ -210,6 +226,10 @@ namespace Catalog
             }
             Array.Resize(ref storedPupils, storedPupils.Length - 1);
             return storedPupils;
+        }
+        public Pupil[] GetPupilsWithLowestAvgMark(Pupil[] pupils)
+        {
+            return pupils;
         }
         private void SearchForPupilIfNotFound(Pupil[] pupils, double mark, ref Pupil[] temporaryPupil, ref int pivot, double toCompare)
         {
