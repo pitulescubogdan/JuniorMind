@@ -60,6 +60,27 @@ namespace Catalog
             };
             CollectionAssert.AreEqual(found, GetPupilByAvgMark(pupils, 9));
         }
+        [TestMethod]
+        public void MostTens()
+        {
+            Pupil[] pupils = new Pupil[]
+            {
+                new Pupil("Bogdan", new Classes[] {new Classes("Info",new int[] {8,10,9 }) }),
+                new Pupil("Mihai",new Classes[] { new Classes("Mate",new int[] {9,9,10 }) }),
+                new Pupil("Andrei", new Classes[] { new Classes("Sport",new int[] { 10, 10, 10 }) }),
+                new Pupil("Razvan", new Classes[] {new Classes("Romana", new int[] { 10,10,10}) }),
+                new Pupil("Paul", new Classes[] {new Classes("Civica",new int[] { 9,10,8})})
+            };
+
+            Pupil[] result = new Pupil[]
+            {
+                pupils[2],
+                pupils[3]
+            };
+
+            CollectionAssert.AreEqual(result, GetThePupilWithMostTens(pupils));
+
+        }
 
         public struct Pupil
         {
@@ -90,6 +111,7 @@ namespace Catalog
                 }
                 return hold / length;
             }
+            
         }
         public Pupil[] SortAplhabetical(Pupil[] pupils)
         {
@@ -118,6 +140,10 @@ namespace Catalog
             }
             return classes;
         }
+        public Pupil[] GetThePupilWithMostTens(Pupil[] pupils)
+        {
+            return pupils;
+        }
         private static void SwapPupils(Pupil[] pupils, int k)
         {
             var temp = pupils[k - 1];
@@ -140,7 +166,6 @@ namespace Catalog
             Array.Resize(ref storedPupils, storedPupils.Length - 1);
             return storedPupils;
         }
-
         private void SearchForPupilIfNotFound(Pupil[] pupils, double mark, ref Pupil[] temporaryPupil, ref int pivot, double toCompare)
         {
             if (mark != toCompare)
@@ -153,7 +178,6 @@ namespace Catalog
                 }
             }
         }
-
         private static void AddPupilFound(Pupil[] pupils, double mark, ref Pupil[] storedPupils, ref int k, int i, double toCompare)
         {
             if (mark == toCompare)
@@ -162,7 +186,6 @@ namespace Catalog
                 Array.Resize(ref storedPupils, storedPupils.Length + 1);
             }
         }
-
         private Pupil[] SearchForPupil(Pupil[] pupils, ref int pivot, double toCompare, Pupil comparer)
         {
             Pupil[] temporaryPupil = (comparer.nameOfClass[0].AverageMarks() < toCompare)
@@ -171,7 +194,6 @@ namespace Catalog
             pivot = pivot / 2;
             return temporaryPupil;
         }
-
         public Pupil[] ReturnHalf(Pupil[] array, int start, int length)
         {
             Pupil[] result = new Pupil[array.Length];
