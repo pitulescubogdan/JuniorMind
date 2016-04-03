@@ -17,10 +17,9 @@ namespace Catalog
             };
             Pupil[] sorted = new Pupil[]
             {
-                new Pupil("Andrei", new Classes[] {new Classes("Sport",new int[] { 10, 10, 10 }) }),
-                new Pupil("Bogdan", new Classes[] {new Classes("Info",new int[] {8,10,9 }) }),
-                new Pupil("Mihai",new Classes[] { new Classes("Mate",new int[] {9,9,10 }) })
-                
+                pupils[2],
+                pupils[0],
+                pupils[1]
             };
             CollectionAssert.AreEqual(sorted, SortAplhabetical(pupils));
 
@@ -47,7 +46,21 @@ namespace Catalog
         }
         public Pupil[] SortAplhabetical(Pupil[] pupils)
         {
-            return pupils;
+            for (int i = 0; i < pupils.Length - 1; i++)
+            {
+                int k = i + 1;
+                while (k > 0)
+                {
+                    if (pupils[k - 1].name[0] > pupils[k].name[0])
+                    {
+                        var temp = pupils[k - 1];
+                        pupils[k - 1] = pupils[k];
+                        pupils[k] = temp;
+                    }
+                    k--;
+                }
+            }
+            return pupils; ;
         }
     }
 }
