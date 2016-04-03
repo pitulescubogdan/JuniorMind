@@ -41,7 +41,24 @@ namespace Catalog
             };
 
             CollectionAssert.AreEqual(sorted, SortAvgMark(pupils));
-
+        }
+        [TestMethod]
+        public void SearchForPupils()
+        {
+            Pupil[] pupils = new Pupil[]
+            {
+                new Pupil("Bogdan", new Classes[] {new Classes("Info",new int[] {8,10,9 }) }),
+                new Pupil("Mihai",new Classes[] { new Classes("Mate",new int[] {9,9,10 }) }),
+                new Pupil("Andrei", new Classes[] { new Classes("Sport",new int[] { 10, 10, 10 }) }),
+                new Pupil("Razvan", new Classes[] {new Classes("Romana", new int[] { 10,10,10}) }),
+                new Pupil("Paul", new Classes[] {new Classes("Civica",new int[] { 9,10,8})})
+            };
+            Pupil[] found = new Pupil[]
+            {
+                new Pupil("Andrei", new Classes[] { new Classes("Sport",new int[] { 10, 10, 10 }) }),
+                new Pupil("Razvan", new Classes[] {new Classes("Romana", new int[] { 10,10,10}) })
+            };
+            CollectionAssert.AreEqual(found, GetPupilByAvgMark(pupils, 10));
         }
 
         public struct Pupil
@@ -101,12 +118,16 @@ namespace Catalog
             }
             return classes;
         }
-
         private static void SwapPupils(Pupil[] pupils, int k)
         {
             var temp = pupils[k - 1];
             pupils[k - 1] = pupils[k];
             pupils[k] = temp;
+        }
+        public Pupil[] GetPupilByAvgMark(Pupil[] pupils, double mark)
+        {
+
+            return pupils;
         }
     }
 }
