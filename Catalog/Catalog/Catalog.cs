@@ -79,7 +79,19 @@ namespace Catalog
             };
 
             CollectionAssert.AreEqual(result, GetThePupilWithMostTens(pupils));
-
+        }
+        [TestMethod]
+        public void MaxNumberOfTens()
+        {
+            Pupil[] pupils = new Pupil[]
+            {
+                new Pupil("Bogdan", new Classes[] {new Classes("Info",new int[] {8,10,9 }) }),
+                new Pupil("Mihai",new Classes[] { new Classes("Mate",new int[] {9,9,10 }) }),
+                new Pupil("Andrei", new Classes[] { new Classes("Sport",new int[] { 10, 10, 10 }) }),
+                new Pupil("Razvan", new Classes[] {new Classes("Romana", new int[] { 10,10,10}) }),
+                new Pupil("Paul", new Classes[] {new Classes("Civica",new int[] { 9,10,8})})
+            };
+            Assert.AreEqual(3, GetHighestNumberOfTens(pupils));
         }
 
         public struct Pupil
@@ -111,7 +123,16 @@ namespace Catalog
                 }
                 return hold / length;
             }
-            
+            public int CountTens()
+            {
+                int length = marks.Length;
+                int count = 0;
+                for(int i = 0; i < length; i++)
+                {
+                    if (marks[i].Equals(10)) count++;
+                }
+                return count;
+            }
         }
         public Pupil[] SortAplhabetical(Pupil[] pupils)
         {
@@ -142,8 +163,32 @@ namespace Catalog
         }
         public Pupil[] GetThePupilWithMostTens(Pupil[] pupils)
         {
-            return pupils;
+            Pupil[] result = new Pupil[1];
+            int border = GetHighestNumberOfTens(pupils);
+            int k = 0;
+            for(int i = 0; i < pupils.Length; i++)
+            {
+                if(border == pupils[i].nameOfClass[0].CountTens())
+                {
+                    result[k++] = pupils[i];
+                    Array.Resize(ref result, result.Length + 1);
+                }
+            }
+            Array.Resize(ref result, result.Length - 1);
+            return result;
         }
+
+        public int GetHighestNumberOfTens(Pupil[] pupils)
+        {
+            int highest = 0;
+            for (int i = 0; i < pupils.Length - 1; i++)
+            {
+                int actual = pupils[i].nameOfClass[0].CountTens();
+                highest = (actual > highest) ? actual : highest;
+            }
+            return highest;
+        }
+
         private static void SwapPupils(Pupil[] pupils, int k)
         {
             var temp = pupils[k - 1];
