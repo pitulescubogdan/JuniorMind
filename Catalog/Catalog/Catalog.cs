@@ -55,10 +55,10 @@ namespace Catalog
             };
             Pupil[] found = new Pupil[]
             {
-                new Pupil("Andrei", new Classes[] { new Classes("Sport",new int[] { 10, 10, 10 }) }),
-                new Pupil("Razvan", new Classes[] {new Classes("Romana", new int[] { 10,10,10}) })
+                pupils[0],
+                pupils[4]
             };
-            CollectionAssert.AreEqual(found, GetPupilByAvgMark(pupils, 10));
+            CollectionAssert.AreEqual(found, GetPupilByAvgMark(pupils, 9));
         }
 
         public struct Pupil
@@ -126,8 +126,41 @@ namespace Catalog
         }
         public Pupil[] GetPupilByAvgMark(Pupil[] pupils, double mark)
         {
+            SortAvgMark(pupils);
+            Pupil[] storedPupils = new Pupil[1];
+            Pupil[] temporaryPupil = new Pupil[pupils.Length];
+            int k = 0;
+            int pivot = pupils.Length / 2;
+            for (int i = 0; i < pupils.Length; i++)
+            {
+                double toCompare = pupils[i].nameOfClass[0].AverageMarks();
+                if (mark != toCompare)
+                {
+                    Pupil comparer = pupils[pivot];
+                    while (comparer.nameOfClass[0].AverageMarks() != mark)
+                    {
+                        temporaryPupil = (comparer.nameOfClass[0].AverageMarks() < toCompare)
+                            ? ReturnHalf(pupils, 0, pivot)
+                            : ReturnHalf(pupils, pivot, pupils.Length - pivot);
+                        pivot = pivot / 2;
+                        break;
+                    }
 
-            return pupils;
+                }
+                if (mark == toCompare)
+                {
+                    storedPupils[k++] = pupils[i];
+                    Array.Resize(ref storedPupils, storedPupils.Length + 1);
+                }
+            }
+            Array.Resize(ref storedPupils, storedPupils.Length - 1);
+            return storedPupils;
+        }
+        public Pupil[] ReturnHalf(Pupil[] array, int start, int length)
+        {
+            Pupil[] result = new Pupil[array.Length];
+            Array.Copy(array, start, result, 0, length);
+            return result;
         }
     }
 }
