@@ -40,7 +40,7 @@ namespace Catalog
                 pupils[0]
             };
 
-            CollectionAssert.AreEqual(sorted, SortByAvgMarks(pupils));
+            CollectionAssert.AreEqual(sorted, SortAvgMark(pupils));
 
         }
 
@@ -63,6 +63,16 @@ namespace Catalog
                 this.name = name;
                 this.marks = marks;
             }
+            public double AverageMarks()
+            {
+                double hold = 0;
+                int length = marks.Length;
+                for (int i = 0; i < length; i++)
+                {
+                    hold += marks[i];
+                }
+                return hold / length;
+            }
         }
         public Pupil[] SortAplhabetical(Pupil[] pupils)
         {
@@ -77,9 +87,19 @@ namespace Catalog
             }
             return pupils; ;
         }
-        public Pupil[] SortByAvgMarks(Pupil[] pupils)
+        public Pupil[] SortAvgMark(Pupil[] classes)
         {
-            return pupils;
+            for (int i = 0; i < classes.Length - 1; i++)
+            {
+                int k = i + 1;
+                while (k > 0)
+                {
+                    if (classes[k - 1].nameOfClass[0].AverageMarks() < classes[k].nameOfClass[0].AverageMarks()) SwapPupils(classes, k);
+
+                    k--;
+                }
+            }
+            return classes;
         }
 
         private static void SwapPupils(Pupil[] pupils, int k)
