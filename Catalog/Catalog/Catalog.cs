@@ -134,28 +134,44 @@ namespace Catalog
             for (int i = 0; i < pupils.Length; i++)
             {
                 double toCompare = pupils[i].nameOfClass[0].AverageMarks();
-                if (mark != toCompare)
-                {
-                    Pupil comparer = pupils[pivot];
-                    while (comparer.nameOfClass[0].AverageMarks() != mark)
-                    {
-                        temporaryPupil = (comparer.nameOfClass[0].AverageMarks() < toCompare)
-                            ? ReturnHalf(pupils, 0, pivot)
-                            : ReturnHalf(pupils, pivot, pupils.Length - pivot);
-                        pivot = pivot / 2;
-                        break;
-                    }
-
-                }
-                if (mark == toCompare)
-                {
-                    storedPupils[k++] = pupils[i];
-                    Array.Resize(ref storedPupils, storedPupils.Length + 1);
-                }
+                SearchForPupilIfNotFound(pupils, mark, ref temporaryPupil, ref pivot, toCompare);
+                AddPupilFound(pupils, mark, ref storedPupils, ref k, i, toCompare);
             }
             Array.Resize(ref storedPupils, storedPupils.Length - 1);
             return storedPupils;
         }
+
+        private void SearchForPupilIfNotFound(Pupil[] pupils, double mark, ref Pupil[] temporaryPupil, ref int pivot, double toCompare)
+        {
+            if (mark != toCompare)
+            {
+                Pupil comparer = pupils[pivot];
+                while (comparer.nameOfClass[0].AverageMarks() != mark)
+                {
+                    temporaryPupil = SearchForPupil(pupils, ref pivot, toCompare, comparer);
+                    break;
+                }
+            }
+        }
+
+        private static void AddPupilFound(Pupil[] pupils, double mark, ref Pupil[] storedPupils, ref int k, int i, double toCompare)
+        {
+            if (mark == toCompare)
+            {
+                storedPupils[k++] = pupils[i];
+                Array.Resize(ref storedPupils, storedPupils.Length + 1);
+            }
+        }
+
+        private Pupil[] SearchForPupil(Pupil[] pupils, ref int pivot, double toCompare, Pupil comparer)
+        {
+            Pupil[] temporaryPupil = (comparer.nameOfClass[0].AverageMarks() < toCompare)
+                                        ? ReturnHalf(pupils, 0, pivot)
+                                        : ReturnHalf(pupils, pivot, pupils.Length - pivot);
+            pivot = pivot / 2;
+            return temporaryPupil;
+        }
+
         public Pupil[] ReturnHalf(Pupil[] array, int start, int length)
         {
             Pupil[] result = new Pupil[array.Length];
