@@ -106,11 +106,25 @@ namespace Catalog
            };
             Pupil[] result = new Pupil[]
             {
-                pupils[0],
-                pupils[4]
+                pupils[4],
+                pupils[0]
             };
             CollectionAssert.AreEqual(result, GetPupilsWithLowestAvgMark(pupils));
         }
+        [TestMethod]
+        public void LowestMarks()
+        {
+            Pupil[] pupils = new Pupil[]
+          {
+                new Pupil("Bogdan", new Classes[] {new Classes("Info",new int[] {8,10,9 }) }),
+                new Pupil("Mihai",new Classes[] { new Classes("Mate",new int[] {9,9,10 }) }),
+                new Pupil("Andrei", new Classes[] { new Classes("Sport",new int[] { 10, 10, 10 }) }),
+                new Pupil("Razvan", new Classes[] {new Classes("Romana", new int[] { 10,10,10}) }),
+                new Pupil("Paul", new Classes[] {new Classes("Civica",new int[] { 9,10,8})})
+          };
+            Assert.AreEqual(9, GetLowestMarks(pupils));
+        }
+
 
         public struct Pupil
         {
@@ -145,7 +159,7 @@ namespace Catalog
             {
                 int length = marks.Length;
                 int count = 0;
-                for(int i = 0; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     if (marks[i].Equals(10)) count++;
                 }
@@ -184,9 +198,9 @@ namespace Catalog
             Pupil[] result = new Pupil[1];
             int border = GetHighestNumberOfTens(pupils);
             int k = 0;
-            for(int i = 0; i < pupils.Length; i++)
+            for (int i = 0; i < pupils.Length; i++)
             {
-                if(border == pupils[i].nameOfClass[0].CountTens())
+                if (border == pupils[i].nameOfClass[0].CountTens())
                 {
                     result[k++] = pupils[i];
                     Array.Resize(ref result, result.Length + 1);
@@ -229,7 +243,30 @@ namespace Catalog
         }
         public Pupil[] GetPupilsWithLowestAvgMark(Pupil[] pupils)
         {
-            return pupils;
+            double comparer = GetLowestMarks(pupils);
+            Pupil[] lowestMarks = new Pupil[1];
+            int k = 0;
+            for (int i = pupils.Length - 1; i >= 0; i--)
+            {
+                if (pupils[i].nameOfClass[0].AverageMarks() == comparer)
+                {
+                    lowestMarks[k++] = pupils[i];
+                    Array.Resize(ref lowestMarks, lowestMarks.Length + 1);
+                }
+            }
+            Array.Resize(ref lowestMarks, lowestMarks.Length - 1);
+            return lowestMarks;
+        }
+        public double GetLowestMarks(Pupil[] pupils)
+        {
+            double result = pupils[0].nameOfClass[0].AverageMarks();
+
+            for (int i = 0; i < pupils.Length; i++)
+            {
+                double comparison = pupils[i].nameOfClass[0].AverageMarks();
+                result = (comparison < result) ? comparison : result;
+            }
+            return result;
         }
         private void SearchForPupilIfNotFound(Pupil[] pupils, double mark, ref Pupil[] temporaryPupil, ref int pivot, double toCompare)
         {
