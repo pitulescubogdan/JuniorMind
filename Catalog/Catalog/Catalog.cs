@@ -241,7 +241,7 @@ namespace Catalog
             for (int i = 0; i < pupils.Length; i++)
             {
                 double toCompare = pupils[i].nameOfClass[0].AverageMarks();
-                SearchForPupilIfNotFound(pupils, mark, ref temporaryPupil, ref pivot, toCompare);
+                BinarySearch(pupils,pupils[i]);
                 if (mark == toCompare) AddPupilAndResize(pupils, ref storedPupils, ref k, i);
             }
             Array.Resize(ref storedPupils, storedPupils.Length - 1);
@@ -280,19 +280,20 @@ namespace Catalog
             }
             return result;
         }
-        private void SearchForPupilIfNotFound(Pupil[] pupils, double mark, ref Pupil[] temporaryPupil, ref int pivot, double toCompare)
+        public int BinarySearch(Pupil[] pupils,Pupil toFind)
         {
-            if (mark != toCompare)
+            int start = 0;
+            int end = pupils.Length - 1;
+            while(start <= end)
             {
-                Pupil comparer = pupils[pivot];
-                while (comparer.nameOfClass[0].AverageMarks() != mark)
-                {
-                    temporaryPupil = SearchForPupil(pupils, ref pivot, toCompare, comparer);
-                    break;
-                }
-            }
-        }
+                int pivot = (start + end) / 2;
+                if (pupils[pivot].Equals(toFind)) return pivot;
+                if (pupils[pivot].nameOfClass[0].CountTens() < toFind.nameOfClass[0].CountTens()) start = pivot + 1;
+                else end = pivot - 1;
 
+            }
+            return -1;
+        }
         private Pupil[] SearchForPupil(Pupil[] pupils, ref int pivot, double toCompare, Pupil comparer)
         {
             Pupil[] temporaryPupil = (comparer.nameOfClass[0].AverageMarks() < toCompare)
