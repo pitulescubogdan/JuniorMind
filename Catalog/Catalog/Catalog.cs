@@ -196,11 +196,18 @@ namespace Catalog
         public Pupil[] GetThePupilWithMostTens(Pupil[] pupils)
         {
             Pupil[] result = new Pupil[1];
-            int border = GetHighestNumberOfTens(pupils);
+            int highest = 0;
             int k = 0;
+            int j = 0;
             for (int i = 0; i < pupils.Length; i++)
             {
-                if (border == pupils[i].nameOfClass[0].CountTens())
+                while (j < pupils.Length - 1)
+                {
+                    int actual = pupils[j].nameOfClass[0].CountTens();
+                    highest = (actual > highest) ? actual : highest;
+                    j++;
+                }
+                if (highest == pupils[i].nameOfClass[0].CountTens())
                 {
                     AddPupilAndResize(pupils, ref result, ref k, i);
                 }
@@ -235,7 +242,7 @@ namespace Catalog
             {
                 double toCompare = pupils[i].nameOfClass[0].AverageMarks();
                 SearchForPupilIfNotFound(pupils, mark, ref temporaryPupil, ref pivot, toCompare);
-                if(mark == toCompare) AddPupilAndResize(pupils, ref storedPupils, ref k, i);
+                if (mark == toCompare) AddPupilAndResize(pupils, ref storedPupils, ref k, i);
             }
             Array.Resize(ref storedPupils, storedPupils.Length - 1);
             return storedPupils;
@@ -285,7 +292,7 @@ namespace Catalog
                 }
             }
         }
-       
+
         private Pupil[] SearchForPupil(Pupil[] pupils, ref int pivot, double toCompare, Pupil comparer)
         {
             Pupil[] temporaryPupil = (comparer.nameOfClass[0].AverageMarks() < toCompare)
