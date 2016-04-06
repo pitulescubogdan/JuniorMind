@@ -28,7 +28,15 @@ namespace List
         {
             get
             {
-                throw new NotImplementedException();
+                int count = 0;
+                for (int i = 0; i < stored.Length; i++)
+                {
+                    if (!stored[i].Equals(0))
+                    {
+                        count++;
+                    }
+                }
+                return count;
             }
         }
 

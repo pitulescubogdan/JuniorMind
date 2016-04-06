@@ -9,9 +9,10 @@ namespace List
         [TestMethod]    
         public void ListCount()
         {
-            List<string> objectOne = new List<string>();
-
-            Assert.AreEqual(0, objectOne.Count);
+            List<int> objectOne = new List<int>();
+            objectOne.Add(34);
+            objectOne.Add(55);
+            Assert.AreEqual(2, objectOne.Count);
         }
         [TestMethod]
         public void ListAdd()
