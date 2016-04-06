@@ -100,7 +100,26 @@ namespace List
 
         public void Insert(int index, T item)
         {
-            throw new NotImplementedException();
+            if (stored.Length == 0) Array.Resize(ref stored, 1);
+            while(index > stored.Length)
+            {
+                Array.Resize(ref stored, stored.Length * 2);
+            }
+            if (stored[index].Equals(0))
+            {
+                stored[index] = item;
+                return;
+            } 
+            if (!stored[index].Equals(0))
+            {
+                Array.Resize(ref stored, stored.Length + 1);
+                for(int i = stored.Length - 1;i> index; i--)
+                {
+                    stored[i] = stored[i - 1];
+                }
+                stored[index] = item;
+                return;
+            }
         }
 
         public bool Remove(T item)

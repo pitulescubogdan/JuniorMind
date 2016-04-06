@@ -40,5 +40,18 @@ namespace List
             obj.Add(5);
             Assert.AreEqual(3, obj.IndexOf(5));
         }
+        [TestMethod]
+        public void ListInsert()
+        {
+            List<int> obj = new List<int>();
+            obj.Add(10);
+            obj.Add(10);
+            obj.Add(10);
+            obj.Add(10);
+            obj.Add(10);
+            obj.Add(10);
+            obj.Insert(5, 20);
+            Assert.IsTrue(obj.Contains(20));
+        }
     }
 }
