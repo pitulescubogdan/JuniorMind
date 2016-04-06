@@ -91,7 +91,11 @@ namespace List
 
         public int IndexOf(T item)
         {
-            throw new NotImplementedException();
+            for(int i = 0; i < stored.Length; i++)
+            {
+                if (stored[i].Equals(item)) return i;
+            }
+            return -1;
         }
 
         public void Insert(int index, T item)

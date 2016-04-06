@@ -30,5 +30,15 @@ namespace List
             obj.Clear();
             Assert.AreEqual(0,obj.Count);
         }
+        [TestMethod]
+        public void ListIndexOf()
+        {
+            List<int> obj = new List<int>();
+            obj.Add(1);
+            obj.Add(2);
+            obj.Add(3);
+            obj.Add(5);
+            Assert.AreEqual(3, obj.IndexOf(5));
+        }
     }
 }
