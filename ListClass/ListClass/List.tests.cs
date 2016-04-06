@@ -21,6 +21,14 @@ namespace List
             objectOne.Add(2);
             Assert.IsTrue(objectOne.Contains(2));
         }
-        
+        [TestMethod]
+        public void ListClear()
+        {
+            List<int> obj = new List<int>();
+            obj.Add(22);
+            obj.Add(147);
+            obj.Clear();
+            Assert.AreEqual(0,obj.Count);
+        }
     }
 }

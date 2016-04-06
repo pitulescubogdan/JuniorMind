@@ -9,7 +9,7 @@ namespace List
 {
     public class List<T> : IList<T>
     {
-        T[] stored = new T[1];
+        T[] stored = new T[0];
 
         public T this[int index]
         {
@@ -50,6 +50,7 @@ namespace List
 
         public void Add(T item)
         {
+            if (stored.Length == 0) Array.Resize(ref stored, 1);
             for (int i = 0; i < stored.Length; i++)
             {
                 if (i == stored.Length - 1)
@@ -66,7 +67,7 @@ namespace List
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            Array.Resize(ref stored, 0);
         }
 
         public bool Contains(T item)
