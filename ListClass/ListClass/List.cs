@@ -16,12 +16,12 @@ namespace List
         {
             get
             {
-                throw new NotImplementedException();
+                return stored[index];
             }
 
             set
             {
-                throw new NotImplementedException();
+                stored[index] = value;
             }
         }
 
@@ -45,7 +45,7 @@ namespace List
         {
             get
             {
-                throw new NotImplementedException();
+                return false;
             }
         }
 
