@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace List
 {
     public class List<T> : IList<T>
     {
-        T[] stored = new T[0];
+        T[] stored = new T[7];
         int count = 0;
 
         public T this[int index]
@@ -29,14 +27,6 @@ namespace List
         {
             get
             {
-                int count = 0;
-                for (int i = 0; i < stored.Length; i++)
-                {
-                    if (!stored[i].Equals(0))
-                    {
-                        count++;
-                    }
-                }
                 return count;
             }
         }
@@ -51,11 +41,7 @@ namespace List
 
         public void Add(T item)
         {
-            if (stored.Length == 0) Array.Resize(ref stored, 1);
-            if (count == stored.Length - 1)
-            {
-                Array.Resize(ref stored, stored.Length * 2);
-            }
+            MakeSpace();
             stored[count] = item;
             count++;
             return;
@@ -63,13 +49,7 @@ namespace List
 
         public void Clear()
         {
-            for(int i = 0; i <stored.Length; i++)
-            {
-                if (!stored[i].Equals(0))
-                {
-                    stored[i] = default(T);
-                }
-            }
+            count = 0;
         }
 
         public bool Contains(T item)
@@ -81,9 +61,13 @@ namespace List
             return false;
         }
 
-        public void CopyTo(T[] array, int arrayIndex)
+        public void CopyTo(T[] array, int index)
         {
-            throw new NotImplementedException();
+            int k = index;
+            for(int i = index; i < count; i ++)
+            {
+                array.SetValue(stored[i], k++);
+            }
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -102,28 +86,15 @@ namespace List
 
         public void Insert(int index, T item)
         {
-            if (stored.Length == 0) Array.Resize(ref stored, 1);
-            while (index > stored.Length)
+            MakeSpace();
+
+            for (int i = stored.Length - 1; i > index; i--)
             {
-                Array.Resize(ref stored, stored.Length * 2);
-            }
-            if (stored[index].Equals(0))
-            {
-                stored[index] = item;
+                stored[i] = stored[i - 1];
                 count++;
-                return;
             }
-            if (!stored[index].Equals(0))
-            {
-                Array.Resize(ref stored, stored.Length + 1);
-                for (int i = stored.Length - 1; i > index; i--)
-                {
-                    stored[i] = stored[i - 1];
-                    count++;
-                }
-                stored[index] = item;
-                return;
-            }
+            stored[index] = item;
+
         }
 
         public bool Remove(T item)
@@ -138,16 +109,23 @@ namespace List
 
         public void RemoveAt(int index)
         {
-            if(index < stored.Length)
+            if (index < stored.Length)
             {
-                stored[index] = default(T);
-                count--;
+                Array.Copy(stored, index + 1, stored, index, stored.Length - index - 1);
             }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
+        }
+
+        private void MakeSpace()
+        {
+            if (count == stored.Length - 1)
+            {
+                Array.Resize(ref stored, stored.Length * 2);
+            }
         }
     }
 }
