@@ -63,7 +63,13 @@ namespace List
 
         public void Clear()
         {
-            Array.Resize(ref stored, 0);
+            for(int i = 0; i <stored.Length; i++)
+            {
+                if (!stored[i].Equals(0))
+                {
+                    stored[i] = default(T);
+                }
+            }
         }
 
         public bool Contains(T item)
@@ -104,6 +110,7 @@ namespace List
             if (stored[index].Equals(0))
             {
                 stored[index] = item;
+                count++;
                 return;
             }
             if (!stored[index].Equals(0))
@@ -112,6 +119,7 @@ namespace List
                 for (int i = stored.Length - 1; i > index; i--)
                 {
                     stored[i] = stored[i - 1];
+                    count++;
                 }
                 stored[index] = item;
                 return;
