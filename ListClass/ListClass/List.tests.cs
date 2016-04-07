@@ -53,5 +53,24 @@ namespace List
             obj.Insert(5, 20);
             Assert.IsTrue(obj.Contains(20));
         }
+        [TestMethod]
+        public void ListRemoveAt()
+        {
+            List<int> obj = new List<int>();
+            obj.Add(10);
+            obj.Add(50);
+            obj.RemoveAt(1);
+            Assert.IsFalse(obj.Contains(50));
+        }
+        [TestMethod]
+        public void ListRemove()
+        {
+            List<int> obj = new List<int>();
+            obj.Add(1);
+            obj.Add(3);
+            obj.Add(5);
+            obj.Remove(3);
+            Assert.IsFalse(obj.Contains(3));
+        }
     }
 }

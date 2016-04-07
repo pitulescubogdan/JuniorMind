@@ -128,12 +128,21 @@ namespace List
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            if (Contains(item))
+            {
+                RemoveAt(IndexOf(item));
+                return true;
+            }
+            return false;
         }
 
         public void RemoveAt(int index)
         {
-            throw new NotImplementedException();
+            if(index < stored.Length)
+            {
+                stored[index] = default(T);
+                count--;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
