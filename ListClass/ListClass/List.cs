@@ -64,7 +64,7 @@ namespace List
         public void CopyTo(T[] array, int index)
         {
             int k = index;
-            for(int i = index; i < count; i ++)
+            for(int i = 0; i < count; i ++)
             {
                 array.SetValue(stored[i], k++);
             }

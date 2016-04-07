@@ -5,7 +5,7 @@ namespace List
 {
     public class List
     {
-        [Fact]    
+        [Fact]
         public void ListCount()
         {
             List<int> objectOne = new List<int>();
@@ -27,7 +27,7 @@ namespace List
             obj.Add(22);
             obj.Add(147);
             obj.Clear();
-            Assert.Equal(0,obj.Count);
+            Assert.Equal(0, obj.Count);
         }
         [Fact]
         public void ListIndexOf()
@@ -45,7 +45,7 @@ namespace List
             {
                 10,10,10,10,10
             };
-            
+
             obj.Insert(5, 20);
             Assert.True(obj.Contains(20));
         }
@@ -73,14 +73,14 @@ namespace List
         {
             int[] test = new int[]
             {
-                1,3,5,7
+                1,3,5,7,9,11,17
             };
             var toCopy = new List<int>
             {
                 10,11,12,13
             };
             toCopy.CopyTo(test, 2);
-            Assert.Equal(new int[] { 1, 3, 12, 13 }, test);
+            Assert.Equal(new int[] { 1, 3, 10, 11, 12, 13,17}, test);
         }
     }
 }
