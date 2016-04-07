@@ -10,6 +10,7 @@ namespace List
     public class List<T> : IList<T>
     {
         T[] stored = new T[0];
+        int count = 0;
 
         public T this[int index]
         {
@@ -51,18 +52,13 @@ namespace List
         public void Add(T item)
         {
             if (stored.Length == 0) Array.Resize(ref stored, 1);
-            for (int i = 0; i < stored.Length; i++)
+            if (count == stored.Length - 1)
             {
-                if (i == stored.Length - 1)
-                {
-                    Array.Resize(ref stored, stored.Length * 2);
-                }
-                if (stored[i].Equals(0))
-                {
-                    stored[i] = item;
-                    return;
-                }
+                Array.Resize(ref stored, stored.Length * 2);
             }
+            stored[count] = item;
+            count++;
+            return;
         }
 
         public void Clear()
@@ -72,7 +68,7 @@ namespace List
 
         public bool Contains(T item)
         {
-            for(int i = 0; i < stored.Length; i++)
+            for (int i = 0; i < stored.Length; i++)
             {
                 if (stored[i].Equals(item)) return true;
             }
@@ -91,7 +87,7 @@ namespace List
 
         public int IndexOf(T item)
         {
-            for(int i = 0; i < stored.Length; i++)
+            for (int i = 0; i < stored.Length; i++)
             {
                 if (stored[i].Equals(item)) return i;
             }
@@ -101,7 +97,7 @@ namespace List
         public void Insert(int index, T item)
         {
             if (stored.Length == 0) Array.Resize(ref stored, 1);
-            while(index > stored.Length)
+            while (index > stored.Length)
             {
                 Array.Resize(ref stored, stored.Length * 2);
             }
@@ -109,11 +105,11 @@ namespace List
             {
                 stored[index] = item;
                 return;
-            } 
+            }
             if (!stored[index].Equals(0))
             {
                 Array.Resize(ref stored, stored.Length + 1);
-                for(int i = stored.Length - 1;i> index; i--)
+                for (int i = stored.Length - 1; i > index; i--)
                 {
                     stored[i] = stored[i - 1];
                 }
