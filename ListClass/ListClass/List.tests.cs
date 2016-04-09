@@ -85,7 +85,7 @@ namespace List
                 10,11,12,13
             };
             secondObj.CopyTo(test, 2);
-            Assert.Equal(new int[] { 1, 3, 8, 7, 5, 4,17}, test);
+            Assert.Equal(new int[] { 1, 3, 8, 7, 5, 4, 17 }, test);
         }
         [Fact]
         public void ListEnumrator()
@@ -94,16 +94,13 @@ namespace List
             {
                 1,3,5,7,9
             };
+            var testObject = new List<int>();
 
-            int[] test = new int[theObject.Count];
-            
-            for (int i = 0; i < theObject.Count; i++)
+            foreach (var i in theObject)
             {
-                Assert.Equal(test[i], 
-                    theObject.GetEnumerator().Current);
-                theObject.GetEnumerator().MoveNext();
+                testObject.Add(i);
             }
-
+            Assert.Equal(new int[] { 1, 3, 5, 7, 9 }, testObject);
         }
     }
 }

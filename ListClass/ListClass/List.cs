@@ -64,7 +64,7 @@ namespace List
         public void CopyTo(T[] array, int index)
         {
             int k = index;
-            for(int i = 0; i < count; i ++)
+            for (int i = 0; i < count; i++)
             {
                 array.SetValue(stored[i], k++);
             }
@@ -72,10 +72,8 @@ namespace List
 
         public IEnumerator<T> GetEnumerator()
         {
-            foreach(var individual in stored)
-            {
-                yield return individual;
-            }
+            for (int i = 0; i < count; i++)
+                yield return stored[i];
         }
 
         public int IndexOf(T item)
