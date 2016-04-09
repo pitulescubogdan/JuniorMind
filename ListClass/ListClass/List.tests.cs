@@ -75,12 +75,35 @@ namespace List
             {
                 1,3,5,7,9,11,17
             };
+
+            var secondObj = new List<int>
+            {
+                8,7,5,4
+            };
             var toCopy = new List<int>
             {
                 10,11,12,13
             };
-            toCopy.CopyTo(test, 2);
-            Assert.Equal(new int[] { 1, 3, 10, 11, 12, 13,17}, test);
+            secondObj.CopyTo(test, 2);
+            Assert.Equal(new int[] { 1, 3, 8, 7, 5, 4,17}, test);
+        }
+        [Fact]
+        public void ListEnumrator()
+        {
+            var theObject = new List<int>
+            {
+                1,3,5,7,9
+            };
+
+            int[] test = new int[theObject.Count];
+            
+            for (int i = 0; i < theObject.Count; i++)
+            {
+                Assert.Equal(test[i], 
+                    theObject.GetEnumerator().Current);
+                theObject.GetEnumerator().MoveNext();
+            }
+
         }
     }
 }

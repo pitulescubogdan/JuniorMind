@@ -72,7 +72,10 @@ namespace List
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            foreach(var individual in stored)
+            {
+                yield return individual;
+            }
         }
 
         public int IndexOf(T item)
@@ -112,12 +115,13 @@ namespace List
             if (index < stored.Length)
             {
                 Array.Copy(stored, index + 1, stored, index, stored.Length - index - 1);
+                stored[stored.Length - index - 1] = default(T);
             }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
 
         private void MakeSpace()
