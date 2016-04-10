@@ -51,5 +51,34 @@ namespace LinkedList.Test
             this.Add(count, obj);
         }
 
+        public void Remove(int index)
+        {
+            if (index > count) index = count - 1;
+
+            Node current = this.head;
+
+            if (index == 0)
+            {
+                current.Data = default(T);
+                this.head = current.Next;
+            }
+            else
+            {
+                for(int i = 0; i < index - 1; i++)
+                {
+                    current = current.Next;
+                }
+
+                current.Next.Data = default(T);
+                current.Next = current.Next.Next;
+            }
+            count--;
+        }
+
+        public void Clear()
+        {
+            count = 0;
+        }
+
     }
 }

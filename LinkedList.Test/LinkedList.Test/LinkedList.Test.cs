@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Xunit;
-
 
 namespace LinkedList.Test
 {
@@ -21,6 +19,18 @@ namespace LinkedList.Test
             Assert.Equal(3, list.Count);
             list.Add(0, 0);
             Assert.Equal(4, list.Count);
+        }
+        [Fact]
+        public void TestRemove()
+        {
+            var list = new LinkedLists<int> { 1, 2, 3, 4, 5 };
+            Assert.Equal(5, list.Count);
+            list.Remove(2);
+            Assert.Equal(4, list.Count);
+            list.Remove(0);
+            Assert.Equal(3, list.Count);
+            list.Clear();
+            Assert.Equal(0, list.Count);
         }
     }
 }
