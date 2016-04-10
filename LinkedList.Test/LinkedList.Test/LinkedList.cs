@@ -23,12 +23,11 @@ namespace LinkedList.Test
         }
         public new int Count
         {
-            get { return this.count; }
+            get { return count; }
         }
-
         public void Add(int index,T obj)
         {
-            if (index > count) index = count;
+            if (index > count) index = count - 1;
 
             Node current = this.head;
 
@@ -50,7 +49,6 @@ namespace LinkedList.Test
         {
             this.Add(count, obj);
         }
-
         public void Remove(int index)
         {
             if (index > count) index = count - 1;
@@ -74,11 +72,25 @@ namespace LinkedList.Test
             }
             count--;
         }
-
-        public void Clear()
+        public new void Clear()
         {
+            head = null;
             count = 0;
         }
+        public int IndexOf(T obj)
+        {
+            Node current = this.head;
+            for(int i = 0; i < count; i++)
+            {
+                if (current.Data.Equals(obj)) return i;
 
+                current = current.Next;
+            }
+            return -1;
+        }
+        public new bool Contains(T obj)
+        {
+            return IndexOf(obj) >= 0;
+        }
     }
 }

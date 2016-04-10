@@ -32,5 +32,25 @@ namespace LinkedList.Test
             list.Clear();
             Assert.Equal(0, list.Count);
         }
+        [Fact]
+        public void TestIndexOf()
+        {
+            var list = new LinkedLists<string>
+            {
+                "a",
+                "b",
+                "c"
+            };
+            Assert.Equal(1, list.IndexOf("b"));
+            Assert.Equal(-1, list.IndexOf("z"));
+        }
+        [Fact]
+        public void TestContains()
+        {
+            var list = new LinkedLists<char> { 'a', 'b', 'c', 'd', 'e' };
+            Assert.True(list.Contains('d'));
+            Assert.False(list.Contains('z'));
+        }
+
     }
 }
