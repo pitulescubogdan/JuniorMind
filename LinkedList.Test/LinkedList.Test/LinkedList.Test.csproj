@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EAAAAB31-6D86-4151-9EF7-BB080AE13198}</ProjectGuid>
+    <ProjectGuid>{F3435508-EF17-40BD-9BC0-B00ABB790D32}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ListClass</RootNamespace>
-    <AssemblyName>ListClass</AssemblyName>
+    <RootNamespace>LinkedList.Test</RootNamespace>
+    <AssemblyName>LinkedList.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -69,8 +69,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="List.cs" />
-    <Compile Include="List.tests.cs" />
+    <Compile Include="LinkedList.cs" />
+    <Compile Include="LinkedList.Test.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
