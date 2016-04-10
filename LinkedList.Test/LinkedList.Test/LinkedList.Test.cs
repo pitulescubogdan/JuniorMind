@@ -5,6 +5,7 @@ namespace LinkedList.Test
 {
     public class LinkedListTest
     {
+
         [Fact]
         public void TestEmpty()
         {
@@ -35,12 +36,7 @@ namespace LinkedList.Test
         [Fact]
         public void TestIndexOf()
         {
-            var list = new LinkedLists<string>
-            {
-                "a",
-                "b",
-                "c"
-            };
+            var list = new LinkedLists<string>{"a","b","c"};
             Assert.Equal(1, list.IndexOf("b"));
             Assert.Equal(-1, list.IndexOf("z"));
         }
@@ -50,6 +46,14 @@ namespace LinkedList.Test
             var list = new LinkedLists<char> { 'a', 'b', 'c', 'd', 'e' };
             Assert.True(list.Contains('d'));
             Assert.False(list.Contains('z'));
+        }
+        [Fact]
+        public void TestGetter()
+        {
+            var list = new LinkedLists<int> { 1, 2, 3, 4, 5 };
+            var test = new LinkedLists<int>();
+            test.Add(list[3]);
+            Assert.True(test.Contains(4));
         }
 
     }

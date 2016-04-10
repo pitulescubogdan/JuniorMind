@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 
 namespace LinkedList.Test
 {
@@ -11,6 +8,13 @@ namespace LinkedList.Test
         private Node head;
         private int count;
 
+        public T this[int index]
+        {
+            get
+            {
+                return this.Get(index);
+            }
+        }
         public LinkedLists()
         {
             this.head = null;
@@ -25,22 +29,19 @@ namespace LinkedList.Test
         {
             get { return count; }
         }
-        public void Add(int index,T obj)
+        public void Add(int index, T obj)
         {
             if (index > count) index = count - 1;
 
             Node current = this.head;
 
-            if(this.Empty || index == 0)
+            if (this.Empty || index == 0)
             {
                 this.head = new Node(obj, this.head);
             }
             else
             {
-                for(int i = 0;i<index - 1; i++)
-                {
-                    current = current.Next;
-                }
+                current = LinkElements(index, current);
                 current.Next = new Node(obj, current.Next);
             }
             count++;
@@ -51,7 +52,7 @@ namespace LinkedList.Test
         }
         public void Remove(int index)
         {
-            if (index > count) index = count - 1;
+            if (index >= count) index = count - 1;
 
             Node current = this.head;
 
@@ -62,10 +63,7 @@ namespace LinkedList.Test
             }
             else
             {
-                for(int i = 0; i < index - 1; i++)
-                {
-                    current = current.Next;
-                }
+                LinkElements(index, current);
 
                 current.Next.Data = default(T);
                 current.Next = current.Next.Next;
@@ -80,7 +78,7 @@ namespace LinkedList.Test
         public int IndexOf(T obj)
         {
             Node current = this.head;
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 if (current.Data.Equals(obj)) return i;
 
@@ -91,6 +89,28 @@ namespace LinkedList.Test
         public new bool Contains(T obj)
         {
             return IndexOf(obj) >= 0;
+        }
+        public T Get(int index)
+        {
+            if (Empty) return default(T);
+            if (index >= count) index = count - 1;
+
+            Node current = this.head;
+
+            for (int i = 0; i < index; i++)
+            {
+                current = current.Next;
+            }
+            return (T)current.Data;
+        }
+        private static Node LinkElements(int index, Node current)
+        {
+            for (int i = 0; i < index - 1; i++)
+            {
+                current = current.Next;
+            }
+
+            return current;
         }
     }
 }
