@@ -8,6 +8,7 @@ namespace LinkedList.Test
         private Node head;
         private int count;
 
+
         public T this[int index]
         {
             get
@@ -15,9 +16,12 @@ namespace LinkedList.Test
                 return this.Get(index);
             }
         }
+        
         public LinkedLists()
         {
-            this.head = null;
+            this.head = new Node(default(T), null, null);
+            head.Next = head;
+            head.Previous = head;
             this.count = 0;
         }
         public bool Empty
@@ -29,27 +33,26 @@ namespace LinkedList.Test
         {
             get { return count; }
         }
-        public void Add(int index, T obj)
-        {
-            if (index > count) index = count - 1;
-
-            Node current = this.head;
-
-            if (this.Empty || index == 0)
-            {
-                this.head = new Node(obj, this.head);
-            }
-            else
-            {
-                current = LinkElements(index, current);
-                current.Next = new Node(obj, current.Next);
-            }
-            count++;
-        }
         public void Add(T obj)
         {
-            this.Add(count, obj);
+            Node last = head.Previous;
+            Node newNode = new Node(obj, head, head.Previous);
+
+            head.Previous = newNode;
+            last.Next = newNode;
+
+            count++;
         }
+        public void AddPrevious(T obj)
+        {
+            Node first = head.Next;
+            Node newNode = new Node(obj, head.Next, head);
+            head.Next = newNode;
+            first.Previous = newNode;
+            count++; 
+
+        }
+
         public void Remove(int index)
         {
             if (index >= count) index = count - 1;
@@ -63,7 +66,7 @@ namespace LinkedList.Test
             }
             else
             {
-                LinkElements(index, current);
+                LinkElements(current);
 
                 current.Next.Data = default(T);
                 current.Next = current.Next.Next;
@@ -77,13 +80,16 @@ namespace LinkedList.Test
         }
         public int IndexOf(T obj)
         {
-            Node current = this.head;
-            for (int i = 0; i < count; i++)
+            int index = 0;
+            Node current = head.Next;
+            while(current != head)
             {
-                if (current.Data.Equals(obj)) return i;
-
+                if (current.Data.Equals(obj))
+                    return index;
                 current = current.Next;
+                index++;
             }
+                
             return -1;
         }
         public new bool Contains(T obj)
@@ -92,21 +98,22 @@ namespace LinkedList.Test
         }
         public T Get(int index)
         {
-            if (Empty) return default(T);
-            if (index >= count) index = count - 1;
+            int j = 0;
+            Node current = head.Next;
 
-            Node current = this.head;
-
-            for (int i = 0; i < index; i++)
+            while (current != null)
             {
+                if (index == j) return (T)current.Data;
                 current = current.Next;
+                j++;
             }
-            return (T)current.Data;
+            return default(T);
         }
-        private static Node LinkElements(int index, Node current)
+        private Node LinkElements(Node current)
         {
-            for (int i = 0; i < index - 1; i++)
+            for (int i = 0; i < count - 1; i++)
             {
+                if (current.Previous != null) current.Previous = current;
                 current = current.Next;
             }
 

@@ -145,11 +145,7 @@ namespace ElectionsCentral
             Array.Resize(ref finalList, finalList.Length - 1);
             return SortByVotes(finalList);
         }
-
-        public int GetUniqueCandidatesLength(Candidates[] list)
-        {
-            return list.Length;
-        }
+       
         public Candidates[] SortAlphabetical(Candidates[] canditates)
         {
             for (int i = 0; i < canditates.Length - 1; i++)

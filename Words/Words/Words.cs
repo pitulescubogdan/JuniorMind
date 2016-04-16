@@ -16,7 +16,7 @@ namespace Words
         [TestMethod]
         public void BigText()
         {
-            string[] result = { "it", "your", "mind", "believes", "then" };
+            string[] result = { "it", "your", "mind", "believes", "then", "", "", "", "", "", "" };
             string text = "if your mind believes it then your body can do it so believe it";
             CollectionAssert.AreEqual(result, OrdinateWords(text));
         }
@@ -88,28 +88,27 @@ namespace Words
 
         private string[] GetUniqueWords(Word[] words)
         {
-            string[] uniqueWords = new string[words.Length];
-            int countCommon = 0;
-            int k = 0;
+            string[] uniqueWords = { "" };
             int length = words.Length;
+            int k = 0;
 
             for (int i = 0; i < length; i++)
             {
-                for (int j = 0; j < length; j++)
+                for (int j = 0; j < uniqueWords.Length; j++)
                 {
-                    if (words[i].word.Equals(uniqueWords[j]))
+                    if (!(words[i].word.Equals(uniqueWords[j])))
                     {
-                        countCommon++;
+                        uniqueWords[k++] = words[i].word;
+                        Array.Resize(ref uniqueWords, uniqueWords.Length + 1);
                         break;
                     }
-                    else {
-                        uniqueWords[k++] = words[i].word;
+                    else if (words[i].word.Equals(uniqueWords[j]))
+                    {
                         break;
                     }
                 }
             }
-
-            Array.Resize(ref uniqueWords, uniqueWords.Length - countCommon);
+            Array.Resize(ref uniqueWords, uniqueWords.Length - 1);
             return uniqueWords;
         }
 

@@ -18,7 +18,7 @@ namespace LinkedList.Test
         {
             var list = new LinkedLists<int> { 1, 2, 3 };
             Assert.Equal(3, list.Count);
-            list.Add(0, 0);
+            list.Add(0);
             Assert.Equal(4, list.Count);
         }
         [Fact]
@@ -54,6 +54,13 @@ namespace LinkedList.Test
             var test = new LinkedLists<int>();
             test.Add(list[3]);
             Assert.True(test.Contains(4));
+        }
+        [Fact]
+        public void TestPrevious()
+        {
+            var list = new LinkedLists<int> { 2, 3, 4 };
+            list.AddPrevious(1);
+            Assert.Equal(4, list.Count);
         }
 
     }
