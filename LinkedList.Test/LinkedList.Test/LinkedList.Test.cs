@@ -26,9 +26,9 @@ namespace LinkedList.Test
         {
             var list = new LinkedLists<int> { 1, 2, 3, 4, 5 };
             Assert.Equal(5, list.Count);
-            list.Remove(2);
-            Assert.Equal(4, list.Count);
-            list.Remove(0);
+            list.RemoveAt(2);
+            Assert.False(list.Contains(3));
+            list.RemoveAt(0);
             Assert.Equal(3, list.Count);
             list.Clear();
             Assert.Equal(0, list.Count);

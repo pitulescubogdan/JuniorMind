@@ -53,14 +53,27 @@ namespace LinkedList.Test
 
         }
 
-        public void Remove(int index)
+        public void RemoveAt(int index)
         {
-            Node current = this.head;
+            Node current = head.Next;
+            Node toRemove = head.Next;
+            for(int i = 0; i < index; i++)
+            {
+                toRemove = toRemove.Next;
+            }
 
-            current.Next.Data = default(T);
-            current.Next = current.Next.Next;
+            Node left = toRemove.Previous;
+            Node right = toRemove.Next;
+
+            left.Next = right;
+            right.Previous = left;
+
 
             count--;
+        }
+        public new void Remove(T obj)
+        {
+            RemoveAt(IndexOf(obj));
         }
         public new void Clear()
         {
