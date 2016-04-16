@@ -16,7 +16,6 @@ namespace LinkedList.Test
                 return this.Get(index);
             }
         }
-
         public LinkedLists()
         {
             this.head = new Node(default(T), null, null);
@@ -52,7 +51,6 @@ namespace LinkedList.Test
             count++;
 
         }
-
         public void RemoveAt(int index)
         {
             Node current = head.Next;

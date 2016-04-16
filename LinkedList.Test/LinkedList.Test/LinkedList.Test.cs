@@ -29,7 +29,7 @@ namespace LinkedList.Test
             list.RemoveAt(2);
             Assert.False(list.Contains(3));
             list.RemoveAt(0);
-            Assert.Equal(3, list.Count);
+            Assert.False(list.Contains(1));
             list.Clear();
             Assert.Equal(0, list.Count);
         }
