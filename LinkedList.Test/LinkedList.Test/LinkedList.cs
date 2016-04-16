@@ -16,7 +16,7 @@ namespace LinkedList.Test
                 return this.Get(index);
             }
         }
-        
+
         public LinkedLists()
         {
             this.head = new Node(default(T), null, null);
@@ -49,28 +49,17 @@ namespace LinkedList.Test
             Node newNode = new Node(obj, head.Next, head);
             head.Next = newNode;
             first.Previous = newNode;
-            count++; 
+            count++;
 
         }
 
         public void Remove(int index)
         {
-            if (index >= count) index = count - 1;
-
             Node current = this.head;
 
-            if (index == 0)
-            {
-                current.Data = default(T);
-                this.head = current.Next;
-            }
-            else
-            {
-                LinkElements(current);
+            current.Next.Data = default(T);
+            current.Next = current.Next.Next;
 
-                current.Next.Data = default(T);
-                current.Next = current.Next.Next;
-            }
             count--;
         }
         public new void Clear()
@@ -82,14 +71,14 @@ namespace LinkedList.Test
         {
             int index = 0;
             Node current = head.Next;
-            while(current != head)
+            while (current != head)
             {
                 if (current.Data.Equals(obj))
                     return index;
                 current = current.Next;
                 index++;
             }
-                
+
             return -1;
         }
         public new bool Contains(T obj)
@@ -108,16 +97,6 @@ namespace LinkedList.Test
                 j++;
             }
             return default(T);
-        }
-        private Node LinkElements(Node current)
-        {
-            for (int i = 0; i < count - 1; i++)
-            {
-                if (current.Previous != null) current.Previous = current;
-                current = current.Next;
-            }
-
-            return current;
         }
     }
 }
