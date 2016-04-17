@@ -70,7 +70,7 @@ namespace LinkedList.Test
 
             count--;
         }
-        public void Remove(T obj)
+        public bool Remove(T obj)
         {
             Node toRemove = head.Next;
             for (int i = 0; i < count; i++)
@@ -78,9 +78,11 @@ namespace LinkedList.Test
                 if (toRemove.Data.Equals(obj))
                 {
                     RemoveLink(toRemove);
+                    return true;
                 }
                 toRemove = toRemove.Next;
             }
+            return false;
         }
         public void Clear()
         {
@@ -124,7 +126,7 @@ namespace LinkedList.Test
 
         bool ICollection<T>.Remove(T item)
         {
-            throw new NotImplementedException();
+            return this.Remove(item);
         }
 
         public IEnumerator<T> GetEnumerator()
