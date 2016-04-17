@@ -6,11 +6,10 @@
         private Node next;
         private Node previous;
 
-        public Node(object data, Node next, Node previous)
+        public Node(object data)
         {
             this.data = data;
-            this.next = next;
-            this.previous = previous;
+            
             
         }
         public object Data

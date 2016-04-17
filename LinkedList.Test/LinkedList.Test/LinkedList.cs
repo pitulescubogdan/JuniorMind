@@ -7,8 +7,6 @@ namespace LinkedList.Test
     {
         private Node head;
         private int count;
-
-
         public T this[int index]
         {
             get
@@ -18,7 +16,7 @@ namespace LinkedList.Test
         }
         public LinkedLists()
         {
-            this.head = new Node(default(T), null, null);
+            this.head = new Node(default(T));
             head.Next = head;
             head.Previous = head;
             this.count = 0;
@@ -39,7 +37,9 @@ namespace LinkedList.Test
         public new void AddLast(T obj)
         {
             Node last = head.Previous;
-            Node newNode = new Node(obj, head, head.Previous);
+            Node newNode = new Node(obj);
+            newNode.Next = head;
+            newNode.Previous = head.Previous;
 
             head.Previous = newNode;
             last.Next = newNode;
@@ -49,16 +49,17 @@ namespace LinkedList.Test
         public new void AddFirst(T obj)
         {
             Node first = head.Next;
-            Node newNode = new Node(obj, head.Next, head);
+            Node newNode = new Node(obj);
+            newNode.Next = head.Next;
+            newNode.Previous = head;
             head.Next = newNode;
             first.Previous = newNode;
             count++;
         }
         public void RemoveAt(int index)
         {
-            Node current = head.Next;
             Node toRemove = head.Next;
-            for(int i = 0; i < index; i++)
+            for (int i = 0; i < index; i++)
             {
                 toRemove = toRemove.Next;
             }
@@ -74,23 +75,34 @@ namespace LinkedList.Test
         }
         public new void Remove(T obj)
         {
-            RemoveAt(IndexOf(obj));
+            Node toRemove = head.Next;
+            for(int i = 0; i<count;i++)
+            { 
+                if (toRemove.Data.Equals(obj))
+                {
+                    Node left = toRemove.Previous;
+                    Node right = toRemove.Next;
+
+                    left.Next = right;
+                    right.Previous = left;
+                    break;
+                }
+                toRemove = toRemove.Next;
+            }
+
         }
         public new void Clear()
         {
             head = null;
             count = 0;
         }
-        public int IndexOf(T obj)
+        public int IndexOf(object obj)
         {
-            int index = 0;
-            Node current = head.Next;
-            while (current != head)
+            var index = 0;
+            for (var current = head.Next; current != head; current = current.Next, index++)
             {
-                if (current.Data.Equals(obj))
-                    return index;
-                current = current.Next;
-                index++;
+                if (current == null) break;
+                if (current.Data.Equals(obj)) return index;
             }
 
             return -1;
@@ -101,16 +113,12 @@ namespace LinkedList.Test
         }
         public T Get(int index)
         {
-            int j = 0;
-            Node current = head.Next;
-
-            while (current != null)
+            var current = head.Next;
+            for (var i = 0; i < index; i++)
             {
-                if (index == j) return (T)current.Data;
                 current = current.Next;
-                j++;
             }
-            return default(T);
+            return (T)current.Data;
         }
     }
 }
