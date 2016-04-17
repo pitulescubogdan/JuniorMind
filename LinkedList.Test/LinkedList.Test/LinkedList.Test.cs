@@ -1,5 +1,4 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
 namespace LinkedList.Test
 {
@@ -59,7 +58,7 @@ namespace LinkedList.Test
         public void TestPrevious()
         {
             var list = new LinkedLists<int> { 2, 3, 4 };
-            list.AddPrevious(1);
+            list.AddFirst(1);
             Assert.Equal(4, list.Count);
         }
 

@@ -34,6 +34,10 @@ namespace LinkedList.Test
         }
         public void Add(T obj)
         {
+            this.AddLast(obj);
+        }
+        public new void AddLast(T obj)
+        {
             Node last = head.Previous;
             Node newNode = new Node(obj, head, head.Previous);
 
@@ -42,14 +46,13 @@ namespace LinkedList.Test
 
             count++;
         }
-        public void AddPrevious(T obj)
+        public new void AddFirst(T obj)
         {
             Node first = head.Next;
             Node newNode = new Node(obj, head.Next, head);
             head.Next = newNode;
             first.Previous = newNode;
             count++;
-
         }
         public void RemoveAt(int index)
         {
