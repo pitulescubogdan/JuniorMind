@@ -9,8 +9,6 @@
         public Node(object data)
         {
             this.data = data;
-            
-            
         }
         public object Data
         {

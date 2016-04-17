@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 
 namespace LinkedList.Test
 {
-    public class LinkedLists<T> : LinkedList<T>
+    public class LinkedLists<T> : ICollection<T>,IEnumerable<T>
     {
         private Node head;
         private int count;
@@ -26,15 +28,24 @@ namespace LinkedList.Test
             get { return this.count == 0; }
 
         }
-        public new int Count
+        public int Count
         {
             get { return count; }
         }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void Add(T obj)
         {
             this.AddLast(obj);
         }
-        public new void AddLast(T obj)
+        public void AddLast(T obj)
         {
             Node last = head.Previous;
             Node newNode = new Node(obj);
@@ -46,12 +57,13 @@ namespace LinkedList.Test
 
             count++;
         }
-        public new void AddFirst(T obj)
+        public void AddFirst(T obj)
         {
             Node first = head.Next;
             Node newNode = new Node(obj);
             newNode.Next = head.Next;
             newNode.Previous = head;
+
             head.Next = newNode;
             first.Previous = newNode;
             count++;
@@ -64,34 +76,23 @@ namespace LinkedList.Test
                 toRemove = toRemove.Next;
             }
 
-            Node left = toRemove.Previous;
-            Node right = toRemove.Next;
-
-            left.Next = right;
-            right.Previous = left;
-
+            RemoveLink(toRemove);
 
             count--;
         }
-        public new void Remove(T obj)
+        public void Remove(T obj)
         {
             Node toRemove = head.Next;
-            for(int i = 0; i<count;i++)
-            { 
+            for (int i = 0; i < count; i++)
+            {
                 if (toRemove.Data.Equals(obj))
                 {
-                    Node left = toRemove.Previous;
-                    Node right = toRemove.Next;
-
-                    left.Next = right;
-                    right.Previous = left;
-                    break;
+                    RemoveLink(toRemove);
                 }
                 toRemove = toRemove.Next;
             }
-
         }
-        public new void Clear()
+        public void Clear()
         {
             head = null;
             count = 0;
@@ -107,7 +108,7 @@ namespace LinkedList.Test
 
             return -1;
         }
-        public new bool Contains(T obj)
+        public bool Contains(T obj)
         {
             return IndexOf(obj) >= 0;
         }
@@ -119,6 +120,37 @@ namespace LinkedList.Test
                 current = current.Next;
             }
             return (T)current.Data;
+        }
+        private static void RemoveLink(Node toRemove)
+        {
+            Node left = toRemove.Previous;
+            Node right = toRemove.Next;
+
+            left.Next = right;
+            right.Previous = left;
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool ICollection<T>.Remove(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for(var current = head.Next;current != head; current = current.Next)
+            {
+                yield return (T)current.Data;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
