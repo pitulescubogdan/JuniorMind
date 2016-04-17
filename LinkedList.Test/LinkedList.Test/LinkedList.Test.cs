@@ -61,6 +61,14 @@ namespace LinkedList.Test
             list.AddFirst(1);
             Assert.Equal(4, list.Count);
         }
+        [Fact]
+        public void TestCopyTo()
+        {
+            var numbers = new int[] { 1, 2, 3, 4, 5 };
+            var copy = new LinkedLists<int> { 10, 9 };
+            copy.CopyTo(numbers, 2);
+            Assert.Equal(new int[] { 1, 2, 10, 9, 5 },numbers);
+        }
 
     }
 }

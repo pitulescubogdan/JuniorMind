@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LinkedList.Test
 {
-    public class LinkedLists<T> : ICollection<T>,IEnumerable<T>
+    public class LinkedLists<T> : ICollection<T>, IEnumerable<T>
     {
         private Node head;
         private int count;
@@ -37,7 +37,7 @@ namespace LinkedList.Test
         {
             get
             {
-                throw new NotImplementedException();
+                return true;
             }
         }
 
@@ -132,7 +132,11 @@ namespace LinkedList.Test
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            int k = arrayIndex;
+            for (var current = head.Next;current != head; current = current.Next)
+            {
+                array.SetValue(current.Data, k++);
+            }
         }
 
         bool ICollection<T>.Remove(T item)
@@ -142,7 +146,7 @@ namespace LinkedList.Test
 
         public IEnumerator<T> GetEnumerator()
         {
-            for(var current = head.Next;current != head; current = current.Next)
+            for (var current = head.Next; current != head; current = current.Next)
             {
                 yield return (T)current.Data;
             }
