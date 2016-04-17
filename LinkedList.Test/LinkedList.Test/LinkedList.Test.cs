@@ -47,14 +47,6 @@ namespace LinkedList.Test
             Assert.False(list.Contains('z'));
         }
         [Fact]
-        public void TestGetter()
-        {
-            var list = new LinkedLists<int> { 1, 2, 3, 4, 5 };
-            var test = new LinkedLists<int>();
-            test.Add(list[3]);
-            Assert.True(test.Contains(4));
-        }
-        [Fact]
         public void TestPrevious()
         {
             var list = new LinkedLists<int> { 2, 3, 4 };

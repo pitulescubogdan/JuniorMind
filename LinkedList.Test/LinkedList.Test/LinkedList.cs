@@ -13,7 +13,7 @@ namespace LinkedList.Test
         {
             get
             {
-                return this.Get(index);
+                return this[index];
             }
         }
         public LinkedLists()
@@ -47,34 +47,24 @@ namespace LinkedList.Test
         }
         public void AddLast(T obj)
         {
-            Node last = head.Previous;
-            Node newNode = new Node(obj);
-            newNode.Next = head;
-            newNode.Previous = head.Previous;
-
+            var newNode = new Node(obj) { Next = head, Previous = head.Previous };
+            head.Previous.Next = newNode;
             head.Previous = newNode;
-            last.Next = newNode;
-
             count++;
         }
+
         public void AddFirst(T obj)
         {
-            Node first = head.Next;
-            Node newNode = new Node(obj);
-            newNode.Next = head.Next;
-            newNode.Previous = head;
-
+            var newNode = new Node(obj) { Next = head.Next, Previous = head };
+            head.Next.Previous = newNode;
             head.Next = newNode;
-            first.Previous = newNode;
             count++;
         }
         public void RemoveAt(int index)
         {
-            Node toRemove = head.Next;
-            for (int i = 0; i < index; i++)
-            {
-                toRemove = toRemove.Next;
-            }
+            Node toRemove;
+
+            toRemove = Get(index);
 
             RemoveLink(toRemove);
 
@@ -112,23 +102,16 @@ namespace LinkedList.Test
         {
             return IndexOf(obj) >= 0;
         }
-        public T Get(int index)
+        public Node Get(int index)
         {
             var current = head.Next;
             for (var i = 0; i < index; i++)
             {
                 current = current.Next;
             }
-            return (T)current.Data;
+            return current;
         }
-        private static void RemoveLink(Node toRemove)
-        {
-            Node left = toRemove.Previous;
-            Node right = toRemove.Next;
-
-            left.Next = right;
-            right.Previous = left;
-        }
+        
 
         public void CopyTo(T[] array, int arrayIndex)
         {
@@ -155,6 +138,14 @@ namespace LinkedList.Test
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+        private static void RemoveLink(Node toRemove)
+        {
+            Node left = toRemove.Previous;
+            Node right = toRemove.Next;
+
+            left.Next = right;
+            right.Previous = left;
         }
     }
 }
