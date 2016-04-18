@@ -113,12 +113,12 @@ namespace LinkedList.Test
             }
             return current;
         }
-        
+
 
         public void CopyTo(T[] array, int arrayIndex)
         {
             int k = arrayIndex;
-            for (var current = head.Next;current != head; current = current.Next)
+            for (var current = head.Next; current != head; current = current.Next)
             {
                 array.SetValue(current.Data, k++);
             }
