@@ -9,9 +9,13 @@ namespace Dictionary
         {
             var obj = new Dictionary<int, string>();
             obj.Add(5, "Bogdan");
-            Assert.Equal(1, obj.Count);
+            obj.Add(3, "bb");
+            obj.Add(5, "Mihai");
+            obj.Add(1, "1234");
+            obj.Add(5, "Marius");
+            Assert.Equal(5, obj.Count);
         }
-        [Fact] 
+        [Fact]
         public void DictionaryTestContains()
         {
             var obj = new Dictionary<int, string>();

@@ -10,20 +10,19 @@ namespace Dictionary
     class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         int[] buckets = new int[10];
-        Table[] items = new Table[10];
-        int bucketItems = 0;
-        int tableItems = 0;
-
-        struct Table
+        Entries[] items = new Entries[10];
+        int countEntries = 1;
+        int previous = 0;
+        struct Entries
         {
             public TKey TKey;
             public TValue TValue;
-            public int location;
-            public Table(TKey TKey, TValue TValue,int location)
+            public int previous;
+            public Entries(TKey TKey, TValue TValue, int previous)
             {
                 this.TKey = TKey;
                 this.TValue = TValue;
-                this.location = location;
+                this.previous = previous;
             }
         }
         public TValue this[TKey key]
@@ -41,7 +40,7 @@ namespace Dictionary
 
         public int Count
         {
-            get { return tableItems; }
+            get { return countEntries - 1; }
         }
 
         public bool IsReadOnly
@@ -76,13 +75,15 @@ namespace Dictionary
 
         public void Add(TKey key, TValue value)
         {
-            int index = GetHash(key);
-            buckets[bucketItems++] = index;
 
-            items[tableItems] = new Table(key, value, index);
-            tableItems++;
+            int index = GetHash(key);
+            previous = buckets[index];
+            if (previous == 0) previous = -1;//to know the last reference
+            items[countEntries] = new Entries(key, value, previous);
+            buckets[index] = countEntries++;
+
         }
-        
+
         public void Clear()
         {
             throw new NotImplementedException();
@@ -95,11 +96,7 @@ namespace Dictionary
 
         public bool ContainsKey(TKey key)
         {
-            for(int i = 0; i < bucketItems; i++)
-            {
-                if (buckets[i].Equals(key.GetHashCode())) return true;
-            }
-            return false;
+            return GetHash(key) > 0;
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
