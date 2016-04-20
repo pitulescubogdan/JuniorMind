@@ -1,4 +1,5 @@
 ﻿using Xunit;
+using System.Collections.Generic;
 
 namespace Dictionary
 {
@@ -16,11 +17,23 @@ namespace Dictionary
             Assert.Equal(5, obj.Count);
         }
         [Fact]
-        public void DictionaryTestContains()
+        public void DictionaryTestContainsKey()
         {
             var obj = new Dictionary<int, string>();
             obj.Add(5, "abc");
             Assert.True(obj.ContainsKey(5));
+        }
+        [Fact]
+        public void DictionaryTestContains()
+        {
+            var obj = new Dictionary<int, string>();
+            obj.Add(3, "ThirdThree");
+            obj.Add(3, "Three");
+            obj.Add(5, "Five ");
+            obj.Add(5, "Three");
+            obj.Add(3, "AnotherThree");
+            obj.Add(3, "SecondThree");
+            Assert.True(obj.Contains(new KeyValuePair<int, string>( 3,"Three")));
         }
     }
 }

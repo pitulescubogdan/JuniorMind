@@ -13,11 +13,12 @@ namespace Dictionary
         Entries[] items = new Entries[10];
         int countEntries = 1;
         int previous = 0;
-        struct Entries
+        public struct Entries
         {
             public TKey TKey;
             public TValue TValue;
             public int previous;
+
             public Entries(TKey TKey, TValue TValue, int previous)
             {
                 this.TKey = TKey;
@@ -81,22 +82,28 @@ namespace Dictionary
             if (previous == 0) previous = -1;//to know the last reference
             items[countEntries] = new Entries(key, value, previous);
             buckets[index] = countEntries++;
-
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            countEntries = 0;
         }
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            throw new NotImplementedException();
+            if (ContainsKey(item.Key))
+            {
+                for(int i = buckets[GetHash(item.Key)]; i != -1 ; i= items[i].previous)
+                {
+                    if (items[i].TValue.Equals(item.Value)) return true;
+                }
+            }
+            return false;
         }
 
         public bool ContainsKey(TKey key)
         {
-            return GetHash(key) > 0;
+            return buckets[GetHash(key)] > 0;
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
