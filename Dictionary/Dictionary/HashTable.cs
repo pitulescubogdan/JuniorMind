@@ -166,12 +166,18 @@ namespace Dictionary
 
         IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
         {
-            throw new NotImplementedException();
+            for (var i = items[countEntries]; countEntries != 0; i = items[--countEntries])
+            {
+                yield return new KeyValuePair<TKey, TValue>(i.TKey, i.TValue);
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            for (var i = items[countEntries]; countEntries != 0; i = items[--countEntries])
+            {
+                yield return new KeyValuePair<TKey, TValue>(i.TKey, i.TValue);
+            }
         }
 
         private int GetHash(TKey hashCode)

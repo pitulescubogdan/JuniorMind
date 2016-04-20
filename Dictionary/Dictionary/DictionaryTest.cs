@@ -22,9 +22,13 @@ namespace Dictionary
         [Fact]
         public void DictionaryTestContainsKey()
         {
-            var obj = new Dictionary<int, string>();
+            var obj = new Dictionary<int, string> {
+                {1,"One" },
+                {2,"Two" }
+            };
             obj.Add(5, "abc");
             Assert.True(obj.ContainsKey(5));
+            Assert.True(obj.Contains(new KeyValuePair<int, string>(2, "Two")));
         }
         [Fact]
         public void DictionaryTestContains()
@@ -32,12 +36,12 @@ namespace Dictionary
             var obj = new Dictionary<int, string>();
             obj.Add(3, "ThirdThree");
             obj.Add(3, "Three");
-           
+
             obj.Add(5, "Five ");
             obj.Add(5, "Three");
             obj.Add(3, "AnotherThree");
             obj.Add(3, "SecondThree");
-            Assert.True(obj.Contains(new KeyValuePair<int, string>( 3,"Three")));
+            Assert.True(obj.Contains(new KeyValuePair<int, string>(3, "Three")));
         }
         [Fact]
         public void DictionaryTestRemove()
