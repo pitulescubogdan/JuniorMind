@@ -24,10 +24,12 @@ namespace Dictionary
         {
             var obj = new Dictionary<int, string> {
                 {1,"One" },
-                {2,"Two" }
+                {2,"Two" },
+                {11,"test" }
             };
             obj.Add(5, "abc");
-            Assert.True(obj.ContainsKey(5));
+            Assert.True(obj.ContainsKey(11));
+            Assert.False(obj.ContainsKey(21));
             Assert.True(obj.Contains(new KeyValuePair<int, string>(2, "Two")));
         }
         [Fact]
@@ -54,7 +56,7 @@ namespace Dictionary
             Assert.True(obj.Contains(new KeyValuePair<int, string>(2, "Two")));
         }
         [Fact]
-        public void DictionaryTestTryGetvalue()
+        public void DictionaryTestTryGetValue()
         {
             var obj = new Dictionary<int, string>
             {
@@ -65,6 +67,16 @@ namespace Dictionary
             string test = string.Empty;
             obj.TryGetValue(2, out test);
             Assert.Equal("Dog",test);
+        }
+        [Fact]
+        public void DictionaryTestCopyTo()
+        {
+            
+            var obj = new Dictionary<int, string>
+            {
+                {1,"Four" },
+                {2,"Five" }
+            };
         }
     }
 }

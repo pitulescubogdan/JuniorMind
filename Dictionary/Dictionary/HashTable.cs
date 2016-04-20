@@ -10,20 +10,20 @@ namespace Dictionary
     class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         int[] buckets = new int[10];
-        Entries[] items = new Entries[10];
+        Entry[] items = new Entry[10];
         int countEntries = 1;
         int previous = 0;
         int[] freeSlots = new int[10];
         int freeIndex = 0;
         int theSlot = 0;
 
-        public struct Entries
+        public struct Entry
         {
             public TKey TKey;
             public TValue TValue;
             public int previous;
 
-            public Entries(TKey TKey, TValue TValue, int previous)
+            public Entry(TKey TKey, TValue TValue, int previous)
             {
                 this.TKey = TKey;
                 this.TValue = TValue;
@@ -34,12 +34,12 @@ namespace Dictionary
         {
             get
             {
-                throw new NotImplementedException();
+                return this[key];
             }
 
             set
             {
-                throw new NotImplementedException();
+                this[key] = value;
             }
         }
 
@@ -83,11 +83,9 @@ namespace Dictionary
             previous = buckets[index];
             if (previous == 0) previous = -1;//to know the last reference
             AddIfEmpty(key, value, index);
-            items[countEntries] = new Entries(key, value, previous);
+            items[countEntries] = new Entry(key, value, previous);
             buckets[index] = countEntries++;
         }
-
-        
 
         public void Clear()
         {
@@ -98,7 +96,7 @@ namespace Dictionary
         {
             if (ContainsKey(item.Key))
             {
-                Entries entry = GetEntry(item);
+                Entry entry = GetEntry(item);
                 if (entry.previous != 0) return true;
             }
             return false;
@@ -106,12 +104,24 @@ namespace Dictionary
 
         public bool ContainsKey(TKey key)
         {
-            return buckets[GetHash(key)] > 0;
+            if (buckets[GetHash(key)] > 0)
+            {
+                for (int i = 1; i <= countEntries + 1; i++)
+                {
+                    if (items[i].TKey.Equals(key)) return true;
+                }
+            }
+            return false;
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            int k = arrayIndex;
+            int j = 1;
+            for (var i = items[j].TValue; !items[j].TValue.Equals(default(TValue)); i = items[j].TValue)
+            {
+                array.SetValue(i, k++);
+            }
         }
 
         public bool Remove(TKey key)
@@ -121,22 +131,23 @@ namespace Dictionary
             if (ContainsKey(key))
             {
                 int i = buckets[lastIndex];
-                while(i != 0)
+                while (i != 0)
                 {
                     freeSlots[freeIndex++] = i;
 
                     k = items[i].previous;
-                    if(k != -1)
+                    if (k != -1)
                     {
                         freeSlots[freeIndex++] = k;
-                        items[k] = default(Entries);
+                        items[k] = default(Entry);
                         countEntries--;
                     }
-                    items[i] = default(Entries);
+                    items[i] = default(Entry);
                     countEntries--;
                     i = items[i].previous;
                 }
                 buckets[lastIndex] = 0;
+                return true;
             }
             return false;
         }
@@ -150,7 +161,7 @@ namespace Dictionary
                     if (items[i].TValue.Equals(item.Value))
                     {
                         freeSlots[freeIndex++] = i;
-                        items[i] = default(Entries);
+                        items[i] = default(Entry);
                         countEntries--;
                         return true;
                     }
@@ -161,14 +172,11 @@ namespace Dictionary
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            if (ContainsKey(key))
-            {
 
-                for (int i = buckets[GetHash(key)]; i != 0; i = items[i].previous)
-                {
-                    value = items[i].TValue;
-                    if (items[i].TValue.Equals(value)) return true;
-                }
+            for (int i = buckets[GetHash(key)]; i != 0; i = items[i].previous)
+            {
+                value = items[i].TValue;
+                if (items[i].TValue.Equals(value)) return true;
             }
             value = default(TValue);
             return false;
@@ -195,13 +203,13 @@ namespace Dictionary
             return hashCode.GetHashCode() % buckets.Length;
         }
 
-        private Entries GetEntry(KeyValuePair<TKey, TValue> item)
+        private Entry GetEntry(KeyValuePair<TKey, TValue> item)
         {
             for (int i = buckets[GetHash(item.Key)]; i != 0; i = items[i].previous)
             {
                 if (items[i].TValue.Equals(item.Value)) return items[i];
             }
-            return default(Entries);
+            return default(Entry);
         }
 
         private void AddIfEmpty(TKey key, TValue value, int index)
@@ -211,13 +219,21 @@ namespace Dictionary
                 while (theSlot != 0)
                 {
                     int theIndex = freeSlots[theSlot];
-                    items[theSlot] = new Entries(key, value, previous);
+                    items[theSlot] = new Entry(key, value, previous);
                     buckets[index] = countEntries++;
                     freeSlots[theSlot] = 0;
                     theSlot--;
                     freeIndex--;
                 }
             }
+        }
+        private int IndexOf(int item)
+        {
+            for (int i = 0; i < buckets.Length; i++)
+            {
+                if (buckets[i].Equals(item)) return i;
+            }
+            return -1;
         }
     }
 }
