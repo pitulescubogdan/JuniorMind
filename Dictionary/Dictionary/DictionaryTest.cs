@@ -35,5 +35,16 @@ namespace Dictionary
             obj.Add(3, "SecondThree");
             Assert.True(obj.Contains(new KeyValuePair<int, string>( 3,"Three")));
         }
+        [Fact]
+        public void DictionaryTestRemove()
+        {
+            var obj = new Dictionary<int, string>();
+            obj.Add(1, "One");
+            obj.Add(1, "2One");
+            obj.Add(2, "Two");
+            obj.Remove(1);
+            Assert.False(obj.ContainsKey(1));
+            Assert.True(obj.Contains(new KeyValuePair<int, string>(2, "Two")));
+        }
     }
 }

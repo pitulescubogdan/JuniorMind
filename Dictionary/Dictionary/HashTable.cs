@@ -13,6 +13,8 @@ namespace Dictionary
         Entries[] items = new Entries[10];
         int countEntries = 1;
         int previous = 0;
+        int[] freeSlots = new int[10];
+        int freeIndex = 0;
         public struct Entries
         {
             public TKey TKey;
@@ -93,13 +95,13 @@ namespace Dictionary
         {
             if (ContainsKey(item.Key))
             {
-                for(int i = buckets[GetHash(item.Key)]; i != -1 ; i= items[i].previous)
-                {
-                    if (items[i].TValue.Equals(item.Value)) return true;
-                }
+                Entries entry = GetEntry(item);
+                if (entry.previous != 0) return true;
             }
             return false;
         }
+
+        
 
         public bool ContainsKey(TKey key)
         {
@@ -113,12 +115,47 @@ namespace Dictionary
 
         public bool Remove(TKey key)
         {
-            throw new NotImplementedException();
+            int lastIndex = GetHash(key);
+            int k = 0;
+            if (ContainsKey(key))
+            {
+                int i = buckets[lastIndex];
+                while(i != 0)
+                {
+                    freeSlots[freeIndex++] = i;
+
+                    k = items[i].previous;
+                    if(k != -1)
+                    {
+                        freeSlots[freeIndex++] = k;
+                        items[k] = default(Entries);
+                        countEntries--;
+                    }
+                    items[i] = default(Entries);
+                    countEntries--;
+                    i = items[i].previous;
+                }
+                buckets[lastIndex] = 0;
+            }
+            return false;
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)
         {
-            throw new NotImplementedException();
+            if (Contains(item))
+            {
+                for (int i = buckets[GetHash(item.Key)]; i != 0; i = items[i].previous)
+                {
+                    if (items[i].TValue.Equals(item.Value))
+                    {
+                        freeSlots[freeIndex++] = i;
+                        items[i] = default(Entries);
+                        countEntries--;
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public bool TryGetValue(TKey key, out TValue value)
@@ -135,9 +172,19 @@ namespace Dictionary
         {
             throw new NotImplementedException();
         }
+
         private int GetHash(TKey hashCode)
         {
             return hashCode.GetHashCode() % buckets.Length;
+        }
+
+        private Entries GetEntry(KeyValuePair<TKey, TValue> item)
+        {
+            for (int i = buckets[GetHash(item.Key)]; i != 0; i = items[i].previous)
+            {
+                if (items[i].TValue.Equals(item.Value)) return items[i];
+            }
+            return default(Entries);
         }
     }
 }
