@@ -15,6 +15,8 @@ namespace Dictionary
         int previous = 0;
         int[] freeSlots = new int[10];
         int freeIndex = 0;
+        int theSlot = 0;
+
         public struct Entries
         {
             public TKey TKey;
@@ -72,19 +74,20 @@ namespace Dictionary
 
         public void Add(KeyValuePair<TKey, TValue> item)
         {
-            throw new NotImplementedException();
+            this.Add(item.Key, item.Value);
         }
-
 
         public void Add(TKey key, TValue value)
         {
-
             int index = GetHash(key);
             previous = buckets[index];
             if (previous == 0) previous = -1;//to know the last reference
+            AddIfEmpty(key, value, index);
             items[countEntries] = new Entries(key, value, previous);
             buckets[index] = countEntries++;
         }
+
+        
 
         public void Clear()
         {
@@ -100,8 +103,6 @@ namespace Dictionary
             }
             return false;
         }
-
-        
 
         public bool ContainsKey(TKey key)
         {
@@ -185,6 +186,22 @@ namespace Dictionary
                 if (items[i].TValue.Equals(item.Value)) return items[i];
             }
             return default(Entries);
+        }
+
+        private void AddIfEmpty(TKey key, TValue value, int index)
+        {
+            if (freeSlots.Length > 0)
+            {
+                while (theSlot != 0)
+                {
+                    int theIndex = freeSlots[theSlot];
+                    items[theSlot] = new Entries(key, value, previous);
+                    buckets[index] = countEntries++;
+                    freeSlots[theSlot] = 0;
+                    theSlot--;
+                    freeIndex--;
+                }
+            }
         }
     }
 }
