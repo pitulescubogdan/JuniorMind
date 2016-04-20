@@ -36,7 +36,6 @@ namespace Dictionary
             var obj = new Dictionary<int, string>();
             obj.Add(3, "ThirdThree");
             obj.Add(3, "Three");
-
             obj.Add(5, "Five ");
             obj.Add(5, "Three");
             obj.Add(3, "AnotherThree");
@@ -53,6 +52,19 @@ namespace Dictionary
             obj.Remove(1);
             Assert.False(obj.ContainsKey(1));
             Assert.True(obj.Contains(new KeyValuePair<int, string>(2, "Two")));
+        }
+        [Fact]
+        public void DictionaryTestTryGetvalue()
+        {
+            var obj = new Dictionary<int, string>
+            {
+                {1,"Cat" },
+                {2,"Dog" },
+                {3,"Mouse" }
+            };
+            string test = string.Empty;
+            obj.TryGetValue(2, out test);
+            Assert.Equal("Dog",test);
         }
     }
 }

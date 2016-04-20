@@ -52,7 +52,7 @@ namespace Dictionary
         {
             get
             {
-                throw new NotImplementedException();
+                return true;
             }
         }
 
@@ -161,7 +161,17 @@ namespace Dictionary
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            throw new NotImplementedException();
+            if (ContainsKey(key))
+            {
+
+                for (int i = buckets[GetHash(key)]; i != 0; i = items[i].previous)
+                {
+                    value = items[i].TValue;
+                    if (items[i].TValue.Equals(value)) return true;
+                }
+            }
+            value = default(TValue);
+            return false;
         }
 
         IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
@@ -176,7 +186,7 @@ namespace Dictionary
         {
             for (var i = items[countEntries]; countEntries != 0; i = items[--countEntries])
             {
-                yield return new KeyValuePair<TKey, TValue>(i.TKey, i.TValue);
+                yield return i.TValue;
             }
         }
 
