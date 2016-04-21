@@ -12,12 +12,13 @@ namespace Dictionary
             obj.Add(5, "Bogdan");
             obj.Add(3, "bb");
             obj.Add(3, "Three");
+            obj.Remove(new KeyValuePair<int, string>(5, "Bogdan"));
             obj.Remove(new KeyValuePair<int, string>(3, "Three"));
-            obj.Add(3, "Three");
+            obj.Add(3, "Threes");
             obj.Add(5, "Mihai");
             obj.Add(1, "1234");
             obj.Add(5, "Marius");
-            Assert.Equal(6, obj.Count);
+            Assert.Equal(5, obj.Count);
         }
         [Fact]
         public void DictionaryTestContainsKey()

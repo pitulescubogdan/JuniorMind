@@ -13,7 +13,9 @@ namespace Dictionary
         Entry[] items = new Entry[10];
         int countEntries = 1;
         int previous = 0;
+        int[] freeSlots = new int[10];
         int freeIndex = 0;
+        int theSlot = 0;
 
         public struct Entry
         {
@@ -125,21 +127,24 @@ namespace Dictionary
         public bool Remove(TKey key)
         {
             int lastIndex = GetHash(key);
+            int k = 0;
             if (ContainsKey(key))
             {
-                int freeIndex = buckets[lastIndex];
-                while (freeIndex != 0)
+                int i = buckets[lastIndex];
+                while (i != 0)
                 {
-                    freeIndex = items[freeIndex].previous;
-                    if (freeIndex != -1)
+                    freeSlots[freeIndex++] = i;
+
+                    k = items[i].previous;
+                    if (k != -1)
                     {
-                        items[freeIndex] = default(Entry);
-                        freeIndex = items[freeIndex].previous;
+                        freeSlots[freeIndex++] = k;
+                        items[k] = default(Entry);
                         countEntries--;
                     }
-                    items[freeIndex] = default(Entry);
+                    items[i] = default(Entry);
                     countEntries--;
-                    freeIndex = items[freeIndex].previous;
+                    i = items[i].previous;
                 }
                 buckets[lastIndex] = 0;
                 return true;
@@ -155,8 +160,8 @@ namespace Dictionary
                 {
                     if (items[i].TValue.Equals(item.Value))
                     {
+                        freeSlots[freeIndex++] = i;
                         items[i] = default(Entry);
-                        freeIndex = items[i].previous;
                         countEntries--;
                         return true;
                     }
@@ -209,11 +214,17 @@ namespace Dictionary
 
         private void AddIfEmpty(TKey key, TValue value, int index)
         {
-            while (freeIndex > 0)
+            if (freeSlots.Length > 0)
             {
-                items[freeIndex] = new Entry(key, value, previous);
-                buckets[index] = countEntries++;
-                freeIndex = items[freeIndex].previous;
+                while (theSlot != 0)
+                {
+                    int theIndex = freeSlots[theSlot];
+                    items[theSlot] = new Entry(key, value, previous);
+                    buckets[index] = countEntries++;
+                    freeSlots[theSlot] = 0;
+                    theSlot--;
+                    freeIndex--;
+                }
             }
         }
         private int IndexOf(int item)
