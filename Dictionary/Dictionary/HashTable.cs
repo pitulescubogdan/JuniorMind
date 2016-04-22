@@ -13,9 +13,7 @@ namespace Dictionary
         Entry[] items = new Entry[10];
         int countEntries = 1;
         int previous = 0;
-        int[] freeSlots = new int[10];
         int freeIndex = 0;
-        int theSlot = 0;
 
         public struct Entry
         {
@@ -82,8 +80,11 @@ namespace Dictionary
             int index = GetHash(key);
             previous = buckets[index];
             if (previous == 0) previous = -1;//to know the last reference
-            AddIfEmpty(key, value, index);
-            items[countEntries] = new Entry(key, value, previous);
+            if (freeIndex > 0) AddIfEmpty(key, value, index);
+            else
+            {
+                items[countEntries] = new Entry(key, value, previous);
+            }
             buckets[index] = countEntries++;
         }
 
@@ -127,24 +128,15 @@ namespace Dictionary
         public bool Remove(TKey key)
         {
             int lastIndex = GetHash(key);
-            int k = 0;
+            int thePrevious = 0;
             if (ContainsKey(key))
             {
-                int i = buckets[lastIndex];
-                while (i != 0)
+                for (int i = buckets[lastIndex]; i != -1; i = thePrevious)
                 {
-                    freeSlots[freeIndex++] = i;
-
-                    k = items[i].previous;
-                    if (k != -1)
-                    {
-                        freeSlots[freeIndex++] = k;
-                        items[k] = default(Entry);
-                        countEntries--;
-                    }
+                    freeIndex = i;
+                    thePrevious = items[i].previous;
                     items[i] = default(Entry);
                     countEntries--;
-                    i = items[i].previous;
                 }
                 buckets[lastIndex] = 0;
                 return true;
@@ -160,7 +152,7 @@ namespace Dictionary
                 {
                     if (items[i].TValue.Equals(item.Value))
                     {
-                        freeSlots[freeIndex++] = i;
+                        freeIndex = i;
                         items[i] = default(Entry);
                         countEntries--;
                         return true;
@@ -214,18 +206,10 @@ namespace Dictionary
 
         private void AddIfEmpty(TKey key, TValue value, int index)
         {
-            if (freeSlots.Length > 0)
-            {
-                while (theSlot != 0)
-                {
-                    int theIndex = freeSlots[theSlot];
-                    items[theSlot] = new Entry(key, value, previous);
-                    buckets[index] = countEntries++;
-                    freeSlots[theSlot] = 0;
-                    theSlot--;
-                    freeIndex--;
-                }
-            }
+            items[freeIndex] = new Entry(key, value, previous);
+            buckets[index] = freeIndex;
+            freeIndex = items[freeIndex].previous;
+
         }
         private int IndexOf(int item)
         {

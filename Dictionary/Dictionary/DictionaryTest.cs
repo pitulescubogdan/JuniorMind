@@ -11,14 +11,15 @@ namespace Dictionary
             var obj = new Dictionary<int, string>();
             obj.Add(5, "Bogdan");
             obj.Add(3, "bb");
+            obj.Add(22, "mam");
             obj.Add(3, "Three");
-            obj.Remove(new KeyValuePair<int, string>(5, "Bogdan"));
-            obj.Remove(new KeyValuePair<int, string>(3, "Three"));
+            obj.Add(3, "sall");
+            obj.Remove(3);
             obj.Add(3, "Threes");
             obj.Add(5, "Mihai");
             obj.Add(1, "1234");
             obj.Add(5, "Marius");
-            Assert.Equal(5, obj.Count);
+            Assert.Equal(6, obj.Count);
         }
         [Fact]
         public void DictionaryTestContainsKey()
