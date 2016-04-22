@@ -9,25 +9,12 @@ namespace Dictionary
 {
     class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        int[] buckets = new int[10];
-        Entry[] items = new Entry[10];
+        int[] buckets;
+        Entry[] items;
         int countEntries = 1;
         int previous = 0;
         int freeIndex = 0;
 
-        public struct Entry
-        {
-            public TKey TKey;
-            public TValue TValue;
-            public int previous;
-
-            public Entry(TKey TKey, TValue TValue, int previous)
-            {
-                this.TKey = TKey;
-                this.TValue = TValue;
-                this.previous = previous;
-            }
-        }
         public TValue this[TKey key]
         {
             get
@@ -40,7 +27,11 @@ namespace Dictionary
                 this[key] = value;
             }
         }
-
+        public Dictionary()
+        {
+            buckets = new int[10];
+            items = new Entry[10];
+        }
         public int Count
         {
             get { return countEntries - 1; }
@@ -107,7 +98,7 @@ namespace Dictionary
         {
             if (buckets[GetHash(key)] > 0)
             {
-                for (int i = 1; i <= countEntries + 1; i++)
+                for (int i = buckets[GetHash(key)]; i != -1; i = items[i].previous)
                 {
                     if (items[i].TKey.Equals(key)) return true;
                 }
@@ -146,6 +137,7 @@ namespace Dictionary
 
         public bool Remove(KeyValuePair<TKey, TValue> item)
         {
+            int thePrevious = 0;
             if (Contains(item))
             {
                 for (int i = buckets[GetHash(item.Key)]; i != 0; i = items[i].previous)
@@ -153,6 +145,7 @@ namespace Dictionary
                     if (items[i].TValue.Equals(item.Value))
                     {
                         freeIndex = i;
+                        thePrevious = items[i].previous;
                         items[i] = default(Entry);
                         countEntries--;
                         return true;
@@ -195,7 +188,7 @@ namespace Dictionary
             return hashCode.GetHashCode() % buckets.Length;
         }
 
-        private Entry GetEntry(KeyValuePair<TKey, TValue> item)
+        public Entry GetEntry(KeyValuePair<TKey, TValue> item)
         {
             for (int i = buckets[GetHash(item.Key)]; i != 0; i = items[i].previous)
             {
@@ -218,6 +211,19 @@ namespace Dictionary
                 if (buckets[i].Equals(item)) return i;
             }
             return -1;
+        }
+        public struct Entry
+        {
+            public TKey TKey;
+            public TValue TValue;
+            public int previous;
+
+            public Entry(TKey TKey, TValue TValue, int previous)
+            {
+                this.TKey = TKey;
+                this.TValue = TValue;
+                this.previous = previous;
+            }
         }
     }
 }

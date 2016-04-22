@@ -24,14 +24,14 @@ namespace Dictionary
         [Fact]
         public void DictionaryTestContainsKey()
         {
-            var obj = new Dictionary<int, string> {
+            var obj = new Dictionary<int, string>(){
                 {1,"One" },
                 {2,"Two" },
-                {11,"test" }
+                {13,"test" }
             };
             obj.Add(5, "abc");
-            Assert.True(obj.ContainsKey(11));
-            Assert.False(obj.ContainsKey(21));
+            Assert.True(obj.ContainsKey(13));
+            Assert.False(obj.ContainsKey(22));
             Assert.True(obj.Contains(new KeyValuePair<int, string>(2, "Two")));
         }
         [Fact]
@@ -77,8 +77,14 @@ namespace Dictionary
             var obj = new Dictionary<int, string>
             {
                 {1,"Four" },
-                {2,"Five" }
+                {2,"Five" },
+                {1,"ONE" },
+                {2,"TWO" },
+                {1,"UAN" },
+                {2,"FAIV" }
             };
+            var oneEntry = obj.GetEntry(new KeyValuePair<int, string>(1, "Four"));
+
         }
     }
 }
