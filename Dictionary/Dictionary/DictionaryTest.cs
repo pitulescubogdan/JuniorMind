@@ -73,18 +73,20 @@ namespace Dictionary
         [Fact]
         public void DictionaryTestCopyTo()
         {
-            
             var obj = new Dictionary<int, string>
             {
-                {1,"Four" },
-                {2,"Five" },
-                {1,"ONE" },
-                {2,"TWO" },
-                {1,"UAN" },
-                {2,"FAIV" }
+                {1,"ONE"},
+                {2,"TWO"}
             };
-            var oneEntry = obj.GetEntry(new KeyValuePair<int, string>(1, "Four"));
+            var someEntry = new KeyValuePair<int, string>[]
+            {
+                new KeyValuePair<int,string>(10,"TEN"),
+                new KeyValuePair<int,string>(11,"ELEVEN")
+            };
 
+            obj.CopyTo(someEntry, 0);
+            Assert.Equal(new KeyValuePair<int, string>(1, "ONE"), someEntry[0]);
+            Assert.Equal(new KeyValuePair<int, string>(2, "TWO"), someEntry[1]);
         }
     }
 }

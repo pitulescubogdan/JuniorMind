@@ -11,7 +11,7 @@ namespace Dictionary
     {
         int[] buckets;
         Entry[] items;
-        int countEntries = 1;
+        int countEntries = 0;
         int previous = 0;
         int freeIndex = 0;
 
@@ -34,7 +34,7 @@ namespace Dictionary
         }
         public int Count
         {
-            get { return countEntries - 1; }
+            get { return countEntries; }
         }
 
         public bool IsReadOnly
@@ -109,10 +109,11 @@ namespace Dictionary
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
             int k = arrayIndex;
-            int j = 1;
-            for (var i = items[j].TValue; !items[j].TValue.Equals(default(TValue)); i = items[j].TValue)
+            int j = 0;
+            for (var i = items[j].TKey; j < countEntries; i = items[j].TKey)
             {
-                array.SetValue(i, k++);
+                var pair = new KeyValuePair<TKey,TValue>(i,items[j].TValue);
+                array.SetValue(pair, j++);
             }
         }
 
